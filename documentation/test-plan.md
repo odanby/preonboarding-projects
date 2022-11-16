@@ -73,10 +73,9 @@ These are the main tests I want to perform.
 ## Steps
 These are the general steps I should follow.
 
-- Create a test plan and acceptance requirements
+- Create a test plan and acceptance requirements (DONE)
 - Create UI framework with HTML
-- Create SQL database (will just be a local database for this challenge)
-    - A single table is fine for this challenge. It'll have the name of the company, company's ticker symbol, company description, company picture, the total amount of stocks, and the stock's market capitalization
+- Create SQL database (DONE)
 - Set up Hibernate with Java
 - Connect Database to Java
 - Connect UI to Java
