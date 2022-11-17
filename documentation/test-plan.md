@@ -77,10 +77,10 @@ These are the general steps I should follow.
 - Create UI framework with HTML (DONE)
 - Create SQL database (DONE)
 - Set up Hibernate with Java (DONE)
-- Create all Java methods
+- Create all Java methods (DONE)
 - All repo tests (DONE)
-- All service tests
-- Create controllers
+- All service tests (DONE)
+- Create controllers (I started on them but need to do the rest of them)
 - Connect to Postman
 - Integration testing
 - Connect UI to Java
