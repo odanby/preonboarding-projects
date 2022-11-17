@@ -74,10 +74,15 @@ These are the main tests I want to perform.
 These are the general steps I should follow.
 
 - Create a test plan and acceptance requirements (DONE)
-- Create UI framework with HTML
+- Create UI framework with HTML (DONE)
 - Create SQL database (DONE)
-- Set up Hibernate with Java
-- Connect Database to Java
+- Set up Hibernate with Java (DONE)
+- Create all Java methods
+- All repo tests (DONE)
+- All service tests
+- Create controllers
+- Connect to Postman
+- Integration testing
 - Connect UI to Java
 - Make all of our user stories run
 - Perform all of our tests manually

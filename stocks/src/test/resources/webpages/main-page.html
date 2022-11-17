@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market</title>
+    <link rel = "stylesheet" href = "main-page.css">
+</head>
+<body>
+    <div id = "header">
+        <h1>Stock Market</h1>
+        <h2>Invest for success.</h2>
+    </div>
+    <div id = "tickers">
+        <button id = "dynamic-filter">Filter by...</button>
+        <table id = "dynamic-ticker"></table>
+    </div>
+    <div id = "main">
+        <div id = "company-info">
+            <h2 id = "selected-company-name"></h2>
+            <h3 id = "selected-ticker"></h3>
+            <h4 id = "selected-description"></h4>
+            <h5 id = "selected-market-cap"></h5>
+            <h5 id = "selected-amount-stocks"></h5>
+            <h5 id = "selected-price"></h5>
+        </div>
+        <div id = "buy-stock">
+            <h2>Invest</h2>
+            <label id = "buy-amount" min = "1">Amount of Stocks:</label>
+            <br>
+            <input type = "number" id = "enter-amount-stocks">
+            <br>
+            <label id = "buy-price" min = "1">Buying Price:</label>
+            <br>
+            <input type = "number" id = "enter-buying-price">
+            <br>
+            <h3 id = "buy-total"></h3>
+            <h3 id = "new-market-cap-est"></h3>
+            <button id = "purchase-stock">Purchase</button>
+        </div>
+    </div>
+</body>
+</html>
