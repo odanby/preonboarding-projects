@@ -33,7 +33,7 @@ We will be creating a functional user interface that works with a dynamic databa
 These are all the user stories we need to complete to create a minimum viable product (MVP):
 
 - View Companies
-    - As a user, I can see a list of all companies in the system, their stock ticker symbols, amoubt of stocks, and price per stock.
+    - As a user, I can see a list of all companies in the system, their stock ticker symbols, amount of stocks, and price per stock.
 - Select and View Single Companies
     - As a user, I can select a specific company's ticker symbol and pull up the company name, ticker symbol, market capitalization, price per stock, and amount of stocks.
         - NOTE: market capitalization is the total amount of money invested in that company's stock (market cap = price per stock * quantity of stocks)
