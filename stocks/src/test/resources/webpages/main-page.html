@@ -7,26 +7,54 @@
     <title>Stock Market</title>
     <link rel = "stylesheet" href = "main-page.css">
 </head>
-<body>
+<body onload = "getAllTickers()">
     <div id = "header">
         <h1>Stock Market</h1>
         <h2>Invest for success.</h2>
     </div>
     <div id = "tickers">
-        <button id = "dynamic-filter">Filter by...</button>
-        <table id = "dynamic-ticker"></table>
+        <h3>Filter by...</h3>
+        <div id = "filter-market-cap-div">
+            <h4 id = "filter-market-cap">Market Capitalization</h4>
+            <input id = "new-filter-input-market-cap" type = "number">
+            <button id = "new-filter-button-market-cap" onclick = "getFilteredMarketCapTickers()">Filter!</button>
+        </div>
+        <div id = "filter-amount-stocks-div">
+            <h4 id = "filter-amount-stocks">Amount of Stocks</h4>
+            <input id = "new-filter-input-amount-stocks" type = "number">
+            <button id = "new-filter-button-amount-stocks" onclick = "getFilteredAmountStocksTickers()">Filter!</button>
+        </div>
+        <div id = "filter-price-per-stock-div">
+            <h4 id = "filter-price-per-stock">Price per Stock</h4>
+            <input id = "new-filter-input-price-per-stock" type = "number">
+            <button id = "new-filter-button-filter-price-per-stock" onclick = "getFilteredPricePerStockTickers()">Filter!</button>
+        </div>
+        <button id = "remove-filters" onclick = "removeFilters()">Remove All Filters</button>
+        <table id = "dynamic-ticker">
+            <thead id = "dynamic-ticker-head">
+                <th>Ticker</th>
+                <th>Market Capitalization</th>
+                <th>Amount of Stocks</th>
+                <th>Price Per Stock</th>
+            </thead>
+            <tbody id = "dynamic-ticker-body"></tbody>
+        </table>
+        <input id = "specific-company-input" type = "text" placeholder = "Enter a ticker">
+        <button id = "specific-company-button" onclick = "getSpecificCompany()">Look up a company</button>
     </div>
     <div id = "main">
         <div id = "company-info">
-            <h2 id = "selected-company-name"></h2>
-            <h3 id = "selected-ticker"></h3>
-            <h4 id = "selected-description"></h4>
-            <h5 id = "selected-market-cap"></h5>
-            <h5 id = "selected-amount-stocks"></h5>
-            <h5 id = "selected-price"></h5>
+            <table id = "company-table">
+                <thead id = "company-table-head"></thead>
+                <tbody id = "company-table-body"></tbody>
+            </table>
         </div>
         <div id = "buy-stock">
             <h2>Invest</h2>
+            <label id = "buy-company">Company</label>
+            <br>
+            <input type = "text" id = "enter-company-name">
+            <br>
             <label id = "buy-amount" min = "1">Amount of Stocks:</label>
             <br>
             <input type = "number" id = "enter-amount-stocks">
@@ -41,4 +69,221 @@
         </div>
     </div>
 </body>
+<script>
+    /*
+
+        Necessary Functions:
+            - (DONE) Pull up the tickers of all companies (an async await function)
+            - (DONE) When the filter's new submit button is clicked, it should pull up the tickers of all companies that meet those criteria
+            - When you click on a ticker, it should load that specific company on the page
+            - When you purchase a stock, it should have a pop up confirmation to purchase, and if ok reload the page and that'll have the refreshed numbers
+
+        Pretty Functions:
+            - Make the ticker change colors when you hover over it 
+            - Buttons change color when you hover on and off of it
+            - Add fun pretty elements when done with hard stufff
+
+    */
+
+    // function to get all tickers
+    const tickerTable = document.getElementById("dynamic-ticker");
+    const tableHead = document.getElementById("dynamic-ticker-head");
+    const tableBody = document.getElementById("dynamic-ticker-body");
+
+    async function getAllTickers(){
+        let httpResponse = await fetch("http://localhost:8080/tickers");
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+        
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                let tr = document.createElement("tr");
+                tr.innerHTML = 
+                `
+                    <td>${x.ticker}</td>
+                    <td>${x.market_cap}</td>
+                    <td>${x.amount_stocks}</td>
+                    <td>${x.price_per_stock}</td>
+                `;
+                tableBody.appendChild(tr);
+            }
+        } else {
+            alert("The stock market has crashed.");
+        }
+    }
+
+    async function removeFilters(){
+        let httpResponse = await fetch("http://localhost:8080/tickers");
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+        
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                let tr = document.createElement("tr");
+                tr.innerHTML = 
+                `
+                    <td>${x.ticker}</td>
+                    <td>${x.market_cap}</td>
+                    <td>${x.amount_stocks}</td>
+                    <td>${x.price_per_stock}</td>
+                `;
+                tableBody.appendChild(tr);
+            }
+        } else {
+            alert("The stock market has crashed.");
+        }
+    }
+
+    const dynamicTicker = document.getElementById("dynamic-ticker");
+
+    // function for making filtered by market cap tickers pop up
+    const newFilterInputMarketCap = document.getElementById("new-filter-input-market-cap");
+
+    async function getFilteredMarketCapTickers(){
+        let httpResponse = await fetch(`http://localhost:8080/marketcap/${newFilterInputMarketCap.value}`);
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+        
+        tableBody.innerHTML = "";
+
+        if(newFilterInputMarketCap.value <= 0){
+            alert("Please choose a market cap to filter by.")
+        }    
+
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                let tr = document.createElement("tr");
+                tr.innerHTML = 
+                `
+                    <td>${x.ticker}</td>
+                    <td>${x.market_cap}</td>
+                    <td>${x.amount_stocks}</td>
+                    <td>${x.price_per_stock}</td>
+                `;
+                tableBody.appendChild(tr);
+            }
+        } else {
+            alert("The stock market has crashed.");
+        }
+    }
+
+    // function for making filtered by amount of stocks tickers pop up
+    const newFilterInputAmountStocks = document.getElementById("new-filter-input-amount-stocks");
+    
+    async function getFilteredAmountStocksTickers(){
+        let httpResponse = await fetch(`http://localhost:8080/amountstocks/${newFilterInputAmountStocks.value}`);
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+        
+        tableBody.innerHTML = "";
+
+        if(newFilterInputAmountStocks.value <= 0){
+            alert("Please choose an amount of stocks to filter by.")
+        }    
+
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                let tr = document.createElement("tr");
+                tr.innerHTML = 
+                `
+                    <td>${x.ticker}</td>
+                    <td>${x.market_cap}</td>
+                    <td>${x.amount_stocks}</td>
+                    <td>${x.price_per_stock}</td>
+                `;
+                tableBody.appendChild(tr);
+            }
+        } else {
+            alert("The stock market has crashed.");
+        }
+    }
+
+    // function for making filtered by price per stock tickers pop up
+    const newFilterInputPricePerStock = document.getElementById("new-filter-input-price-per-stock");
+    
+    async function getFilteredPricePerStockTickers(){
+        let httpResponse = await fetch(`http://localhost:8080/priceperstock/${newFilterInputPricePerStock.value}`);
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+        
+        tableBody.innerHTML = "";
+
+        if(newFilterInputPricePerStock.value <= 0){
+            alert("Please choose a price per stock to filter by.")
+        }    
+
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                let tr = document.createElement("tr");
+                tr.innerHTML = 
+                `
+                    <td>${x.ticker}</td>
+                    <td>${x.market_cap}</td>
+                    <td>${x.amount_stocks}</td>
+                    <td>${x.price_per_stock}</td>
+                `;
+                tableBody.appendChild(tr);
+            }
+        } else {
+            alert("The stock market has crashed.");
+        }
+    }
+
+    const companyTable = document.getElementById("company-table");
+    const companyTableHead = document.getElementById("company-table-head");
+    const companyTableBody = document.getElementById("company-table-body");
+    const specificCompanyInput = document.getElementById("specific-company-input");
+
+    async function getSpecificCompany(){        // note: stuck here on pulling up the company. type error response body not iterable
+        let httpResponse = await fetch(`http://localhost:8080/company/${specificCompanyInput.value}`);
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                let tr = document.createElement("tr");
+                tr.innerHTML = 
+                `
+                <td id = "company-name-${x.id}">${x.company_name}</td>
+                <td id = "ticker-${x.id}">${x.ticker}</td>
+                <td id = "description-${x.id}">${x.description}</td>
+                <td id = "image-url-${x.id}">${x.image_url}</td>
+                <td id = "amount-stocks-${x.id}">${x.amount_stocks}</td>
+                <td id = "price-per-stock-${x.id}">${x.price_per_stock}</td>
+                <td id = "market-cap-${x.id}">${x.market_cap}</td>
+                `
+                tableBody.appendChild(tr);
+            }
+        } else {
+            alert("This company has gone bankrupt!");
+        }
+    }
+
+    // function to update stocks
+    const buyCompany = document.getElementById("buy-company");
+    const buyAmount = document.getElementById("buy-amount");
+    const buyPrice = document.getElementById("buy-price");
+    const newMarketCap = `${buyAmount.value * buyPrice.value}`;
+    const newPricePerStock = `${buyMarketCap/}`;    // okay im done for now my head hurts. i need to get a way to get price per stock recalculate to new market cap / existing amount of stocks
+
+    async function buyStocks(){
+        let updateInfo = {
+            id: ,
+            company_name:,
+            ticker:, 
+            description:,
+            image_url:,
+            amount_stocks:,
+            price_per_stock:,
+            market_cap: newMarketCap.value
+        }
+    }
+
+</script>
 </html>

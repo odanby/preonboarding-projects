@@ -80,10 +80,17 @@ These are the general steps I should follow.
 - Create all Java methods (DONE)
 - All repo tests (DONE)
 - All service tests (DONE)
-- Create controllers (I started on them but need to do the rest of them)
-- Connect to Postman
-- Integration testing
-- Connect UI to Java
+- Create controllers (DONE)
+    - Get all tickers (DONE)
+    - Filter by market cap (DONE)
+    - Filter by amount stocks (DONE)
+    - Filter by price per stock (DONE)
+    - Get specific company (DONE)
+    - Update company (DONE)
+- Connect to Postman (DONE)
+- Integration testing (DONE)
+- Connect UI to Java (work in progress. need to finish methods to pull specific companies and to purchase stocks)
+- CSS time!
 - Make all of our user stories run
 - Perform all of our tests manually
 - Perform all of our tests automatically
