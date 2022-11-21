@@ -33,7 +33,6 @@
         <table id = "dynamic-ticker">
             <thead id = "dynamic-ticker-head">
                 <th>ID</th>
-                <th>Company</th>
                 <th>Ticker</th>
                 <th>Market Capitalization</th>
                 <th>Amount of Stocks</th>
@@ -66,8 +65,12 @@
             <input type = "number" id = "enter-buying-price">
             <br>
             <h3 id = "buy-total"></h3>
-            <div id = "new-price-per-stock"></div>
-            <div id = "new-market-cap-est"></div>
+            <div id = "new-price-per-stock">
+                <h4>New Price Per Stock:</h4>
+            </div>
+            <div id = "new-market-cap-est">
+                <h4>New Market Capitalization:</h4>
+            </div>
             <button onclick = "showNewEstimates()">Get new estimate</button>
             <button id = "purchase-stock" onclick = "buyStocks()">Purchase</button>
         </div>
@@ -106,7 +109,6 @@
                 tr.innerHTML = 
                 `
                     <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-company-name-${x.id}">${x.company_name}</td>
                     <td id = "original-ticker-${x.id}">${x.ticker}</td>
                     <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
                     <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
@@ -131,7 +133,6 @@
                 tr.innerHTML = 
                 `
                     <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-company-name-${x.id}">${x.company_name}</td>
                     <td id = "original-ticker-${x.id}">${x.ticker}</td>
                     <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
                     <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
@@ -167,7 +168,6 @@
                 tr.innerHTML = 
                 `
                     <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-company-name-${x.id}">${x.company_name}</td>
                     <td id = "original-ticker-${x.id}">${x.ticker}</td>
                     <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
                     <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
@@ -201,7 +201,6 @@
                 tr.innerHTML = 
                 `
                     <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-company-name-${x.id}">${x.company_name}</td>
                     <td id = "original-ticker-${x.id}">${x.ticker}</td>
                     <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
                     <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
@@ -235,7 +234,6 @@
                 tr.innerHTML = 
                 `
                     <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-company-name-${x.id}">${x.company_name}</td>
                     <td id = "original-ticker-${x.id}">${x.ticker}</td>
                     <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
                     <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
@@ -253,55 +251,60 @@
     const companyTableBody = document.getElementById("company-table-body");
     const specificCompanyInput = document.getElementById("specific-company-input");
 
-    // async function getSpecificCompany(){        // note: stuck here on pulling up the company. type error response body not iterable
-    //     let httpResponse = await fetch(`http://localhost:8080/company/${specificCompanyInput.value}`);
-    //     console.log(httpResponse);
-    //     let responseBody = await httpResponse.json();
-    //     console.log(responseBody);
+    async function getSpecificCompany(){       
+        let httpResponse = await fetch(`http://localhost:8080/company/${specificCompanyInput.value}`);
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
 
-    //     if(httpResponse.status === 200){
-    //         for(x of responseBody){
-    //             let tr = document.createElement("tr");
-    //             tr.innerHTML = 
-    //             `
-    //             <td id = "id-${x.id}">${x.id}</td>
-    //             <td id = "company-name-${x.id}">${x.company_name}</td>
-    //             <td id = "ticker-${x.id}">${x.ticker}</td>
-    //             <td id = "description-${x.id}">${x.description}</td>
-    //             <td id = "image-url-${x.id}">${x.image_url}</td>
-    //             <td id = "amount-stocks-${x.id}">${x.amount_stocks}</td>
-    //             <td id = "price-per-stock-${x.id}">${x.price_per_stock}</td>
-    //             <td id = "market-cap-${x.id}">${x.market_cap}</td>
-    //             `
-    //             tableBody.appendChild(tr);
-    //         }
-    //     } else {
-    //         alert("This company has gone bankrupt!");
-    //     }
-    // }
+        if(httpResponse.status === 200){
+            console.log(responseBody);
+
+            for(x of responseBody.searchResult){
+                let tr = document.createElement("tr");
+                tr.innerHTML = 
+                `
+                <td id = "id-${x.id}">${x.id}</td>
+                <td id = "company-name-${x.id}">${x.company_name}</td>
+                <td id = "ticker-${x.id}">${x.ticker}</td>
+                <td id = "description-${x.id}">${x.description}</td>
+                <td id = "image-url-${x.id}"><img src="${x.image_url}" alt="Company Image" width="400" height="400"></td>
+                <td id = "amount-stocks-${x.id}">${x.amount_stocks}</td>
+                <td id = "price-per-stock-${x.id}">${x.price_per_stock}</td>
+                <td id = "market-cap-${x.id}">${x.market_cap}</td>
+                `
+                companyTableBody.appendChild(tr);
+            }
+        } else {
+            alert("This company has gone bankrupt!");
+        }
+    }
 
     // function to update stocks
-    const buyAmount = document.getElementById("buy-amount");
-    const buyPrice = document.getElementById("buy-price");
+    const buyAmount = document.getElementById("enter-amount-stocks");
+    const buyPrice = document.getElementById("enter-buying-price");
     const newMarketCap = buyAmount.value * buyPrice.value;
     const buyCompanyId = document.getElementById("buy-company-id");
     const buyCompanyName = document.getElementById("buy-company-name");
-    const originalAmountStocks = document.getElementById(`original-amount-stocks-${buyCompanyId.value}`);
-    const newPricePerStock = newMarketCap/originalAmountStocks;
 
     const newMarketCapEstDiv = document.getElementById("new-market-cap-est");
     const newPriceEstDiv = document.getElementById("new-price-per-stock");
     const seeNewEstimatesButton = document.getElementById("see-new-estimates");
 
-    function showNewEstimates(){    // why do you keep not working UGH
-        var buyAmount = +document.getElementById("buy-amount").value;
-        var buyPrice = +document.getElementById("buy-price").value;
-        var originalAmount = +document.getElementById(`original-amount-stocks-${buyCompanyId.value}`)
-        var originalPrice = +document.getElementById(`original-price-per-stock-${buyCompanyId.value}`)  // something about all this is making it so these are not numbers i think??
-        let necessaryMCDecimal = (buyAmount * buyPrice)/(buyAmount * originalPrice)
-        let buyMoney = (buyAmount * buyPrice);
+    function showNewEstimates(){  // make sure to add an if loop that if the buyAmount of stocks is larger than originalAmount of stocks, an error message will pop up
+        var originalAmount = document.getElementById(`original-amount-${buyCompanyId.value}`.innerHTML);
+        var originalPrice = document.getElementById(`original-price-per-stock-${buyCompanyId.value}`.innerHTML);
+        let necessaryMCDecimal = (buyAmount.value * buyPrice.value)/(buyAmount.value * originalPrice);
+        let buyMoney = (buyAmount.value * buyPrice.value);
         let ogMC = (originalAmount * originalPrice);
         let newMC = 0;
+
+        console.log(`Original Amount: ${originalAmount}`)
+        console.log(`Original Price: ${originalPrice}`)
+        console.log(`necessaryMCDecimal: ${necessaryMCDecimal}`)
+        console.log(`buyMoney: ${buyMoney}`)
+        console.log(`ogMC: ${ogMC}`)
+        console.log(`buyAmount: ${buyAmount.value}`)
+        console.log(`buyPrice: ${buyPrice.value}`)
 
         // this finds the new market cap
         if(necessaryMCDecimal >= 1){
@@ -309,22 +312,32 @@
         } else if(necessaryMCDecimal <= 1){
             newMC = ogMc - buyMoney
         }
+        
         // this finds the new price per stock
-        let newPricePerStock = newMC/originalAmount
+        let newPricePerStock = newMC/originalAmount.value
 
-        let result = `The new market capitalization is ${newMC} and the new price per stock is ${newPricePerStock}`
-        console.log(result);
-        return result;
+        let resultMC = newMC;
+        let resultPPS = newPricePerStock;
+        console.log(`newMC: ${newMC}`)
+        console.log(`resultMC: ${resultMC}`);
+        console.log(`resultPPS: ${resultPPS}`);
+
+        // need to append these values into the html
+        let h5MC = document.createElement("h5");
+            h5MC.innerHTML = resultMC;
+            h5MC.id = "new-market-capitalization-estimate";
+            newMarketCapEstDiv.appendChild(h5MC);
+
+
+        let h5PPS = document.createElement("h5");
+            h5PPS.innerHTML = resultPPS;
+            h5PPS.id = "new-price-per-stock-estimate";
+            newPriceEstDiv.appendChild(h5PPS);
     }
 
     async function buyStocks(){
         let updateInfo = {
-            id: buyCompanyId.value,
-            company_name: document.getElementById(`original-company-name-${buyCompanyId.value}`).textContent,
-            ticker: document.getElementById(`original-ticker-${buyCompanyId.value}`).textContent,
-            description: "Fix this later",
-            image_url: "Fix this later",
-            amount_stocks: document.getElementById(`original-amount-${buyCompanyId.value}`).textContent,
+            ...updateInfo,  // by using the spread operator here, it is keeping all of my original values. then the new attributes below are just updating what i want
             price_per_stock: document.getElementById("new-price-per-stock-estimate").textContent,
             market_cap: document.getElementById("new-market-capitalization-estimate").textContent
         };
