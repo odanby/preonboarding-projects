@@ -6,33 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Market</title>
     <link rel = "stylesheet" href = "main-page.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif&family=Oswald&display=swap');
+    </style>
 </head>
 <body onload = "getAllTickers()">
     <div id = "header">
-        <h1>Stock Market</h1>
+        <img src = "C:\Users\orian\preonboarding-projects\database-scripts\images\stocks.png" alt = "stock-logo" id = "stock-pic">
+        <h1>The Stock Market</h1>
         <h2>Invest for success.</h2>
     </div>
     <div id = "tickers">
-        <h3>Filter by...</h3>
-        <div id = "filter-market-cap-div">
-            <h4 id = "filter-market-cap">Market Capitalization</h4>
-            <input id = "new-filter-input-market-cap" type = "number">
-            <button id = "new-filter-button-market-cap" onclick = "getFilteredMarketCapTickers()">Filter!</button>
+        <div id = "filters">
+            <h3 id = "filter-by">Filter by...</h3>
+            <div id = "core-filters">
+                <div id = "filter-market-cap-all">
+                    <h4 id = "filter-market-cap" onclick = "popUpFilterMarketCap()">Market Capitalization</h4>
+                    <div id = "filter-market-cap-div"></div>
+                </div>
+                <div id = "filter-amount-stocks-all">
+                    <h4 id = "filter-amount-stocks" onclick = "popUpFilterAmountStocks()">Amount of Stocks</h4>
+                    <div id = "filter-amount-stocks-div"></div>
+                </div>
+                <div id = "filter-price-per-stock-all">
+                    <h4 id = "filter-price-per-stock" onclick = "popUpFilterPricePerStock()">Price per Stock</h4>
+                    <div id = "filter-price-per-stock-div"></div>
+                </div>
+            </div>
+            <button id = "remove-filters" onclick = "removeFilters()">Remove All Filters</button>
         </div>
-        <div id = "filter-amount-stocks-div">
-            <h4 id = "filter-amount-stocks">Amount of Stocks</h4>
-            <input id = "new-filter-input-amount-stocks" type = "number">
-            <button id = "new-filter-button-amount-stocks" onclick = "getFilteredAmountStocksTickers()">Filter!</button>
-        </div>
-        <div id = "filter-price-per-stock-div">
-            <h4 id = "filter-price-per-stock">Price per Stock</h4>
-            <input id = "new-filter-input-price-per-stock" type = "number">
-            <button id = "new-filter-button-filter-price-per-stock" onclick = "getFilteredPricePerStockTickers()">Filter!</button>
-        </div>
-        <button id = "remove-filters" onclick = "removeFilters()">Remove All Filters</button>
         <table id = "dynamic-ticker">
             <thead id = "dynamic-ticker-head">
-                <th>ID</th>
                 <th>Ticker</th>
                 <th>Market Capitalization</th>
                 <th>Amount of Stocks</th>
@@ -50,30 +55,7 @@
                 <tbody id = "company-table-body"></tbody>
             </table>
         </div>
-        <div id = "buy-stock">
-            <h2>Invest</h2>
-            <label id = "label-buy-company-id">Id</label>
-            <br>
-            <input type = "number" id = "buy-company-id">
-            <br>
-            <label id = "buy-amount" min = "1">Amount of Stocks to Buy:</label>
-            <br>
-            <input type = "number" id = "enter-amount-stocks">
-            <br>
-            <label id = "buy-price" min = "1">Buying Price:</label>
-            <br>
-            <input type = "number" id = "enter-buying-price">
-            <br>
-            <h3 id = "buy-total"></h3>
-            <div id = "new-price-per-stock">
-                <h4>New Price Per Stock:</h4>
-            </div>
-            <div id = "new-market-cap-est">
-                <h4>New Market Capitalization:</h4>
-            </div>
-            <button onclick = "showNewEstimates()">Get new estimate</button>
-            <button id = "purchase-stock" onclick = "buyStocks()">Purchase</button>
-        </div>
+        <div id = "buy-stock"></div>
     </div>
 </body>
 <script>
@@ -82,8 +64,10 @@
         Necessary Functions:
             - (DONE) Pull up the tickers of all companies (an async await function)
             - (DONE) When the filter's new submit button is clicked, it should pull up the tickers of all companies that meet those criteria
-            - When you click on a ticker, it should load that specific company on the page
-            - When you purchase a stock, it should have a pop up confirmation to purchase, and if ok reload the page and that'll have the refreshed numbers
+            - (DONE) When you click on a ticker, it should load that specific company on the page
+            - (DONE) You should estimate how your purchase will affect the market first
+            - (DONE) You need to look up a company first. When you do so, then you purchase a stock, it should have a pop up confirmation to purchase, 
+                and if ok reload the page and that'll have the refreshed numbers
 
         Pretty Functions:
             - Make the ticker change colors when you hover over it 
@@ -91,6 +75,48 @@
             - Add fun pretty elements when done with hard stufff
 
     */
+   const filterMarketCapDiv = document.getElementById("filter-market-cap-div");
+   const filterAmountStocksDiv = document.getElementById("filter-amount-stocks-div");
+   const filterPricePerStockDiv = document.getElementById("filter-price-per-stock-div");
+
+    function popUpFilterMarketCap(){
+        let inputMC = document.createElement("input");
+        inputMC.id = "new-filter-input-market-cap";
+        inputMC.type = "number";
+        filterMarketCapDiv.appendChild(inputMC);
+
+        let buttonFilterMC = document.createElement("button");
+        buttonFilterMC.id = "new-filter-button-market-cap";
+        buttonFilterMC.innerHTML = "Filter!";
+        buttonFilterMC.addEventListener("click", getFilteredMarketCapTickers);
+        filterMarketCapDiv.appendChild(buttonFilterMC);
+    }
+
+    function popUpFilterAmountStocks(){
+        let inputAS = document.createElement("input");
+        inputAS.id = "new-filter-input-amount-stocks";
+        inputAS.type = "number";
+        filterAmountStocksDiv.appendChild(inputAS);
+
+        let buttonFilterAS = document.createElement("button");
+        buttonFilterAS.id = "new-filter-button-amount-stocks";
+        buttonFilterAS.innerHTML = "Filter!";
+        buttonFilterAS.addEventListener("click", getFilteredAmountStocksTickers);
+        filterAmountStocksDiv.appendChild(buttonFilterAS);
+    }
+
+    function popUpFilterPricePerStock(){
+        let inputPPS = document.createElement("input");
+        inputPPS.id = "new-filter-input-price-per-stock";
+        inputPPS.type = "number";
+        filterPricePerStockDiv.appendChild(inputPPS);
+
+        let buttonFilterPPS = document.createElement("button");
+        buttonFilterPPS.id = "new-filter-button-filter-price-per-stock";
+        buttonFilterPPS.innerHTML = "Filter!";
+        buttonFilterPPS.addEventListener("click", getFilteredPricePerStockTickers);
+        filterPricePerStockDiv.appendChild(buttonFilterPPS);
+    }
 
     // function to get all tickers
     const tickerTable = document.getElementById("dynamic-ticker");
@@ -108,11 +134,10 @@
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -126,17 +151,20 @@
         console.log(httpResponse);
         let responseBody = await httpResponse.json();
         console.log(responseBody);
+
+        filterMarketCapDiv.innerHTML = "";
+        filterAmountStocksDiv.innerHTML = "";
+        filterPricePerStockDiv.innerHTML = "";
         
         if(httpResponse.status === 200){
             for(x of responseBody){
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -148,9 +176,8 @@
     const dynamicTicker = document.getElementById("dynamic-ticker");
 
     // function for making filtered by market cap tickers pop up
-    const newFilterInputMarketCap = document.getElementById("new-filter-input-market-cap");
-
     async function getFilteredMarketCapTickers(){
+        let newFilterInputMarketCap = document.getElementById("new-filter-input-market-cap");
         let httpResponse = await fetch(`http://localhost:8080/marketcap/${newFilterInputMarketCap.value}`);
         console.log(httpResponse);
         let responseBody = await httpResponse.json();
@@ -167,11 +194,10 @@
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -180,10 +206,9 @@
         }
     }
 
-    // function for making filtered by amount of stocks tickers pop up
-    const newFilterInputAmountStocks = document.getElementById("new-filter-input-amount-stocks");
-    
+    // function for making filtered by amount of stocks tickers pop up    
     async function getFilteredAmountStocksTickers(){
+        let newFilterInputAmountStocks = document.getElementById("new-filter-input-amount-stocks");
         let httpResponse = await fetch(`http://localhost:8080/amountstocks/${newFilterInputAmountStocks.value}`);
         console.log(httpResponse);
         let responseBody = await httpResponse.json();
@@ -200,11 +225,10 @@
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -213,10 +237,10 @@
         }
     }
 
-    // function for making filtered by price per stock tickers pop up
-    const newFilterInputPricePerStock = document.getElementById("new-filter-input-price-per-stock");
-    
+    // function for making filtered by price per stock tickers pop up    
     async function getFilteredPricePerStockTickers(){
+        let newFilterInputPricePerStock = document.getElementById("new-filter-input-price-per-stock");
+        console.log(newFilterInputPricePerStock.value);
         let httpResponse = await fetch(`http://localhost:8080/priceperstock/${newFilterInputPricePerStock.value}`);
         console.log(httpResponse);
         let responseBody = await httpResponse.json();
@@ -233,11 +257,10 @@
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "original-id-${x.id}">${x.id}</td>
-                    <td id = "original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -250,94 +273,278 @@
     const companyTableHead = document.getElementById("company-table-head");
     const companyTableBody = document.getElementById("company-table-body");
     const specificCompanyInput = document.getElementById("specific-company-input");
+    const buyStockDiv = document.getElementById("buy-stock");
+    const purchaseDiv = document.getElementById("purchase-div");
 
     async function getSpecificCompany(){       
         let httpResponse = await fetch(`http://localhost:8080/company/${specificCompanyInput.value}`);
         console.log(httpResponse);
         let responseBody = await httpResponse.json();
 
+        companyTableBody.innerHTML = "";
+        companyTableHead.innerHTML = "";
+
         if(httpResponse.status === 200){
             console.log(responseBody);
+
+            let th1 = document.createElement("th");
+            th1.innerHTML =
+            `
+            <th>ID</th>
+            `
+            companyTableHead.appendChild(th1);
+
+            let th2 = document.createElement("th");
+            th2.innerHTML =
+            `
+            <th>Name</th>
+            `
+            companyTableHead.appendChild(th2);
+
+            let th3 = document.createElement("th");
+            th3.innerHTML =
+            `
+            <th>Ticker</th>
+            `
+            companyTableHead.appendChild(th3);
+
+            let th4 = document.createElement("th");
+            th4.innerHTML =
+            `
+            <th>About Us</th>
+            `
+            companyTableHead.appendChild(th4);
+
+            let th5 = document.createElement("th");
+            th5.innerHTML =
+            `
+            <th>Logo</th>
+            `
+            companyTableHead.appendChild(th5);
+
+            let th6 = document.createElement("th");
+            th6.innerHTML =
+            `
+            <th>Market Capitalization</th>
+            `
+            companyTableHead.appendChild(th6);
+
+            let th7 = document.createElement("th");
+            th7.innerHTML =
+            `
+            <th>Amount of Stocks</th>
+            `
+            companyTableHead.appendChild(th7);
+
+            let th8 = document.createElement("th");
+            th8.innerHTML =
+            `
+            <th>Price Per Stock</th>
+            `
+            companyTableHead.appendChild(th8);
 
             for(x of responseBody.searchResult){
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                <td id = "id-${x.id}">${x.id}</td>
-                <td id = "company-name-${x.id}">${x.company_name}</td>
-                <td id = "ticker-${x.id}">${x.ticker}</td>
-                <td id = "description-${x.id}">${x.description}</td>
-                <td id = "image-url-${x.id}"><img src="${x.image_url}" alt="Company Image" width="400" height="400"></td>
-                <td id = "amount-stocks-${x.id}">${x.amount_stocks}</td>
-                <td id = "price-per-stock-${x.id}">${x.price_per_stock}</td>
-                <td id = "market-cap-${x.id}">${x.market_cap}</td>
+                <td id = "original-id-${x.id}">${x.id}</td>
+                <td id = "original-company-name-${x.id}">${x.company_name}</td>
+                <td id = "original-ticker-${x.id}">${x.ticker}</td>
+                <td id = "original-description-${x.id}">${x.description}</td>
+                <td id = "original-image-url-${x.id}"><img src="${x.image_url}" alt="Company Image" width="400" height="auto">${x.image_url}</td>
+                <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
+                <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
+                <td id = "original-price-per-stock-${x.id}">${x.price_per_stock}</td>
                 `
                 companyTableBody.appendChild(tr);
-            }
+
+                let h2Invest = document.createElement("h2");
+                h2Invest.textContent = `Invest in ${x.company_name}`;
+                buyStockDiv.appendChild(h2Invest);
+
+                let labelBuyCompanyID = document.createElement("label");
+                labelBuyCompanyID.textContent = "Company Id:";
+                labelBuyCompanyID.id = "label-buy-company";
+                buyStockDiv.appendChild(labelBuyCompanyID);
+
+                let br1 = document.createElement("br");
+                buyStockDiv.appendChild(br1);
+
+                let inputCompanyID = document.createElement("input");
+                inputCompanyID.type = "number";
+                inputCompanyID.id = "enter-company-id";
+                inputCompanyID.min = "1";
+                buyStockDiv.appendChild(inputCompanyID);
+
+                let br2 = document.createElement("br");
+                buyStockDiv.appendChild(br2);
+
+                let labelBuyAmount = document.createElement("label");
+                labelBuyAmount.textContent = "Amount of Stocks:";
+                labelBuyAmount.id = "label-buy-amount";
+                buyStockDiv.appendChild(labelBuyAmount);
+
+                let br3 = document.createElement("br");
+                buyStockDiv.appendChild(br3);
+
+                let inputBuyAmount = document.createElement("input");
+                inputBuyAmount.type = "number";
+                inputBuyAmount.id = "enter-amount-stocks";
+                inputBuyAmount.min = "1";
+                buyStockDiv.appendChild(inputBuyAmount);
+
+                let br4 = document.createElement("br");
+                buyStockDiv.appendChild(br4);
+
+                let labelBuyPrice = document.createElement("label");
+                labelBuyPrice.textContent = "Buying Price:";
+                labelBuyPrice.id = "label-buying-price";
+                buyStockDiv.appendChild(labelBuyPrice);
+
+                let br5 = document.createElement("br");
+                buyStockDiv.appendChild(br5);
+
+                let inputBuyPrice = document.createElement("input");
+                inputBuyPrice.type = "number";
+                inputBuyPrice.id = "enter-buying-price";
+                inputBuyPrice.min = "1";
+                buyStockDiv.appendChild(inputBuyPrice);
+
+                let buyTotalDiv = document.createElement("div");
+                buyTotalDiv.id = "buy-total-div";
+                buyStockDiv.appendChild(buyTotalDiv);
+
+                let newPriceEstDiv = document.createElement("div");
+                newPriceEstDiv.id = "new-price-per-stock";
+                buyStockDiv.appendChild(newPriceEstDiv);
+
+                let newMarketCapEstDiv = document.createElement("div");
+                newMarketCapEstDiv.id = "new-market-cap-est";
+                buyStockDiv.appendChild(newMarketCapEstDiv);
+
+                let showNewEstimatesButton = document.createElement("button");
+                showNewEstimatesButton.innerHTML = "Show estimates";
+                buyStockDiv.appendChild(showNewEstimatesButton);
+                showNewEstimatesButton.addEventListener("click", showNewEstimates);
+             }
         } else {
             alert("This company has gone bankrupt!");
         }
     }
 
     // function to update stocks
-    const buyAmount = document.getElementById("enter-amount-stocks");
-    const buyPrice = document.getElementById("enter-buying-price");
-    const newMarketCap = buyAmount.value * buyPrice.value;
-    const buyCompanyId = document.getElementById("buy-company-id");
-    const buyCompanyName = document.getElementById("buy-company-name");
 
-    const newMarketCapEstDiv = document.getElementById("new-market-cap-est");
-    const newPriceEstDiv = document.getElementById("new-price-per-stock");
-    const seeNewEstimatesButton = document.getElementById("see-new-estimates");
+    function showNewEstimates(){  
+        let buyCompanyId = document.getElementById("enter-company-id");
+        let buyAmount = document.getElementById("enter-amount-stocks");
+        let buyPrice = document.getElementById("enter-buying-price");
+        
+        let newMarketCapEstDiv = document.getElementById("new-market-cap-est");
+        let newPriceEstDiv = document.getElementById("new-price-per-stock");
+        let buyTotalDiv = document.getElementById("buy-total-div");
+        let seeNewEstimatesButton = document.getElementById("see-new-estimates");
 
-    function showNewEstimates(){  // make sure to add an if loop that if the buyAmount of stocks is larger than originalAmount of stocks, an error message will pop up
-        var originalAmount = document.getElementById(`original-amount-${buyCompanyId.value}`.innerHTML);
-        var originalPrice = document.getElementById(`original-price-per-stock-${buyCompanyId.value}`.innerHTML);
-        let necessaryMCDecimal = (buyAmount.value * buyPrice.value)/(buyAmount.value * originalPrice);
+        let originalAmount = +document.getElementById(`original-amount-${buyCompanyId.value}`).innerHTML;
+        let originalPrice = +document.getElementById(`original-price-per-stock-${buyCompanyId.value}`).innerHTML;
+        let expectedTotal = (buyAmount.value * originalPrice);
         let buyMoney = (buyAmount.value * buyPrice.value);
+        let necessaryMCDecimal = ((buyMoney)/(expectedTotal)).toFixed(4);
         let ogMC = (originalAmount * originalPrice);
         let newMC = 0;
 
-        console.log(`Original Amount: ${originalAmount}`)
-        console.log(`Original Price: ${originalPrice}`)
-        console.log(`necessaryMCDecimal: ${necessaryMCDecimal}`)
-        console.log(`buyMoney: ${buyMoney}`)
-        console.log(`ogMC: ${ogMC}`)
-        console.log(`buyAmount: ${buyAmount.value}`)
-        console.log(`buyPrice: ${buyPrice.value}`)
+        console.log(`Buy Company ID: ${buyCompanyId.value}`);
+        console.log(`Original Amount: ${originalAmount}`);
+        console.log(`Original Price: ${originalPrice}`);
+        console.log(`Expected Total: ${expectedTotal}`);
+        console.log(`necessaryMCDecimal: ${necessaryMCDecimal}`);
+        console.log(`buyMoney: ${buyMoney}`);
+        console.log(`ogMC: ${ogMC}`);
+        console.log(`buyAmount: ${buyAmount.value}`);
+        console.log(`buyPrice: ${buyPrice.value}`);
+
+        newMarketCapEstDiv.innerHTML = "";
+        newPriceEstDiv.innerHTML = "";
+        buyTotalDiv.innerHTML = "";
+
+        // need to rewrite my formulas
+            // IF the necessaryMCDecimal is more than 1:
+                // subtract the expected total from the buy total
+                // add the surplus to the original market cap
+                // find the new price per stock
+            // IF the necessaryMCDecimal is less than 1:
+                // subtract the buy total from the expected total
+                // subtract the deficit from the original market cap
+                // find the new price per stock
+            // IF the necessaryMCDecimal is equal to 1:
+                // keep original market cap the same
+                // keep the new price per stock the same
 
         // this finds the new market cap
-        if(necessaryMCDecimal >= 1){
-            newMC = ogMc + buyMoney
-        } else if(necessaryMCDecimal <= 1){
-            newMC = ogMc - buyMoney
+        if(buyAmount.value <= originalAmount){
+             if(necessaryMCDecimal > 1){
+                let surplus = buyMoney - expectedTotal;
+                newMC = ogMC + surplus
+            } else if(necessaryMCDecimal < 1){
+                let deficit = expectedTotal - buyMoney;
+                newMC = ogMC - deficit
+            } else {
+                newMC = ogMC
+            }
+            // this finds the new price per stock
+            let newPricePerStock = Math.round((newMC/originalAmount))
+
+            // need to append these values into the html
+            let headerTotal = document.createElement("h4");
+                headerTotal.innerHTML = "Total Cost of Purchase:";
+                headerTotal.id = "header-buy-total";
+                buyTotalDiv.appendChild(headerTotal);
+            let h5T = document.createElement("h5");
+                h5T.innerHTML = buyMoney;
+                h5T.id = "buy-total";
+                buyTotalDiv.appendChild(h5T);
+
+            let headerMC = document.createElement("h4");
+                headerMC.innerHTML = "New Market Capitalization:";
+                headerMC.id = "header-new-market-capitalization-estimate";
+                newMarketCapEstDiv.appendChild(headerMC);
+            let h5MC = document.createElement("h5");
+                h5MC.innerHTML = newMC;
+                h5MC.id = "new-market-capitalization-estimate";
+                newMarketCapEstDiv.appendChild(h5MC);
+
+            let headerPPS = document.createElement("h4");
+                headerPPS.innerHTML = "New Price Per Stock:";
+                headerPPS.id = "header-new-price-per-stock-estimate";
+                newPriceEstDiv.appendChild(headerPPS);
+            let h5PPS = document.createElement("h5");
+                h5PPS.innerHTML = newPricePerStock;
+                h5PPS.id = "new-price-per-stock-estimate";
+                newPriceEstDiv.appendChild(h5PPS);
+
+            let purchaseButton = document.createElement("button");
+                purchaseButton.innerHTML = "Purchase";
+                buyTotalDiv.appendChild(purchaseButton);
+                purchaseButton.addEventListener("click", buyStocks);
+
+        } else if(buyAmount.value >= originalAmount){
+            alert(`You can only purchase up to ${originalAmount} stocks.`)
+        } else {
+            alert("Something is wrong here")
         }
-        
-        // this finds the new price per stock
-        let newPricePerStock = newMC/originalAmount.value
-
-        let resultMC = newMC;
-        let resultPPS = newPricePerStock;
-        console.log(`newMC: ${newMC}`)
-        console.log(`resultMC: ${resultMC}`);
-        console.log(`resultPPS: ${resultPPS}`);
-
-        // need to append these values into the html
-        let h5MC = document.createElement("h5");
-            h5MC.innerHTML = resultMC;
-            h5MC.id = "new-market-capitalization-estimate";
-            newMarketCapEstDiv.appendChild(h5MC);
-
-
-        let h5PPS = document.createElement("h5");
-            h5PPS.innerHTML = resultPPS;
-            h5PPS.id = "new-price-per-stock-estimate";
-            newPriceEstDiv.appendChild(h5PPS);
     }
 
     async function buyStocks(){
+        let buyCompanyId = document.getElementById("enter-company-id");
+        let buyAmount = document.getElementById("enter-amount-stocks");
+        let buyPrice = document.getElementById("enter-buying-price");
+        
         let updateInfo = {
-            ...updateInfo,  // by using the spread operator here, it is keeping all of my original values. then the new attributes below are just updating what i want
+            id: document.getElementById(`original-id-${buyCompanyId.value}`).textContent,
+            company_name: document.getElementById(`original-company-name-${buyCompanyId.value}`).textContent,
+            ticker: document.getElementById(`original-ticker-${buyCompanyId.value}`).textContent,
+            description: document.getElementById(`original-description-${buyCompanyId.value}`).textContent,
+            image_url: document.getElementById(`original-image-url-${buyCompanyId.value}`).textContent,
+            amount_stocks: document.getElementById(`original-amount-${buyCompanyId.value}`).textContent,
             price_per_stock: document.getElementById("new-price-per-stock-estimate").textContent,
             market_cap: document.getElementById("new-market-capitalization-estimate").textContent
         };
@@ -362,6 +569,7 @@
                 alert("Please choose a price to pay per stock")
             } else {
                 alert("Thank you for your investment!")
+                location.reload();
             }
         }
     }

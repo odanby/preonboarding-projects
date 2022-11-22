@@ -89,7 +89,7 @@ These are the general steps I should follow.
     - Update company (DONE)
 - Connect to Postman (DONE)
 - Integration testing (DONE)
-- Connect UI to Java (work in progress. need to finish methods to pull specific companies and to purchase stocks)
+- Connect UI to Java (DONE)
 - CSS time!
 - Make all of our user stories run
 - Perform all of our tests manually
