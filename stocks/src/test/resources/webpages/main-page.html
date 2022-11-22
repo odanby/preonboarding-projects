@@ -9,6 +9,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif&family=Oswald&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Noto+Serif&display=swap');
     </style>
 </head>
 <body onload = "getAllTickers()">
@@ -34,7 +35,7 @@
                     <div id = "filter-price-per-stock-div"></div>
                 </div>
             </div>
-            <button id = "remove-filters" onclick = "removeFilters()">Remove All Filters</button>
+            <h3 id = "remove-filters" onclick = "removeFilters()">Remove All Filters</h3>
         </div>
         <table id = "dynamic-ticker">
             <thead id = "dynamic-ticker-head">
@@ -45,15 +46,27 @@
             </thead>
             <tbody id = "dynamic-ticker-body"></tbody>
         </table>
-        <input id = "specific-company-input" type = "text" placeholder = "Enter a ticker">
-        <button id = "specific-company-button" onclick = "getSpecificCompany()">Look up a company</button>
+        <div id = "search-company">
+            <h3 id = "look-up-header">Look Up A Company</h3>
+            <input id = "specific-company-input" type = "text" placeholder = "Enter a ticker...">
+            <button id = "specific-company-button" onclick = "newGetSpecificCompany()">Search</button>
+        </div>
     </div>
     <div id = "main">
-        <div id = "company-info">
-            <table id = "company-table">
-                <thead id = "company-table-head"></thead>
-                <tbody id = "company-table-body"></tbody>
-            </table>
+        <div id = "company-name-div-and-pic-div">
+            <div id = "company-name-div">
+                <div id = "company-name-div-id"></div>
+                <div id = "company-name-div-name"></div>
+                <div id = "company-name-div-ticker"></div>
+                <div id = "company-name-div-about"></div>
+            </div>
+            <div id = "company-pic-div"></div>
+        </div>
+        <div id = "company-pic-url-make-invisible"></div>
+        <div id = "company-mc-as-pps-div">
+            <div id = "bind-company-mc-here"></div>
+            <div id = "bind-company-as-here"></div>
+            <div id = "bind-company-pps-here"></div>
         </div>
         <div id = "buy-stock"></div>
     </div>
@@ -75,46 +88,155 @@
             - Add fun pretty elements when done with hard stufff
 
     */
+   const filterMarketCapHeader = document.getElementById("filter-market-cap");
+   const filterAmountStocksHeader = document.getElementById("filter-amount-stocks");
+   const filterPricePerStockHeader = document.getElementById("filter-price-per-stock");
+   const headerRemoveFilters = document.getElementById("remove-filters");
+   const searchCompanyButton = document.getElementById("specific-company-button");
+
+    function filterMarketCapChangeColor(){
+        filterMarketCapHeader.style.color = "#f162ff";
+    }
+
+    function filterAmountStocksChangeColor(){
+        filterAmountStocksHeader.style.color = "#f162ff";
+    }
+
+    function filterPricePerStockChangeColor(){
+        filterPricePerStockHeader.style.color = "#f162ff";
+    }
+
+    function filterMarketCapRevertColor(){
+        filterMarketCapHeader.style.color = "#ffd79d";
+    }
+
+    function filterAmountStocksRevertColor(){
+        filterAmountStocksHeader.style.color = "#ffd79d";
+    }
+
+    function filterPricePerStockRevertColor(){
+        filterPricePerStockHeader.style.color = "#ffd79d";
+    }
+
+    function headerRemoveFiltersChangeColor(){
+        headerRemoveFilters.style.color = "#f162ff";
+    }
+
+    function headerRemoveFiltersRevertColor(){
+        headerRemoveFilters.style.color = "#ffd79d";
+    }
+
+    function searchCompanyButtonChangeColor(){
+        searchCompanyButton.style.backgroundColor = "#70158f";
+        searchCompanyButton.style.color = "#ffd79d";
+    }
+
+    function searchCompanyButtonRevertColor(){
+        searchCompanyButton.style.backgroundColor = "#ffd79d";
+        searchCompanyButton.style.color = "#70158f";
+    }
+
+    searchCompanyButton.addEventListener("mouseover", searchCompanyButtonChangeColor);
+    searchCompanyButton.addEventListener("mouseleave", searchCompanyButtonRevertColor);
+    headerRemoveFilters.addEventListener("mouseover", headerRemoveFiltersChangeColor);
+    headerRemoveFilters.addEventListener("mouseleave", headerRemoveFiltersRevertColor);
+    filterMarketCapHeader.addEventListener("mouseover", filterMarketCapChangeColor);
+    filterMarketCapHeader.addEventListener("mouseleave", filterMarketCapRevertColor);
+    filterAmountStocksHeader.addEventListener("mouseover", filterAmountStocksChangeColor);
+    filterAmountStocksHeader.addEventListener("mouseleave", filterAmountStocksRevertColor);
+    filterPricePerStockHeader.addEventListener("mouseover", filterPricePerStockChangeColor);
+    filterPricePerStockHeader.addEventListener("mouseleave", filterPricePerStockRevertColor);
+
    const filterMarketCapDiv = document.getElementById("filter-market-cap-div");
    const filterAmountStocksDiv = document.getElementById("filter-amount-stocks-div");
    const filterPricePerStockDiv = document.getElementById("filter-price-per-stock-div");
 
     function popUpFilterMarketCap(){
+        filterMarketCapDiv.innerHTML = "";
+
         let inputMC = document.createElement("input");
         inputMC.id = "new-filter-input-market-cap";
         inputMC.type = "number";
+        inputMC.placeholder = "Enter a number..."
         filterMarketCapDiv.appendChild(inputMC);
 
         let buttonFilterMC = document.createElement("button");
         buttonFilterMC.id = "new-filter-button-market-cap";
-        buttonFilterMC.innerHTML = "Filter!";
+        buttonFilterMC.innerHTML = "Go";
         buttonFilterMC.addEventListener("click", getFilteredMarketCapTickers);
+
+        function mcChangeFilterGoColor(){
+            buttonFilterMC.style.backgroundColor = "#70158f";
+            buttonFilterMC.style.color = "#ffd79d";
+        }
+
+        function mcRevertFilterGoColor(){
+            buttonFilterMC.style.backgroundColor = "#ffd79d";
+            buttonFilterMC.style.color = "#70158f";
+        }
+
+        buttonFilterMC.addEventListener("mouseover", mcChangeFilterGoColor);
+        buttonFilterMC.addEventListener("mouseleave", mcRevertFilterGoColor);
         filterMarketCapDiv.appendChild(buttonFilterMC);
     }
 
     function popUpFilterAmountStocks(){
+        filterAmountStocksDiv.innerHTML = "";
+
         let inputAS = document.createElement("input");
         inputAS.id = "new-filter-input-amount-stocks";
         inputAS.type = "number";
+        inputAS.placeholder = "Enter a number..."
         filterAmountStocksDiv.appendChild(inputAS);
 
         let buttonFilterAS = document.createElement("button");
         buttonFilterAS.id = "new-filter-button-amount-stocks";
-        buttonFilterAS.innerHTML = "Filter!";
+        buttonFilterAS.innerHTML = "Go";
         buttonFilterAS.addEventListener("click", getFilteredAmountStocksTickers);
+
+        function asChangeFilterGoColor(){
+            buttonFilterAS.style.backgroundColor = "#70158f";
+            buttonFilterAS.style.color = "#ffd79d";
+        }
+
+        function asRevertFilterGoColor(){
+            buttonFilterAS.style.backgroundColor = "#ffd79d";
+            buttonFilterAS.style.color = "#70158f";
+        }
+
+        buttonFilterAS.addEventListener("mouseover", asChangeFilterGoColor);
+        buttonFilterAS.addEventListener("mouseleave", asRevertFilterGoColor);
+
         filterAmountStocksDiv.appendChild(buttonFilterAS);
     }
 
     function popUpFilterPricePerStock(){
+        filterPricePerStockDiv.innerHTML = "";
+
         let inputPPS = document.createElement("input");
         inputPPS.id = "new-filter-input-price-per-stock";
         inputPPS.type = "number";
+        inputPPS.placeholder = "Enter a number..."
         filterPricePerStockDiv.appendChild(inputPPS);
 
         let buttonFilterPPS = document.createElement("button");
         buttonFilterPPS.id = "new-filter-button-filter-price-per-stock";
-        buttonFilterPPS.innerHTML = "Filter!";
+        buttonFilterPPS.innerHTML = "Go";
         buttonFilterPPS.addEventListener("click", getFilteredPricePerStockTickers);
+
+        function ppsChangeFilterGoColor(){
+            buttonFilterPPS.style.backgroundColor = "#70158f";
+            buttonFilterPPS.style.color = "#ffd79d";
+        }
+
+        function ppsRevertFilterGoColor(){
+            buttonFilterPPS.style.backgroundColor = "#ffd79d";
+            buttonFilterPPS.style.color = "#70158f";
+        }
+
+        buttonFilterPPS.addEventListener("mouseover", ppsChangeFilterGoColor);
+        buttonFilterPPS.addEventListener("mouseleave", ppsRevertFilterGoColor);
+
         filterPricePerStockDiv.appendChild(buttonFilterPPS);
     }
 
@@ -134,10 +256,10 @@
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}" class = "table-data" style = "width: 225px">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}" class = "table-data" style = "width: 400px">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}" class = "table-data" style = "width: 375px">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}" class = "table-data" style = "width: 375px">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -161,10 +283,10 @@
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}" class = "table-data" style = "width: 225px">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}" class = "table-data" style = "width: 400px">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}" class = "table-data" style = "width: 375px">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}" class = "table-data" style = "width: 375px">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -194,10 +316,10 @@
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}" class = "table-data" style = "width: 225px">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}" class = "table-data" style = "width: 400px">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}" class = "table-data" style = "width: 375px">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}" class = "table-data" style = "width: 375px">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -225,10 +347,10 @@
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}" class = "table-data" style = "width: 225px">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}" class = "table-data" style = "width: 400px">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}" class = "table-data" style = "width: 375px">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}" class = "table-data" style = "width: 375px">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -257,10 +379,10 @@
                 let tr = document.createElement("tr");
                 tr.innerHTML = 
                 `
-                    <td id = "display-original-ticker-${x.id}">${x.ticker}</td>
-                    <td id = "display-original-market-cap-${x.id}">${x.market_cap}</td>
-                    <td id = "display-original-amount-${x.id}">${x.amount_stocks}</td>
-                    <td id = "display-original-price-per-stock-${x.id}">${x.price_per_stock}</td>
+                    <td id = "display-original-ticker-${x.id}" class = "table-data" style = "width: 225px">${x.ticker}</td>
+                    <td id = "display-original-market-cap-${x.id}" class = "table-data" style = "width: 400px">${x.market_cap}</td>
+                    <td id = "display-original-amount-${x.id}" class = "table-data" style = "width: 375px">${x.amount_stocks}</td>
+                    <td id = "display-original-price-per-stock-${x.id}" class = "table-data" style = "width: 375px">${x.price_per_stock}</td>
                 `;
                 tableBody.appendChild(tr);
             }
@@ -269,95 +391,155 @@
         }
     }
 
-    const companyTable = document.getElementById("company-table");
-    const companyTableHead = document.getElementById("company-table-head");
-    const companyTableBody = document.getElementById("company-table-body");
     const specificCompanyInput = document.getElementById("specific-company-input");
     const buyStockDiv = document.getElementById("buy-stock");
     const purchaseDiv = document.getElementById("purchase-div");
 
-    async function getSpecificCompany(){       
+    async function newGetSpecificCompany(){       
         let httpResponse = await fetch(`http://localhost:8080/company/${specificCompanyInput.value}`);
         console.log(httpResponse);
         let responseBody = await httpResponse.json();
 
-        companyTableBody.innerHTML = "";
-        companyTableHead.innerHTML = "";
+        let companyNameDivAndPicDiv = document.getElementById("company-name-div-and-pic-div");
+
+        let companyNameDiv = document.getElementById("company-name-div");
+
+        let companyNameDivId = document.getElementById("company-name-div-id");
+        let companyNameDivName = document.getElementById("company-name-div-name");
+        let companyNameDivTicker = document.getElementById("company-name-div-ticker");
+        let companyNameDivAbout = document.getElementById("company-name-div-about");
+
+        let companyPicDiv = document.getElementById("company-pic-div");
+
+        let companyPicUrlMakeInvisible = document.getElementById("company-pic-url-make-invisible");
+
+        let companyMcAsPpsDiv = document.getElementById("company-mc-as-pps-div");
+
+        let bindCompanyMcHere = document.getElementById("bind-company-mc-here");
+        let bindCompanyAsHere = document.getElementById("bind-company-as-here");
+        let bindCompanyPpsHere = document.getElementById("bind-company-pps-here");
+
+        let companyEntireDiv = document.getElementById("main");
+
+        companyNameDivId.innerHTML = "";
+        companyNameDivName.innerHTML = "";
+        companyNameDivTicker.innerHTML = "";
+        companyNameDivAbout.innerHTML = "";
+        companyPicUrlMakeInvisible.innerHTML = "";
+        companyPicDiv.innerHTML = "";
+        bindCompanyMcHere.innerHTML = "";
+        bindCompanyAsHere.innerHTML = "";
+        bindCompanyPpsHere.innerHTML = "";
+
+        buyStockDiv.innerHTML = "";
+
+        companyEntireDiv.style.backgroundColor = "#ffd89de0";
 
         if(httpResponse.status === 200){
             console.log(responseBody);
 
-            let th1 = document.createElement("th");
-            th1.innerHTML =
-            `
-            <th>ID</th>
-            `
-            companyTableHead.appendChild(th1);
-
-            let th2 = document.createElement("th");
-            th2.innerHTML =
-            `
-            <th>Name</th>
-            `
-            companyTableHead.appendChild(th2);
-
-            let th3 = document.createElement("th");
-            th3.innerHTML =
-            `
-            <th>Ticker</th>
-            `
-            companyTableHead.appendChild(th3);
-
-            let th4 = document.createElement("th");
-            th4.innerHTML =
-            `
-            <th>About Us</th>
-            `
-            companyTableHead.appendChild(th4);
-
-            let th5 = document.createElement("th");
-            th5.innerHTML =
-            `
-            <th>Logo</th>
-            `
-            companyTableHead.appendChild(th5);
-
-            let th6 = document.createElement("th");
-            th6.innerHTML =
-            `
-            <th>Market Capitalization</th>
-            `
-            companyTableHead.appendChild(th6);
-
-            let th7 = document.createElement("th");
-            th7.innerHTML =
-            `
-            <th>Amount of Stocks</th>
-            `
-            companyTableHead.appendChild(th7);
-
-            let th8 = document.createElement("th");
-            th8.innerHTML =
-            `
-            <th>Price Per Stock</th>
-            `
-            companyTableHead.appendChild(th8);
-
             for(x of responseBody.searchResult){
-                let tr = document.createElement("tr");
-                tr.innerHTML = 
-                `
-                <td id = "original-id-${x.id}">${x.id}</td>
-                <td id = "original-company-name-${x.id}">${x.company_name}</td>
-                <td id = "original-ticker-${x.id}">${x.ticker}</td>
-                <td id = "original-description-${x.id}">${x.description}</td>
-                <td id = "original-image-url-${x.id}"><img src="${x.image_url}" alt="Company Image" width="400" height="auto">${x.image_url}</td>
-                <td id = "original-market-cap-${x.id}">${x.market_cap}</td>
-                <td id = "original-amount-${x.id}">${x.amount_stocks}</td>
-                <td id = "original-price-per-stock-${x.id}">${x.price_per_stock}</td>
-                `
-                companyTableBody.appendChild(tr);
 
+                // company id
+                let idElementHeader = document.createElement("h4")
+                idElementHeader.innerHTML =
+                `
+                <h4 id = "specific-company-id-header">ID: </h4>
+                `
+                companyNameDivId.appendChild(idElementHeader);
+
+                let idElement = document.createElement("h4");
+                idElement.innerHTML = 
+                `
+                <h4 id = "original-id-${x.id}" class = "specific-company-id">${x.id}</h4>
+                `
+                companyNameDivId.appendChild(idElement);
+
+                // company name
+                let nameElement = document.createElement("h3");
+                nameElement.innerHTML = 
+                `
+                <h3 id = "original-company-name-${x.id}" class = "specific-company-name">${x.company_name}</h3>
+                `
+                companyNameDivName.appendChild(nameElement);
+                
+                // company ticker
+                let tickerElement = document.createElement("h4");
+                tickerElement.innerHTML = 
+                `
+                <h4 id = "original-ticker-${x.id}" class = "specific-company-ticker">${x.ticker}</h4>
+                `
+                companyNameDivTicker.appendChild(tickerElement);
+
+                // company about us
+                let descriptionElement = document.createElement("p");
+                descriptionElement.innerHTML = 
+                `
+                <p id = "original-description-${x.id}" class = "specific-company-description">${x.description}</p>
+                `
+                companyNameDivAbout.appendChild(descriptionElement);
+
+                // company image
+                let imageElement = document.createElement("img");
+                imageElement.src = `${x.image_url}`;
+                imageElement.alt = "Company Image";
+                imageElement.className = "specific-company-image"
+                companyPicDiv.appendChild(imageElement);
+
+                // company image url
+                let imageUrlElement = document.createElement("p");
+                imageUrlElement.innerHTML = 
+                `
+                <p id = "original-image-url-${x.id}">${x.image_url}</p]>
+                `
+                companyPicUrlMakeInvisible.appendChild(imageUrlElement);
+
+                // company market cap
+                let marketCapElementHeader = document.createElement("h4")
+                marketCapElementHeader.innerHTML =
+                `
+                <h4 id = "specific-company-market-cap-header">Market Cap: </h4>
+                `
+                bindCompanyMcHere.appendChild(marketCapElementHeader);
+
+                let marketCapElement = document.createElement("h4");
+                marketCapElement.innerHTML = 
+                `
+                <h4 id = "original-market-cap-${x.id}" class = "specific-company-market-cap">${x.market_cap}</h4>
+                `
+                bindCompanyMcHere.appendChild(marketCapElement);
+
+                // company amount
+                let amountStocksElementHeader = document.createElement("h4")
+                amountStocksElementHeader.innerHTML =
+                `
+                <h4 id = "specific-company-amount-stocks-header">Amount of Stocks: </h4>
+                `
+                bindCompanyAsHere.appendChild(amountStocksElementHeader);
+
+                let amountStocksElement = document.createElement("h4");
+                amountStocksElement.innerHTML = 
+                `
+                <h4 id = "original-amount-${x.id}" class = "specific-company-amount-stocks">${x.amount_stocks}</h4>
+                `
+                bindCompanyAsHere.appendChild(amountStocksElement);
+
+                // company price per stock
+                let pricePerStockElementHeader = document.createElement("h4")
+                pricePerStockElementHeader.innerHTML =
+                `
+                <h4 id = "specific-company-price-per-stock-header">Price Per Stock: </h4>
+                `
+                bindCompanyPpsHere.appendChild(pricePerStockElementHeader);
+
+                let pricePerStockElement = document.createElement("h4");
+                pricePerStockElement.innerHTML = 
+                `
+                <h4 id = "original-price-per-stock-${x.id}" class = "specific-company-price-per-stock">${x.price_per_stock}</h4>
+                `
+                bindCompanyPpsHere.appendChild(pricePerStockElement);
+
+                // purchase section
                 let h2Invest = document.createElement("h2");
                 h2Invest.textContent = `Invest in ${x.company_name}`;
                 buyStockDiv.appendChild(h2Invest);

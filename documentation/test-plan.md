@@ -91,6 +91,10 @@ These are the general steps I should follow.
 - Integration testing (DONE)
 - Connect UI to Java (DONE)
 - CSS time!
+    - Making really good progress!!!
+    - Need to now edit the specific company design
+    - Need to edit the purchase info design
+    - Need to fix that price per stock filter (check back-end)
 - Make all of our user stories run
 - Perform all of our tests manually
 - Perform all of our tests automatically

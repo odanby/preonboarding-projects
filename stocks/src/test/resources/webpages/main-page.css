@@ -47,23 +47,214 @@ h2 {
 #core-filters {
     display: flex;
     flex-direction: row;
-    gap: 100px;
+    gap: 200px;
     justify-content: center;
 }
 
 #remove-filters {
+    text-align: left;
+    font-size: 11px;
+    font-family: "Oswald", "Arial";
+    margin-top: 2px;
+    text-transform: uppercase;
+    color: #ffd79d;
+    padding-left: 70px;
+}
+
+#new-filter-input-market-cap {
     text-align: center;
-    height: 38px;
-    width: 145px;
+    font-family: "Montserrat", "Arial";
+    font-size: 11px;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    background-color: #70158f;
+    color: #ffd79d;
+    height: 24px;
+}
+
+#new-filter-input-amount-stocks {
+    text-align: center;
+    font-family: "Montserrat", "Arial";
+    font-size: 11px;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    background-color: #70158f;
+    color: #ffd79d;   
+    height: 24px;
+}
+
+#new-filter-input-price-per-stock {
+    text-align: center;
+    font-family: "Montserrat", "Arial";
+    font-size: 11px;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    background-color: #70158f;
+    color: #ffd79d;   
+    height: 24px;
+}
+
+#new-filter-button-amount-stocks {
+    text-align: center;
+    height: 25px;
+    width: 40px;
     padding: 2px 10px 2px 10px;
     vertical-align: middle;
-    margin-top: 30px;
-    font-size: 12px;
+    font-size: 10px;
+    font-family: "Oswald", "Arial";
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    margin-left: 10px;
+    background-color: #ffd79d;
+    color: #70158f;
+}
+
+#new-filter-button-market-cap {
+    text-align: center;
+    height: 25px;
+    width: 40px;
+    padding: 2px 10px 2px 10px;
+    vertical-align: middle;
+    font-size: 10px;
     font-family: "Oswald", "Arial";
     text-transform: uppercase;
     outline: none;
     border: none;
     border-radius: 30px;
     background-color: #ffd79d;
-    color: #f162ff;
+    margin-left: 10px;
+    color: #70158f; 
+}
+
+#new-filter-button-filter-price-per-stock {
+    text-align: center;
+    height: 25px;
+    width: 40px;
+    padding: 2px 10px 2px 10px;
+    vertical-align: middle;
+    font-size: 10px;
+    font-family: "Oswald", "Arial";
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    margin-left: 10px;
+    background-color: #ffd79d;
+    color: #70158f;     
+}
+
+#dynamic-ticker {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: block;
+    font-family: "Montserrat", "Arial";
+    font-size: 22px;
+    background-color: #ffd89de0;
+    border-radius: 20px;
+    margin-top: 30px;
+    color: #70158f;
+}
+
+#dynamic-ticker-head {
+    text-align: center;
+    text-transform: uppercase;
+    background-image: linear-gradient(#320d3e, #70158f, #d902ee);
+    -webkit-background-clip: text;
+    -moz-background-clip: text ;
+    background-clip: text;
+    color: transparent;
+    font-family: "Oswald", "Arial";
+    font-size: 35px;
+}
+
+#search-company {
+    margin-left: 70px;
+}
+
+#specific-company-input {
+    text-align: center;
+    font-family: "Montserrat", "Arial";
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    font-size: 20px;
+    padding: 5px 5px 5px 5px;
+    background-color: #70158f;
+    text-transform: uppercase;
+    width: 400px;
+    color: #ffd79d;   
+}
+
+#specific-company-button {
+    text-align: center;
+    height: 30px;
+    width: 80px;
+    padding: 2px 2px 2px 2px;
+    vertical-align: middle;
+    font-size: 14px;
+    font-family: "Oswald", "Arial";
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    background-color: #ffd79d;
+    margin-left: 10px;
+    margin-bottom: 2px;
+    color: #70158f;
+}
+
+#look-up-header {
+    font-family: "Oswald", "Arial";
+    color: #ffd79d;
+    text-transform: uppercase;
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+#company-table {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: block;
+    font-family: "Montserrat", "Arial";
+    font-size: 22px;
+    border-radius: 20px;
+    margin-top: 30px;
+    color: #70158f;
+}
+
+
+::placeholder {
+    color: #d902ee;
+    font-style: italic;
+    font-family: "Noto Serif", "Arial";
+    text-align: left;
+    padding-left: 10px;
+    vertical-align: middle;
+    text-transform: capitalize;
+}
+
+#company-name-div-and-pic-div {
+    display: flex;
+    flex-direction: row;
+}
+
+#company-name-div {
+    display: flex;
+    flex-direction: column;
+}
+
+#company-pic-url-make-invisible {
+    color: transparent;
+}
+
+#company-mc-as-pps-div {
+    display: flex;
+    flex-direction: row;
 }
