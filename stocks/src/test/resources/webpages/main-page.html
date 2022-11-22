@@ -53,22 +53,30 @@
         </div>
     </div>
     <div id = "main">
-        <div id = "company-name-div-and-pic-div">
-            <div id = "company-name-div">
-                <div id = "company-name-div-id"></div>
-                <div id = "company-name-div-name"></div>
-                <div id = "company-name-div-ticker"></div>
-                <div id = "company-name-div-about"></div>
+        <div id = "just-company-info-div">
+            <div id = "company-name-div-and-pic-div">
+                <div id = "company-name-div">
+                    <div id = "company-name-div-id"></div>
+                    <div id = "company-name-div-name"></div>
+                    <div id = "company-name-div-ticker"></div>
+                    <div id = "company-name-div-about"></div>
+                </div>
+                <div id = "company-pic-div"></div>
             </div>
-            <div id = "company-pic-div"></div>
+            <div id = "company-pic-url-make-invisible"></div>
+            <div id = "company-mc-as-pps-div">
+                <div id = "bind-company-mc-here"></div>
+                <div id = "bind-company-as-here"></div>
+                <div id = "bind-company-pps-here"></div>
+            </div>
         </div>
-        <div id = "company-pic-url-make-invisible"></div>
-        <div id = "company-mc-as-pps-div">
-            <div id = "bind-company-mc-here"></div>
-            <div id = "bind-company-as-here"></div>
-            <div id = "bind-company-pps-here"></div>
+        <div id = "big-invest-container">
+            <div id = "invest-container"></div>
+            <div id = "estimates-and-purchases">
+                <div id = "buy-stock"></div>
+                <div id = "estimates-here"></div>
+            </div>
         </div>
-        <div id = "buy-stock"></div>
     </div>
 </body>
 <script>
@@ -420,6 +428,8 @@
         let bindCompanyPpsHere = document.getElementById("bind-company-pps-here");
 
         let companyEntireDiv = document.getElementById("main");
+        let justCompanyInfoDiv = document.getElementById("just-company-info-div");
+        let investContainer = document.getElementById("invest-container");
 
         companyNameDivId.innerHTML = "";
         companyNameDivName.innerHTML = "";
@@ -432,8 +442,9 @@
         bindCompanyPpsHere.innerHTML = "";
 
         buyStockDiv.innerHTML = "";
+        investContainer.innerHTML = "";
 
-        companyEntireDiv.style.backgroundColor = "#ffd89de0";
+        justCompanyInfoDiv.style.backgroundColor = "#ffd89de0";
 
         if(httpResponse.status === 200){
             console.log(responseBody);
@@ -540,13 +551,20 @@
                 bindCompanyPpsHere.appendChild(pricePerStockElement);
 
                 // purchase section
+
                 let h2Invest = document.createElement("h2");
                 h2Invest.textContent = `Invest in ${x.company_name}`;
-                buyStockDiv.appendChild(h2Invest);
+                h2Invest.id = "invest-in-company-header";
+                investContainer.appendChild(h2Invest);
+
+                let estimatesAndPurchases = document.getElementById("estimates-and-purchases");
+
+                estimatesAndPurchases.style.backgroundColor = "#ffd89de0"
 
                 let labelBuyCompanyID = document.createElement("label");
                 labelBuyCompanyID.textContent = "Company Id:";
                 labelBuyCompanyID.id = "label-buy-company";
+                labelBuyCompanyID.className = "labels-for-buy";
                 buyStockDiv.appendChild(labelBuyCompanyID);
 
                 let br1 = document.createElement("br");
@@ -556,6 +574,7 @@
                 inputCompanyID.type = "number";
                 inputCompanyID.id = "enter-company-id";
                 inputCompanyID.min = "1";
+                inputCompanyID.className = "inputs-for-buy";
                 buyStockDiv.appendChild(inputCompanyID);
 
                 let br2 = document.createElement("br");
@@ -564,6 +583,7 @@
                 let labelBuyAmount = document.createElement("label");
                 labelBuyAmount.textContent = "Amount of Stocks:";
                 labelBuyAmount.id = "label-buy-amount";
+                labelBuyAmount.className = "labels-for-buy";
                 buyStockDiv.appendChild(labelBuyAmount);
 
                 let br3 = document.createElement("br");
@@ -573,6 +593,7 @@
                 inputBuyAmount.type = "number";
                 inputBuyAmount.id = "enter-amount-stocks";
                 inputBuyAmount.min = "1";
+                inputBuyAmount.className = "inputs-for-buy";
                 buyStockDiv.appendChild(inputBuyAmount);
 
                 let br4 = document.createElement("br");
@@ -581,6 +602,7 @@
                 let labelBuyPrice = document.createElement("label");
                 labelBuyPrice.textContent = "Buying Price:";
                 labelBuyPrice.id = "label-buying-price";
+                labelBuyPrice.className = "labels-for-buy";
                 buyStockDiv.appendChild(labelBuyPrice);
 
                 let br5 = document.createElement("br");
@@ -590,24 +612,44 @@
                 inputBuyPrice.type = "number";
                 inputBuyPrice.id = "enter-buying-price";
                 inputBuyPrice.min = "1";
+                inputBuyPrice.className = "inputs-for-buy";
                 buyStockDiv.appendChild(inputBuyPrice);
 
-                let buyTotalDiv = document.createElement("div");
-                buyTotalDiv.id = "buy-total-div";
-                buyStockDiv.appendChild(buyTotalDiv);
-
-                let newPriceEstDiv = document.createElement("div");
-                newPriceEstDiv.id = "new-price-per-stock";
-                buyStockDiv.appendChild(newPriceEstDiv);
-
-                let newMarketCapEstDiv = document.createElement("div");
-                newMarketCapEstDiv.id = "new-market-cap-est";
-                buyStockDiv.appendChild(newMarketCapEstDiv);
+                let br6 = document.createElement("br");
+                buyStockDiv.appendChild(br6);
 
                 let showNewEstimatesButton = document.createElement("button");
                 showNewEstimatesButton.innerHTML = "Show estimates";
+                showNewEstimatesButton.id = "show-estimates-button";
                 buyStockDiv.appendChild(showNewEstimatesButton);
                 showNewEstimatesButton.addEventListener("click", showNewEstimates);
+
+                function showNewEstimatesButtonChangeColor(){
+                    showNewEstimatesButton.style.backgroundColor = "#70158f";
+                    showNewEstimatesButton.style.color = "#f162ff";
+                }
+
+                function showNewEstimatesButtonRevertColor(){
+                    showNewEstimatesButton.style.backgroundColor = "#f162ff";
+                    showNewEstimatesButton.style.color = "#70158f";
+                }
+
+                showNewEstimatesButton.addEventListener("mouseover", showNewEstimatesButtonChangeColor);
+                showNewEstimatesButton.addEventListener("mouseleave", showNewEstimatesButtonRevertColor);
+
+                let estimatesHere = document.getElementById("estimates-here");
+
+                let buyTotalDiv = document.createElement("div");
+                buyTotalDiv.id = "buy-total-div";
+                estimatesHere.appendChild(buyTotalDiv);
+
+                let newPriceEstDiv = document.createElement("div");
+                newPriceEstDiv.id = "new-price-per-stock";
+                estimatesHere.appendChild(newPriceEstDiv);
+
+                let newMarketCapEstDiv = document.createElement("div");
+                newMarketCapEstDiv.id = "new-market-cap-est";
+                estimatesHere.appendChild(newMarketCapEstDiv);
              }
         } else {
             alert("This company has gone bankrupt!");
@@ -625,6 +667,7 @@
         let newPriceEstDiv = document.getElementById("new-price-per-stock");
         let buyTotalDiv = document.getElementById("buy-total-div");
         let seeNewEstimatesButton = document.getElementById("see-new-estimates");
+        let estimatesHere = document.getElementById("estimates-here");
 
         let originalAmount = +document.getElementById(`original-amount-${buyCompanyId.value}`).innerHTML;
         let originalPrice = +document.getElementById(`original-price-per-stock-${buyCompanyId.value}`).innerHTML;
@@ -679,34 +722,54 @@
             let headerTotal = document.createElement("h4");
                 headerTotal.innerHTML = "Total Cost of Purchase:";
                 headerTotal.id = "header-buy-total";
+                headerTotal.className = "labels-for-purchase";
                 buyTotalDiv.appendChild(headerTotal);
             let h5T = document.createElement("h5");
                 h5T.innerHTML = buyMoney;
                 h5T.id = "buy-total";
+                h5T.className = "values-for-purchase"
                 buyTotalDiv.appendChild(h5T);
 
             let headerMC = document.createElement("h4");
                 headerMC.innerHTML = "New Market Capitalization:";
                 headerMC.id = "header-new-market-capitalization-estimate";
+                headerMC.className = "labels-for-purchase";
                 newMarketCapEstDiv.appendChild(headerMC);
             let h5MC = document.createElement("h5");
                 h5MC.innerHTML = newMC;
                 h5MC.id = "new-market-capitalization-estimate";
+                h5MC.className = "values-for-purchase"
                 newMarketCapEstDiv.appendChild(h5MC);
 
             let headerPPS = document.createElement("h4");
                 headerPPS.innerHTML = "New Price Per Stock:";
                 headerPPS.id = "header-new-price-per-stock-estimate";
+                headerPPS.className = "labels-for-purchase";
                 newPriceEstDiv.appendChild(headerPPS);
             let h5PPS = document.createElement("h5");
                 h5PPS.innerHTML = newPricePerStock;
                 h5PPS.id = "new-price-per-stock-estimate";
+                h5PPS.className = "values-for-purchase";
                 newPriceEstDiv.appendChild(h5PPS);
 
             let purchaseButton = document.createElement("button");
                 purchaseButton.innerHTML = "Purchase";
-                buyTotalDiv.appendChild(purchaseButton);
+                purchaseButton.id = "purchase-button";
+                estimatesHere.appendChild(purchaseButton);
                 purchaseButton.addEventListener("click", buyStocks);
+
+                function purchaseButtonChangeColor(){
+                    purchaseButton.style.backgroundColor = "#70158f";
+                    purchaseButton.style.color = "#f162ff";
+                }
+
+                function purchaseButtonRevertColor(){
+                    purchaseButton.style.backgroundColor = "#f162ff";
+                    purchaseButton.style.color = "#70158f";
+                }
+
+                purchaseButton.addEventListener("mouseover", purchaseButtonChangeColor);
+                purchaseButton.addEventListener("mouseleave", purchaseButtonRevertColor);
 
         } else if(buyAmount.value >= originalAmount){
             alert(`You can only purchase up to ${originalAmount} stocks.`)
