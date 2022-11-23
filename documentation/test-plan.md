@@ -91,7 +91,13 @@ These are the general steps I should follow.
 - Integration testing (DONE)
 - Connect UI to Java (DONE)
 - CSS time! (DONE)
-- Need to fix that price per stock filter (check back-end)
 - Make all of our user stories run
 - Perform all of our tests manually
 - Perform all of our tests automatically
+
+## Future Improvement
+- Reconfigure the back-end so the update only updates certain fields
+- Make the filters filter by range (ex: market cap >= 100)
+- Make everything animate more smoothly
+- Be able to click on a ticker on the chart to see more in depth about them
+- Make ticker that you're hovering over highlight

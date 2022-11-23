@@ -22,6 +22,6 @@ public interface StockDAOInterface {
     List<Stock> getSpecificCompany(String ticker);
 
     // update company's market cap and price per stock
-    Stock updateCompany(Stock updatedCompany);
+    Stock updateCompany(Stock updatedCompany);  // if i want to update just specific fields, make another method and just pass those fields in
 
 }

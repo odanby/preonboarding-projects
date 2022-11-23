@@ -54,5 +54,7 @@ public class StockDAO implements StockDAOInterface {
         HibernateUtil.endTransaction();
         return updatedCompany;
     }
+
+    //
     
 }

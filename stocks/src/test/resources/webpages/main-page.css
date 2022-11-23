@@ -244,8 +244,9 @@ h2 {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 200px;
+    gap: 100px;
     margin-top: 20px;
+    padding-left: 10px 0px 10px 0px;
 }
 
 #company-pic-url-make-invisible {
@@ -309,7 +310,7 @@ h2 {
 
 .specific-company-image {
     height: 400px;
-    width: 450px;
+    width: 500px;
     vertical-align: middle;
 }
 

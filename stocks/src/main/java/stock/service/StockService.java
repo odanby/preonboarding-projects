@@ -40,7 +40,7 @@ public class StockService implements StockServiceInterface {
         if(price_per_stock <= 0){
             throw new InvalidInputException("Invalid Input: Price of Stocks cannot be zero or a negative amount.");
         }
-        return this.stockDao.tickerAmountStocks(price_per_stock);
+        return this.stockDao.tickerPriceStock(price_per_stock);
     }
 
     @Override
