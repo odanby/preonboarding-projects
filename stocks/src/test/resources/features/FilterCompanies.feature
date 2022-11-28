@@ -20,6 +20,6 @@ Feature: Users should be able to filter companies based on particular criteria
 
         Given the user is on the main page
         When the user selects to view by price per stock
-        When the user eneters a price per stock input
+        When the user enters a price per stock input
         When the user selects to see companies below or above price per stock input
         Then the user will view companies filtered by price per stock

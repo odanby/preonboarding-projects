@@ -5,6 +5,6 @@ Feature: Users of our stock market application should be able to view all compan
         Given the user is on the main page
         When the user can see stock ticker symbols
         When the user can see amounts of stocks
-        When the user can prices per stock
+        When the user can see prices per stock
         When the user can see market capitalizations
-        Then the user is able to successfully view companies' information
+        Then the user is able to successfully view companies information

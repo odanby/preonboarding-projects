@@ -96,7 +96,7 @@ These are the general steps I should follow.
 - Perform all of our tests automatically
 
 ## Future Improvement
-- Reconfigure the back-end so the update only updates certain fields
+- Reconfigure the back-end so the update only updates certain fields (would need to make dao update individual fields instead of entire object)
 - Make the filters filter by range (ex: market cap >= 100)
 - Make everything animate more smoothly
 - Be able to click on a ticker on the chart to see more in depth about them

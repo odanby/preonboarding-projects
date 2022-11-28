@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import stock.e2e.poms.FilterCompanies;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "test/resources/features", glue = "steps")
@@ -25,7 +26,7 @@ public class TestRunner {
         // place my poms in here
 
     // filter
-        // place my poms in here
+        public static FilterCompanies filterCompanies;
 
     // invest
         // place my poms in here
@@ -38,7 +39,8 @@ public class TestRunner {
         wait = new WebDriverWait(driver, 5);
 
         // add the poms in here later
-        // ex: filterCompanies = new FilterCompanies(driver);
+        
+            filterCompanies = new FilterCompanies(driver);
     }
 
     @AfterClass

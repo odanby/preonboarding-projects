@@ -1,0 +1,93 @@
+package stock.e2e.steps;
+
+import io.cucumber.java.en.When;
+import stock.e2e.runner.TestRunner;
+
+public class FilterCompaniesSteps {
+    
+    // Feature: Users should be able to filter companies based on particular criteria
+
+    // Scenario: As a user, I want to view companies by market capitalization
+
+        @Given("the user is on the main page"){
+            public void the_user_is_on_the_main_page(){
+                TestRunner.driver.get("File://C:/Users/orian/preonboarding-projects/stocks/src/test/resources/webpages/main-page.html");
+            }
+        }
+
+        @When("the user selects to view by market cap"){
+            public void the_user_selects_to_view_by_market_cap(){
+                TestRunner.filterCompanies.clickFilterMarketCap();
+            }
+        }
+
+        @When("the user enters a market cap input"){
+            public void the_user_enters_a_market_cap_input(){
+
+            }
+        }
+
+        @When("the user selects to see companies below or above market cap input"){
+            public void the_user_selects_to_see_companies_below_or_above_market_cap_input(){
+
+            }
+        }
+
+        @Then("the user will view companies filtered by market cap"){
+            public void the_user_will_view_companies_filtered_by_market_cap(){
+
+            }
+        }
+
+    // Scenario: As a user, I want to view companies by amount of stocks
+
+        @When("the user selects to view by amount of stocks"){
+            public void the_user_selects_to_view_by_amount_of_stocks(){
+                TestRunner.filterCompanies.clickFilterAmountStocks();
+            }
+        }
+
+        @When("the user enters an amount of stocks input"){
+            public void the_user_enters_an_amount_of_stocks_input(){
+
+            }
+        }
+
+        @When("the user selects to see companies below or above amount of stocks input"){
+            public void the_user_selects_to_see_companies_below_or_above_amount_of_stocks_input(){
+
+            }
+        }
+
+        @Then("the user will view companies filtered by amount of stocks"){
+            public void the_user_will_view_companies_filtered_by_amount_of_stocks(){
+
+            }
+        }
+
+    // Scenario: As a user, I want to view companies by price per stock
+
+        @When("the user selects to view by price per stock"){
+            public void the_user_selects_to_view_by_price_per_stock(){
+                TestRunner.filterCompanies.clickFilterPricePerStock();
+            }
+        }
+
+        @When("the user enters a price per stock input"){
+            public void the_user_enters_a_price_per_stock_input(){
+
+            }
+        }
+
+        @When("the user selects to see companies below or above price per stock input"){
+            public void the_user_selects_to_see_companies_below_or_above_price_per_stock_input(){
+
+            }
+        }
+
+        @Then("the user will view companies filtered by price per stock"){
+            public void the_user_will_view_companies_filtered_by_price_per_stock(){
+
+            }
+        }
+}
