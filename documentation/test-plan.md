@@ -91,13 +91,13 @@ These are the general steps I should follow.
 - Integration testing (DONE)
 - Connect UI to Java (DONE)
 - CSS time! (DONE)
-- Make all of our user stories run
-- Perform all of our tests manually
-- Perform all of our tests automatically
+- Make all of our user stories run (DONE)
+- Perform all of our tests manually (DONE)
+- Perform all of our tests automatically (DONE)
 
 ## Future Improvement
 - Reconfigure the back-end so the update only updates certain fields (would need to make dao update individual fields instead of entire object)
 - Make the filters filter by range (ex: market cap >= 100)
 - Make everything animate more smoothly
 - Be able to click on a ticker on the chart to see more in depth about them
-- Make ticker that you're hovering over highlight
+- Make ticker that you're hovering over highlight to make it more readable

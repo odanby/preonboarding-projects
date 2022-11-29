@@ -14,6 +14,7 @@ public class FilterCompaniesSteps {
         @Given("the user is on the main page")
             public void the_user_is_on_the_main_page(){
                 TestRunner.driver.get("File://C:/Users/orian/preonboarding-projects/stocks/src/test/resources/webpages/main-page.html");
+                TestRunner.driver.manage().window().maximize();
             }
 
         @When("the user selects to view by market cap")

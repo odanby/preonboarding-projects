@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: stock.e2e.runner.TestRunner
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.302 s - in stock.e2e.runner.TestRunner
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.069 s - in stock.e2e.runner.TestRunner

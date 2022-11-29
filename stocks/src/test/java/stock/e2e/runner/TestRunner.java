@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import stock.e2e.poms.FilterCompanies;
+import stock.e2e.poms.Invest;
 import stock.e2e.poms.SelectSpecificCompany;
 import stock.e2e.poms.ViewCompanies;
 
@@ -31,20 +32,21 @@ public class TestRunner {
         public static FilterCompanies filterCompanies;
 
     // invest
-        // place my poms in here
+        public static Invest invest;
 
     @BeforeClass
     public static void setup(){
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         driver = new ChromeDriver();
 
-        wait = new WebDriverWait(driver, 5);
+        wait = new WebDriverWait(driver, 10);
 
         // add the poms in here later
         
             filterCompanies = new FilterCompanies(driver);
             viewCompanies = new ViewCompanies(driver);
             selectSpecificCompany = new SelectSpecificCompany(driver);
+            invest = new Invest(driver);
     }
 
     @AfterClass
