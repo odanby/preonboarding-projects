@@ -12,7 +12,7 @@ import io.cucumber.junit.CucumberOptions;
 import stock.e2e.poms.FilterCompanies;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "test/resources/features", glue = "steps")
+@CucumberOptions(features = "classpath:features", glue = "stock/e2e/steps")
 
 public class TestRunner {
     
@@ -33,7 +33,7 @@ public class TestRunner {
 
     @BeforeClass
     public static void setup(){
-        System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         driver = new ChromeDriver();
 
         wait = new WebDriverWait(driver, 5);

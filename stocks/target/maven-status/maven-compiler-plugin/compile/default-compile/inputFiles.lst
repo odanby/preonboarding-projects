@@ -1,0 +1,11 @@
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\api\Main.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\service\StockService.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\exceptions\InvalidInputException.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\App.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\controllers\StockController.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\entities\Stock.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\service\StockServiceInterface.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\exceptions\NoElementExists.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\repository\StockDAO.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\repository\StockDAOInterface.java
+C:\Users\orian\preonboarding-projects\stocks\src\main\java\stock\utils\HibernateUtil.java
