@@ -81,10 +81,19 @@ public class FilterCompanies {
                 this.filterPricePerStock.click();
             }
 
+    // @When("the user clicks the remove filters button")
+        @FindBy(id = "remove-filters")
+        public WebElement removeFiltersButton;
+
+            public void removeFiltersButton(){
+                this.removeFiltersButton.click();
+            }
+
             
+    // Check if the table still exists
         public boolean elementExists(String id){
             try {
-                TestRunner.driver.findElement(By.id("dynamic-ticker"));
+                TestRunner.driver.findElement(By.id(id));
             } catch (NoElementExists e) {
                 return false;
             }

@@ -8,6 +8,12 @@ Feature: Users should be able to filter companies based on particular criteria
         When the user clicks the go button for market cap
         Then the user will view companies filtered by market cap
 
+    Scenario: As a user, I want to remove filters from my view
+
+        Given the user is on the main page
+        When the user clicks the remove filters button
+        Then the user will view companies without filters
+
     Scenario: As a user, I want to view companies by amount of stocks
 
         Given the user is on the main page

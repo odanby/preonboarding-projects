@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import stock.e2e.poms.FilterCompanies;
+import stock.e2e.poms.SelectSpecificCompany;
+import stock.e2e.poms.ViewCompanies;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:features", glue = "stock/e2e/steps")
@@ -20,10 +22,10 @@ public class TestRunner {
     public static WebDriverWait wait;
 
     // view companies
-        // place my poms in here
+        public static ViewCompanies viewCompanies;
 
     // select specific company
-        // place my poms in here
+        public static SelectSpecificCompany selectSpecificCompany;
 
     // filter
         public static FilterCompanies filterCompanies;
@@ -41,6 +43,8 @@ public class TestRunner {
         // add the poms in here later
         
             filterCompanies = new FilterCompanies(driver);
+            viewCompanies = new ViewCompanies(driver);
+            selectSpecificCompany = new SelectSpecificCompany(driver);
     }
 
     @AfterClass

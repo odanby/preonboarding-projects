@@ -79,4 +79,16 @@ public class FilterCompaniesSteps {
             public void the_user_will_view_companies_filtered_by_price_per_stock(){
                 TestRunner.filterCompanies.elementExists("dynamic-ticker");
             }
+
+    // Scenario: As a user, I want to remove filters from my view
+
+        @When("the user clicks the remove filters button")
+            public void the_user_clicks_the_remove_filters_button(){
+                TestRunner.filterCompanies.removeFiltersButton();
+            }
+
+        @Then("the user will view companies without filters")
+            public void the_user_will_view_companies_without_filters(){
+                TestRunner.filterCompanies.elementExists("dynamic-ticker");
+            }
 }
