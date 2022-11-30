@@ -1,4 +1,60 @@
 -------------------------------------------------------------------------------
 Test set: stock.e2e.runner.TestRunner
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.069 s - in stock.e2e.runner.TestRunner
+Tests run: 9, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 18.291 s <<< FAILURE! - in stock.e2e.runner.TestRunner
+As a user, I want to purchase stocks from specific companies(Users should be able to purchase stocks)  Time elapsed: 11.477 s  <<< ERROR!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for alert to be present (tried for 10 second(s) with 500 milliseconds interval)
+Caused by: org.openqa.selenium.NoSuchWindowException: 
+no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=107.0.5304.107)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'PAPABEAR', ip: '10.0.0.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_332'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 107.0.5304.107, chrome: {chromedriverVersion: 107.0.5304.62 (1eec40d3a576..., userDataDir: C:\Users\orian\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:61288}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aaaae9dd648c462fcd6300af991faf58
+
+As a system, I want to update a company's information if stocks are purchased(Users should be able to purchase stocks)  Time elapsed: 0.011 s  <<< ERROR!
+org.openqa.selenium.NoSuchWindowException: 
+no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=107.0.5304.107)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'PAPABEAR', ip: '10.0.0.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_332'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 107.0.5304.107, chrome: {chromedriverVersion: 107.0.5304.62 (1eec40d3a576..., userDataDir: C:\Users\orian\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:61288}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aaaae9dd648c462fcd6300af991faf58
+
+As a system, I want to prevent users from purchasing stocks for invalid values(Users should be able to purchase stocks)  Time elapsed: 0.011 s  <<< ERROR!
+org.openqa.selenium.NoSuchWindowException: 
+no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=107.0.5304.107)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'PAPABEAR', ip: '10.0.0.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_332'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 107.0.5304.107, chrome: {chromedriverVersion: 107.0.5304.62 (1eec40d3a576..., userDataDir: C:\Users\orian\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:61288}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aaaae9dd648c462fcd6300af991faf58
+
+As a user, I want to view a specific company's information to learn more about them(Users should be able to select a specific company and read more in depth about them)  Time elapsed: 0.012 s  <<< ERROR!
+org.openqa.selenium.NoSuchWindowException: 
+no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=107.0.5304.107)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'PAPABEAR', ip: '10.0.0.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_332'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 107.0.5304.107, chrome: {chromedriverVersion: 107.0.5304.62 (1eec40d3a576..., userDataDir: C:\Users\orian\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:61288}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aaaae9dd648c462fcd6300af991faf58
+
+As a user, I want to view all companies' information so I can monitor the stock market(Users of our stock market application should be able to view all companies and their information)  Time elapsed: 0.01 s  <<< ERROR!
+org.openqa.selenium.NoSuchWindowException: 
+no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=107.0.5304.107)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'PAPABEAR', ip: '10.0.0.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_332'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 107.0.5304.107, chrome: {chromedriverVersion: 107.0.5304.62 (1eec40d3a576..., userDataDir: C:\Users\orian\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:61288}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aaaae9dd648c462fcd6300af991faf58
+

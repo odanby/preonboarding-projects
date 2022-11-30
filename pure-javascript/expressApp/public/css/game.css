@@ -1,0 +1,62 @@
+body {
+    background-image: url("https://thumbs.dreamstime.com/b/pixel-art-grass-background-seamless-lawn-texture-backdrop-vector-illustration-223655094.jpg");
+}
+
+h2 {
+    text-align: center;
+    color: #4a67af;
+    font-size: 40px;
+    font-family: 'Audiowide', 'Courier New', Courier, monospace;
+}
+
+#score {
+    text-align: center;
+    color: #4a67af;
+    font-size: 50px;
+    font-family: 'Audiowide', 'Courier New', Courier, monospace;
+}
+
+#game {
+    width: 600px;
+    height: 300px;
+    border: 2px solid #4a67af;
+    margin: auto;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/011/484/158/original/pixel-art-farm-landscape-with-barn-mill-fence-trees-8-bit-game-background-vector.jpg");
+    background-size: cover;
+}
+
+#cow {
+    height: 75px;
+    width: 90px;
+    position: relative;
+    top: 225px;
+    background-image: url("cow.gif");
+    background-size: cover;
+}
+
+#fence {
+    height: 50px;
+    width: 75px;
+    position: relative;
+    top: 175px;
+    left: 550px;
+    background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/bf739ed7-d95b-43c2-8868-1a88a5829ce5/dclgjw7-6d5a6d85-107f-46f8-88cc-c7b61162ab64.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2JmNzM5ZWQ3LWQ5NWItNDNjMi04ODY4LTFhODhhNTgyOWNlNVwvZGNsZ2p3Ny02ZDVhNmQ4NS0xMDdmLTQ2ZjgtODhjYy1jN2I2MTE2MmFiNjQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.aa0EnOqNXBDMnLs_cW_5lOSHnsaEfirpMBwLt56c34Y");
+    background-size: cover;
+    animation: fence 1.33s infinite;
+}
+
+@keyframes fence {
+    0% {left: 550px}
+    100% {left: -50px}
+}
+
+.jump-animation {
+    animation: jump 0.5s;
+}
+
+@keyframes jump {
+    0% {top: 225px}
+    50% {top: 75px}
+    75% {top: 75px}
+    100% {top: 225px}
+}

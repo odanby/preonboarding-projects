@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cow Escape High Scores</title>
+</head>
+<body>
+    <h1>Cow Escape</h1>
+    <div id = "name-and-play-div">
+        <label>Please Enter Your Name:</label>
+        <input type = "text" id = "gamer-name">
+        <button>Play!</button>
+    </div>
+    <div id = "high-scores-div">
+        <table id = "high-scores">
+            <thead id = "high-scores-headers"></thead> <!-- Dynamically generate headers of name and score -->
+            <tbody id = "high-scores-data"></tbody> <!-- Dynamically fill in this input -->
+        </table>
+    </div>
+    <div id = "comments-div">
+        <h2>Enjoyed playing? Leave a comment!</h2>
+        <label>Name:</label>
+        <input type = "text" id = "gamer-name" placeholder = "JMama8">
+        <label>Comment:</label>
+        <input type = "text" id = "comment-input" placeholder = "This is the best game ever!">
+        <table id = "comments">
+            <thead id = "comment-gamer-name"></thead>
+            <tbody id = "comment-data"></tbody>
+        </table>
+    </div>
+
+    <!-- I need four endpoints/features, one of which requires user input
+    
+        1. Get all game scores
+        2. Post new score and user
+        3. Post a comment on the game
+        4. Get all comments
+
+    -->
+</body>
+</html>

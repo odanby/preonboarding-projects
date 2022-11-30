@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cow Escape Game</title>
+    <link rel = "stylesheet" href = "css/game.css">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+</style>
+<body>
+    <br>
+    <div id = "game">
+        <div id = "cow"></div>
+        <div id = "fence"></div>
+    </div>
+    <h2 id = "score">0</h2>
+    <h2>Escape the Farm!</h2>
+    <script src = "script.js"></script>
+</body>
+<script>
+    const cow = document.getElementById("cow");
+    const fence = document.getElementById("fence");
+    const score = document.getElementById("score");
+
+    function jump(){
+        cow.classList.add("jump-animation");
+        setTimeout(() => {
+            cow.classList.remove("jump-animation")
+        }, 500);
+    }
+
+    document.addEventListener("keypress", () => {
+        if(!cow.classList.contains("jump-animation")){
+            jump();
+        }
+    });
+
+    setInterval(() => {
+        score.innerText++;
+        const cowTop = parseInt(window.getComputedStyle(cow).getPropertyValue("top"));
+        const fenceLeft = parseInt(window.getComputedStyle(fence).getPropertyValue("left"));
+        if(fenceLeft < 0){
+            fence.style.display = "none";
+        } else {
+            fence.style.display = "";
+        }
+
+        if(fenceLeft < 50 && fenceLeft > 0 && cowTop > 150){
+            let result = confirm("You got a score of: " + score.innerText + "\n\n Play again?");
+            if(result == true){
+                location.reload();
+            } else {
+                window.location.href = "index.ejs";
+            }
+        }
+    }, 50);
+
+</script>
+</html>
