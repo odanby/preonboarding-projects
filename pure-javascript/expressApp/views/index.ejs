@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cow Escape High Scores</title>
+    <title>Cow Escape Home</title>
+    <link rel = "stylesheet" href = "css/index.css">
 </head>
 <body>
     <h1>Cow Escape</h1>
     <div id = "name-and-play-div">
         <label>Please Enter Your Name:</label>
         <input type = "text" id = "gamer-name">
-        <button>Play!</button>
+        <button onclick = goToGame()>Play!</button>
     </div>
     <div id = "high-scores-div">
         <table id = "high-scores">
@@ -40,4 +41,9 @@
 
     -->
 </body>
+<script>
+    function goToGame(){
+        window.location.href = "/play";
+    }
+</script>
 </html>
