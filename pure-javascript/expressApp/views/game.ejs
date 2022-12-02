@@ -18,9 +18,16 @@
     </div>
     <h2 id = "score">0</h2>
     <h2>Escape the Farm!</h2>
+    <h3>Press the spacebar to jump over fences.</h3>
+    <h4 id = "gamer-name-here"></h4>
+    <h5 id = "current-highscore-here"></h5> <!-- i want to figure out how to make the current highscore START at 0 but each time it refreshes it takes the highest score -->
     <script src = "script.js"></script>
 </body>
 <script>
+
+    const gamerNameHere = document.getElementById("gamer-name-here");
+    gamerNameHere.textContent = `${sessionStorage.getItem("new-gamer-name-play")}`;
+
     const cow = document.getElementById("cow");
     const fence = document.getElementById("fence");
     const score = document.getElementById("score");
@@ -38,6 +45,8 @@
         }
     });
 
+    const currentHighscore = document.getElementById("current-highscore-here");
+
     setInterval(() => {
         score.innerText++;
         const cowTop = parseInt(window.getComputedStyle(cow).getPropertyValue("top"));
@@ -49,6 +58,10 @@
         }
 
         if(fenceLeft < 50 && fenceLeft > 0 && cowTop > 150){
+            if(parseInt(score.textContent) > parseInt(currentHighscore.textContent)){
+                    sessionStorage.setItem("new-highscore", score.value);
+                    currentHighscore.textContent = `${sessionStorage.getItem("new-highscore")}`;
+                }
             let result = confirm("You got a score of: " + score.innerText + "\n\n Play again?");
             if(result == true){
                 location.reload();

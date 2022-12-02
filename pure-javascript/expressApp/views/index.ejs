@@ -11,7 +11,7 @@
     <h1>Cow Escape</h1>
     <div id = "name-and-play-div">
         <label>Please Enter Your Name:</label>
-        <input type = "text" id = "gamer-name">
+        <input type = "text" id = "new-gamer-name-play">
         <button onclick = goToGame()>Play!</button>
     </div>
     <div id = "high-scores-div">
@@ -23,11 +23,11 @@
     <div id = "comments-div">
         <h2>Enjoyed playing? Leave a comment!</h2>
         <label>Name:</label>
-        <input type = "text" id = "gamer-name" placeholder = "JMama8">
+        <input type = "text" id = "new-gamer-name-comment" placeholder = "JMama8">
         <label>Comment:</label>
         <input type = "text" id = "comment-input" placeholder = "This is the best game ever!">
         <table id = "comments">
-            <thead id = "comment-gamer-name"></thead>
+            <thead id = "comment-headers"></thead>
             <tbody id = "comment-data"></tbody>
         </table>
     </div>
@@ -42,8 +42,96 @@
     -->
 </body>
 <script>
+
+    const newGamerNamePlay = document.getElementById("new-gamer-name-play");
+
     function goToGame(){
+        sessionStorage.setItem("new-gamer-name-play", newGamerNamePlay.value)
         window.location.href = "/play";
+    }
+
+    // highscores functionality
+
+    const highscoresTable = document.getElementById("high-scores");
+    const highscoresHeaders = document.getElementById("high-scores-headers");
+    const highscoresData = document.getElementById("high-scores-data");
+
+    async function getHighscores(){
+        let httpResponse = await fetch("http://localhost:3000/highscore");
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+
+        let th1 = document.createElement("th");
+        th1.innerHTML =
+        `
+        <td class = "highscore-header">Gamer</td>
+        `
+        highscoresHeaders.appendChild(th1);
+
+        let th2 = document.createElement("th");
+        th2.innerHTML = 
+        `
+        <td class = "highscore-header">Score</td>
+        `
+        highscoresHeaders.appendChild(th2);
+
+        for(x of responseBody){
+            if(httpResponse.status === 200){
+                let tr = document.createElement("tr");
+                tr.innerHTML =
+                `
+                <td class = "highscore-table">${x.gamer_name}</td>
+                <td class = "highscore-table">${x.score}</td>
+                `
+                highscoresData.appendChild(tr);
+            } else {
+                alert("Mr. Farmer has wiped the highscores!");
+            }
+        }
+    }
+
+    async function newHighscore(){
+
+    }
+
+    // comment functionality
+
+    const commentTable = document.getElementById("comments");
+    const commentHeaders = document.getElementById("comment-headers");
+    const commentData = document.getElementById("comment-data");
+
+    async function getComments(){
+        let httpResponse = await fetch("http://localhost:3000/comment");
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+
+        let th1 = document.createElement("th");
+        th1.innerHTML =
+        `
+        <td class = "comment-header">Gamer</td>
+        `
+        commentHeaders.appendChild(th1);
+
+        let th2 = document.createElement("th");
+        th2.innerHTML = 
+        `
+        <td class = "comment-header">Comment</td>
+        `
+        commentHeaders.appendChild(th2);
+
+        for(x of responseBody){
+            if(httpResponse.status === 200){
+                let tr = document.createElement("tr");
+                tr.innerHTML =
+                `
+                <td class = "comment-table">${x.gamer_name}</td>
+                <td class = "comment-table">${x.gamer_comment}</td>
+                `
+                commentData.appendChild(tr);
+            } else {
+                alert("Mr. Farmer has erased the comments!");
+            }
+        }
     }
 </script>
 </html>
