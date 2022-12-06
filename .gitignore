@@ -26,4 +26,4 @@ hs_err_pid*
 hibernate.cfg.xml
 
 # Ignore Node Express database conection
-database.js
+connection.js
