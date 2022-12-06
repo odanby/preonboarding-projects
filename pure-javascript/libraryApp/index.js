@@ -41,7 +41,7 @@ app.post('/book', (req, res) => {
     console.log(book);
     books.push(book);
 
-    res.send('Book successfully added to the database!');
+    res.json({success: true});
 });
 
 app.get('/book', (req, res) => {

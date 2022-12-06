@@ -31,8 +31,6 @@ const deleteBook = (isbn) => {
     xhttp.open("DELETE", `http://localhost:3002/book/${isbn}`, false);
     xhttp.send();
 
-    alert("Book deleted!")
-
     location.reload();
 }
 

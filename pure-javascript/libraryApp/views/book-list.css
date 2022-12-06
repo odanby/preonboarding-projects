@@ -1,0 +1,94 @@
+body {
+    background-image: url("https://media.istockphoto.com/id/1285468795/photo/candles-in-a-church-background.jpg?s=170667a&w=0&k=20&c=U0hKTwjzv4md1w8ebUSRRIb6LXTak4VPDnOrcFACVWc=");
+    background-size: 100%;
+}
+
+#entire-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 250px;
+}
+
+#right-side-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+}
+
+#book-list-div{
+    background-color: #d8c28dc5;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 20px;
+    border-radius: 30px;
+}
+
+#edit-book-div{
+    background-color: #d8c28dc5;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 20px;
+    border-radius: 30px;
+}
+
+#create-new-book-div{
+    background-color: #d8c28dc5;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 30px;
+}
+
+h1 {
+    font-family: 'Lavishly Yours', Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 55px;
+    color: #481111;
+}
+
+hr {
+    border: 1px solid #986043;
+}
+
+button {
+    text-align: center;
+    height: 25px;
+    width: 75px;
+    padding: 2px 10px 2px 10px;
+    vertical-align: middle;
+    font-size: 18px;
+    font-family: 'EB Garamond', Courier, monospace;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    background-color: #986043;
+    color: wheat;
+}
+
+form {
+    font-family: 'EB Garamond', Courier, monospace;
+    font-size: 22px;
+    color: #481111;
+}
+
+input {
+    text-align: center;
+    font-family: 'EB Garamond', Courier, monospace;
+    font-size: 14px;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    background-color: wheat;
+    color: #986043;   
+    height: 24px;
+    width: 300px;
+}
+
+#books {
+    font-family: 'EB Garamond', Courier, monospace;
+    font-size: 20px;
+    color: #481111;
+}
