@@ -7,7 +7,7 @@
     <title>Cow Escape Home</title>
     <link rel = "stylesheet" href = "css/index.css">
 </head>
-<body>
+<body onload = "getHighscoresAndComments()">
     <h1>Cow Escape</h1>
     <div id = "name-and-play-div">
         <label>Please Enter Your Name:</label>
@@ -26,20 +26,12 @@
         <input type = "text" id = "new-gamer-name-comment" placeholder = "JMama8">
         <label>Comment:</label>
         <input type = "text" id = "comment-input" placeholder = "This is the best game ever!">
+        <button onclick = "postNewComment()">Post</button>
         <table id = "comments">
             <thead id = "comment-headers"></thead>
             <tbody id = "comment-data"></tbody>
         </table>
     </div>
-
-    <!-- I need four endpoints/features, one of which requires user input
-    
-        1. Get all game scores
-        2. Post new score and user
-        3. Post a comment on the game
-        4. Get all comments
-
-    -->
 </body>
 <script>
 
@@ -132,6 +124,40 @@
                 alert("Mr. Farmer has erased the comments!");
             }
         }
+    }
+
+    async function postNewComment(){
+        let commentInfo = {
+            gamer_name: document.getElementById("new-gamer-name-comment").value,
+            gamer_comment: document.getElementById("comment-input").value
+        };
+
+        let createCommentJSON = JSON.stringify(commentInfo);
+
+        let config = {
+            method: "POST",
+            headers: {'Content-Type': "application/json"},
+            body: createCommentJSON
+        }
+
+        let httpResponse = await fetch("http://localhost:3000/comment/new", config);
+
+        console.log(httpResponse.status)
+        console.log(httpResponse)
+        console.log(commentInfo)
+
+        if(httpResponse.status === 200){
+            let responseBody = await httpResponse.json();
+            alert("Comment posted!");
+            location.reload();
+        } else {
+            alert("Comment could not be posted.")
+        }
+    }
+
+    function getHighscoresAndComments(){
+        getHighscores();
+        getComments();
     }
 </script>
 </html>
