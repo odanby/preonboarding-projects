@@ -20,8 +20,6 @@
     <h2>Escape the Farm!</h2>
     <h3>Press the spacebar to jump over fences.</h3>
     <h4 id = "gamer-name-here"></h4>
-    <h5 id = "current-highscore-here"></h5> <!-- i want to figure out how to make the current highscore START at 0 but each time it refreshes it takes the highest score -->
-    <script src = "script.js"></script>
 </body>
 <script>
 
@@ -31,6 +29,42 @@
     const cow = document.getElementById("cow");
     const fence = document.getElementById("fence");
     const score = document.getElementById("score");
+
+    async function postNewHighScore(gamer_name, score){
+        // let scoreInfo = {
+        //     gamer_name: document.getElementById("gamer-name-here").value,
+        //     score: document.getElementById("score").value
+        // };
+
+        // gamer_name = "Oriana";
+        // score = 10000001;
+
+        let scoreInfo = {
+            gamer_name: gamer_name,
+            score: score
+        };
+
+        console.log(scoreInfo);
+        let createScoreJSON = JSON.stringify(scoreInfo);
+
+        let config = {
+            method: "POST",
+            headers: {'Content-Type': "application/json"},
+            body: createScoreJSON
+        };
+
+        let httpResponse = await fetch("http://localhost:3000/highscore/new", config);
+
+        console.log(httpResponse.status);
+        console.log(httpResponse);
+        console.log(scoreInfo);
+
+        if(httpResponse.status === 200){
+            let responseBody = await httpResponse.json();
+        } else {
+            console.log("Error posting score.");
+        }
+    }
 
     function jump(){
         cow.classList.add("jump-animation");
@@ -45,9 +79,8 @@
         }
     });
 
-    const currentHighscore = document.getElementById("current-highscore-here");
 
-    setInterval(() => {
+    let processorMethod = () => {
         score.innerText++;
         const cowTop = parseInt(window.getComputedStyle(cow).getPropertyValue("top"));
         const fenceLeft = parseInt(window.getComputedStyle(fence).getPropertyValue("left"));
@@ -56,20 +89,34 @@
         } else {
             fence.style.display = "";
         }
-
+        
         if(fenceLeft < 50 && fenceLeft > 0 && cowTop > 150){
-            if(parseInt(score.textContent) > parseInt(currentHighscore.textContent)){
-                    sessionStorage.setItem("new-highscore", score.value);
-                    currentHighscore.textContent = `${sessionStorage.getItem("new-highscore")}`;
-                }
+            
             let result = confirm("You got a score of: " + score.innerText + "\n\n Play again?");
+            console.log("Checkpoint 1");
+            console.log("Document? ", document);
+            
+            // let result = false;
+
+            let scoreInfo = {
+                gamer_name: document.getElementById("gamer-name-here").innerText,
+                score: document.getElementById("score").innerText
+            };
+
+            console.log("Here I am", scoreInfo);
+
             if(result == true){
-                location.reload();
+                postNewHighScore(scoreInfo.gamer_name, scoreInfo.score);
+                // location.reload();
             } else {
+                postNewHighScore(scoreInfo.gamer_name, scoreInfo.score);
                 window.location.href = "/";
             }
         }
-    }, 50);
+    };
+
+    setInterval(processorMethod, 50);
+
 
 </script>
 </html>

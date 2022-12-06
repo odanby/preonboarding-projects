@@ -4,35 +4,35 @@ body {
 
 h2 {
     text-align: center;
-    color: #4a67af;
+    color: #1f3a7c;
     font-size: 30px;
     font-family: 'Audiowide', 'Courier New', Courier, monospace;
 }
 
 h3 {
     text-align: center;
-    color: #4a67af;
+    color: #1f3a7c;
     font-size: 20px;
     font-family: 'Audiowide', 'Courier New', Courier, monospace;
 }
 
 h4 {
     text-align: center;
-    color: #4a67af;
+    color: #1f3a7c;
     font-size: 15px;
-    font-family: 'Audiowide', 'Courier New', Courier, monospace;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
 }
 
 h5 {
     text-align: center;
-    color: #4a67af;
+    color: #1f3a7c;
     font-size: 12;
     font-family: 'Audiowide', 'Courier New', Courier, monospace;
 }
 
 #score {
     text-align: center;
-    color: #4a67af;
+    color: #1f3a7c;
     font-size: 40px;
     font-family: 'Audiowide', 'Courier New', Courier, monospace;
 }
@@ -40,7 +40,7 @@ h5 {
 #game {
     width: 600px;
     height: 300px;
-    border: 2px solid #4a67af;
+    border: 2px solid #1f3a7c;
     margin: auto;
     background-image: url("https://static.vecteezy.com/system/resources/previews/011/484/158/original/pixel-art-farm-landscape-with-barn-mill-fence-trees-8-bit-game-background-vector.jpg");
     background-size: cover;

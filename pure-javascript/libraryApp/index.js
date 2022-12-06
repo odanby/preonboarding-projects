@@ -90,7 +90,8 @@ app.post('/book/:isbn', (req, res) => {
         }
     }
 
-    res.send('Book is edited');
+    // res.send('Book is edited');
+    console.log("Book is edited!");
 });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));

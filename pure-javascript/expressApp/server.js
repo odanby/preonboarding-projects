@@ -44,23 +44,7 @@
         let insertQuery = `insert into highscores(gamer_name, score) values ('${highscore.gamer_name}', ${highscore.score})`
         client.query(insertQuery, (err, result) => {
             if(!err){
-                res.send('New score posted!')
-            } else {
-                console.log(err.message)
-            }
-        })
-        client.end;
-    })
-
-    // updates a highscore
-    app.put("/highscore/:gamer_name", (req, res) => {
-        let highscore = req.body;
-        let updateQuery = `update highscores
-                            set score = ${highscore.score}
-                            where gamer_name = '${highscore.gamer_name}'`
-        client.query(updateQuery, (err, result) => {
-            if(!err){
-                res.send('Update successful')
+                res.send("{}");
             } else {
                 console.log(err.message)
             }
@@ -86,9 +70,12 @@
 
         client.query(insertQuery, (err, result)=>{
             if(!err){
-                res.send('Insertion was successful')
+                res.send("{}");
             }
             else{ console.log(err.message) }
         })
         client.end;
     })
+
+    // questions:
+        // Making sure score posts to high score board every time the game ends. Probably going to run into same issue as posting a comment

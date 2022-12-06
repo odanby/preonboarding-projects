@@ -6,34 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cow Escape Home</title>
     <link rel = "stylesheet" href = "css/index.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    </style>
 </head>
 <body onload = "getHighscoresAndComments()">
     <h1>Cow Escape</h1>
     <div id = "name-and-play-div">
-        <label>Please Enter Your Name:</label>
+        <label id = "enter-name-label">Please Enter Your Name:</label>
+        <br>
         <input type = "text" id = "new-gamer-name-play">
-        <button onclick = goToGame()>Play!</button>
+        <button onclick = goToGame() id = "play-button">Play!</button>
     </div>
-    <div id = "high-scores-div">
-        <table id = "high-scores">
-            <thead id = "high-scores-headers"></thead> <!-- Dynamically generate headers of name and score -->
-            <tbody id = "high-scores-data"></tbody> <!-- Dynamically fill in this input -->
-        </table>
-    </div>
-    <div id = "comments-div">
-        <h2>Enjoyed playing? Leave a comment!</h2>
-        <label>Name:</label>
-        <input type = "text" id = "new-gamer-name-comment" placeholder = "JMama8">
-        <label>Comment:</label>
-        <input type = "text" id = "comment-input" placeholder = "This is the best game ever!">
-        <button onclick = "postNewComment()">Post</button>
-        <table id = "comments">
-            <thead id = "comment-headers"></thead>
-            <tbody id = "comment-data"></tbody>
-        </table>
+    <div id = "main-div">
+        <div id = "high-scores-div">
+            <table id = "high-scores">
+                <thead id = "high-scores-headers"></thead> <!-- Dynamically generate headers of name and score -->
+                <tbody id = "high-scores-data"></tbody> <!-- Dynamically fill in this input -->
+            </table>
+        </div>
+        <div id = "comments-div">
+            <h2>Enjoyed playing? Leave a comment!</h2>
+            <div id = "new-comment-div">
+                <label>Name:</label>
+                <input type = "text" id = "new-gamer-name-comment" placeholder = "JMama8">
+                <label>Comment:</label>
+                <input type = "text" id = "comment-input" placeholder = "This is the best game ever!">
+                <br>
+                <button onclick = "postNewComment()" id = "post-comment-button">Post</button>
+            </div>
+            <hr>
+            <table id = "comments">
+                <thead id = "comment-headers"></thead>
+                <tbody id = "comment-data"></tbody>
+            </table>
+        </div>
     </div>
 </body>
 <script>
+
+    // change buttons colors
+    const playButton = document.getElementById("play-button");
+    const postCommentButton = document.getElementById("post-comment-button");
+
+    function changePlayButtonColor(){
+        playButton.style.color = "#ffffff";
+        playButton.style.backgroundColor = "#1f3a7c";
+    }
+
+    function changeCommentButtonColor(){
+        postCommentButton.style.color = "#ffffff";
+        postCommentButton.style.backgroundColor = "#1f3a7c";
+    }
+
+    playButton.addEventListener("mouseover", changePlayButtonColor)
+    postCommentButton.addEventListener("mouseover", changeCommentButtonColor);
+
+    // revert buttons colors
+
+    function revertPlayButtonColor(){
+        playButton.style.color = "#1f3a7c";
+        playButton.style.backgroundColor = "#ffffff";
+    }
+
+    function revertCommentButtonColor(){
+        postCommentButton.style.color = "#1f3a7c";
+        postCommentButton.style.backgroundColor = "#ffffff";
+    }
+
+    playButton.addEventListener("mouseleave", revertPlayButtonColor);
+    postCommentButton.addEventListener("mouseleave", revertCommentButtonColor);
+
+    // play
 
     const newGamerNamePlay = document.getElementById("new-gamer-name-play");
 
@@ -67,6 +112,12 @@
         `
         highscoresHeaders.appendChild(th2);
 
+        responseBody = responseBody.sort(
+            function sortDescending(a, b){  // pull out beforehand to sort before we actually start using and generating it
+                return b.score - a.score;
+            }
+        );
+        
         for(x of responseBody){
             if(httpResponse.status === 200){
                 let tr = document.createElement("tr");
@@ -80,10 +131,6 @@
                 alert("Mr. Farmer has wiped the highscores!");
             }
         }
-    }
-
-    async function newHighscore(){
-
     }
 
     // comment functionality
