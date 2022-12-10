@@ -15,9 +15,8 @@
     max-height: 100%;
 }
 
-#layer1, #layer2, #layer3, #layer4, #player, #ghost1, #ghost2, #ghost3 {
+#layer1, #layer2, #layer3, #layer4, #player, #ghost1, #ghost2, #ghost3, #projectile, #bones {
     display: none;
-    color: #6edf41;
 }
 
 body {
