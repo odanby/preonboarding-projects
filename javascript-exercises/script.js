@@ -35,7 +35,7 @@ window.addEventListener('load', function(){
             this.y = y;
             this.width = 15;
             this.height = 3;
-            this.speed = 6;
+            this.speed = 8;
             this.markedForDeletion = false;
         }
         update(){
@@ -67,6 +67,9 @@ window.addEventListener('load', function(){
             this.maxSpeed = 3;
             this.projectiles = [];
             this.image = document.getElementById("player");
+            this.powerUp = false;
+            this.powerUpTimer = 0;
+            this.powerUpLimit = 10000;
         }
         update(){
             if(this.game.keys.includes("ArrowUp")) this.speedY = -this.maxSpeed;
@@ -84,6 +87,16 @@ window.addEventListener('load', function(){
             // } else {
             //     this.frameX = 0;
             // }
+            // power up
+            if (this.powerUp){
+                if(this.powerUpTimer > this.powerUpLimit){
+                    this.powerUpTimer = 0;
+                    this.powerUp = false;
+                    // make it so the image changes to green hands
+                } else {
+                    this.powerUpTimer += deltaTime;
+                }
+            }
         }
         draw(context){
             if(this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height);
@@ -94,7 +107,7 @@ window.addEventListener('load', function(){
         }
         shootTop(){
             if(this.game.ammo > 0){
-                this.projectiles.push(new Projectile(this.game, this.x + 80, this.y + 30));
+                this.projectiles.push(new Projectile(this.game, this.x + 100, this.y + 50));
                 this.game.ammo--;
             }
         }
@@ -106,30 +119,61 @@ window.addEventListener('load', function(){
         constructor(game){
             this.game = game;
             this.x = this.game.width;
-            this.speedX = Math.random() * -2.5 - 0.5;
+            this.speedX = Math.random() * -1.5 - 0.5;
             this.markedForDeletion = false;
-            this.lives = 5;
-            this.score = this.lives;
+            this.frameX = 0;
+            this.frameY = 0;
+            this.maxFrame = 1;
         }
         update(){
-            this.x += this.speedX;
+            this.x += this.speedX - this.game.speed;
             if(this.x + this.width < 0) this.markedForDeletion = true;
         }
         draw(context){
-            context.fillStyle = "red";
-            context.fillRect(this.x, this.y, this.width, this.height);
-            context.fillStyle = "black";
+            if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height);
+            context.drawImage(this.image, this.x, this.y);
             context.font = "20px Helvetica";
-            context.fillText(this.lives, this.x, this.y);
+            if (this.game.debug) context.fillText(this.lives, this.x, this.y);
         }
     }
 
     class Ghost1 extends Enemy {
         constructor(game){
             super(game);
-            this.width = 228 * 0.2;
-            this.height = 169 * 0.2;
+            this.width = 200;
+            this.height = 180;
+            this.lives = 2;
+            this.score = this.lives;
             this.y = Math.random() * (this.game.height * 0.9 - this.height);
+            this.image = document.getElementById("ghost1");
+            this.frameY = Math.floor(Math.random() * 3);
+        }
+    }
+
+    class Ghost2 extends Enemy {
+        constructor(game){
+            super(game);
+            this.width = 190;
+            this.height = 179;
+            this.lives = 3;
+            this.score = this.lives;
+            this.y = Math.random() * (this.game.height * 0.9 - this.height);
+            this.image = document.getElementById("ghost2");
+            this.frameY = Math.floor(Math.random() * 3);
+        }
+    }
+
+    class Ghost3 extends Enemy {
+        constructor(game){
+            super(game);
+            this.width = 190;
+            this.height = 179;
+            this.lives = 3;
+            this.score = 5;
+            this.y = Math.random() * (this.game.height * 0.9 - this.height);
+            this.image = document.getElementById("ghost3");
+            this.frameY = Math.floor(Math.random() * 3);
+            this.type = "ghost3";
         }
     }
 
@@ -163,7 +207,7 @@ window.addEventListener('load', function(){
             this.layer1 = new Layer(this.game, this.image1, 0.2);
             this.layer2 = new Layer(this.game, this.image2, 0.4);
             this.layer3 = new Layer(this.game, this.image3, 1);
-            this.layer4 = new Layer(this.game, this.image4, 1.5);
+            this.layer4 = new Layer(this.game, this.image4, 3.5);
             this.layers = [this.layer1, this.layer2, this.layer3];
         }
         update(){
@@ -177,7 +221,7 @@ window.addEventListener('load', function(){
     class UI {
         constructor(game){
             this.game = game;
-            this.fontSize = 35;
+            this.fontSize = 25;
             this.fontFamily = 'Henny Penny';
             this.color = "#6edf41";
         }
@@ -241,9 +285,9 @@ window.addEventListener('load', function(){
             this.ammoInterval = 500;
             this.gameOver = false;
             this.score = 0;
-            this.winningScore = 10;
+            this.winningScore = 100;
             this.gameTime = 0;
-            this.timeLimit = 5000;
+            this.timeLimit = 120000;
             this.speed = 1;
             this.debug = false;
         }
@@ -294,7 +338,10 @@ window.addEventListener('load', function(){
             this.ui.draw(context);
         }
         addEnemy(){
-            this.enemies.push(new Ghost1(this));
+            const randomize = Math.random();
+            if (randomize < 0.3) this.enemies.push(new Ghost1(this));
+            else if (randomize < 0.6) this.enemies.push(new Ghost2(this));
+            else this.enemies.push(new Ghost3(this));
         }
         checkCollision(rect1, rect2){
             return (

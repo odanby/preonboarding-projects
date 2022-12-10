@@ -15,8 +15,11 @@
     max-height: 100%;
 }
 
-#layer1, #layer2, #layer3, #layer4, #player {
+#layer1, #layer2, #layer3, #layer4, #player, #ghost1, #ghost2, #ghost3 {
     display: none;
     color: #6edf41;
 }
 
+body {
+    background-color: #000000;
+}
