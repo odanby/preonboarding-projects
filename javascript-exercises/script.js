@@ -41,7 +41,7 @@ window.addEventListener('load', function(){
         }
         update(){
             this.x += this.speed;
-            if(this.x > this.game.width * 0.8) this.markedForDeletion = true;
+            if(this.x > this.game.width * 0.95) this.markedForDeletion = true;
         }
         draw(context){
             context.drawImage(this.image, this.x, this.y);
@@ -181,7 +181,7 @@ window.addEventListener('load', function(){
             this.width = 200;
             this.height = 180;
             this.lives = 2;
-            this.score = 8;
+            this.score = 10;
             this.y = Math.random() * (this.game.height * 0.9 - this.height);
             this.image = document.getElementById("ghost1");
             this.frameY = Math.floor(Math.random() * 3);
@@ -194,7 +194,7 @@ window.addEventListener('load', function(){
             this.width = 190;
             this.height = 179;
             this.lives = 3;
-            this.score = 9;
+            this.score = 11;
             this.y = Math.random() * (this.game.height * 0.9 - this.height);
             this.image = document.getElementById("ghost2");
             this.frameY = Math.floor(Math.random() * 3);
@@ -207,7 +207,7 @@ window.addEventListener('load', function(){
             this.width = 190;
             this.height = 179;
             this.lives = 3;
-            this.score = 7;
+            this.score = 13;
             this.y = Math.random() * (this.game.height * 0.9 - this.height);
             this.image = document.getElementById("ghost3");
             this.frameY = Math.floor(Math.random() * 3);
@@ -377,13 +377,13 @@ window.addEventListener('load', function(){
             this.explosions = [];
             this.enemyTimer = 0;
             this.enemyInterval = 1000;
-            this.ammo = 20;
-            this.maxAmmo = 50;
+            this.ammo = 50;
+            this.maxAmmo = 75;
             this.ammoTimer = 0;
             this.ammoInterval = 500;
             this.gameOver = false;
             this.score = 0;
-            this.winningScore = 800;
+            this.winningScore = 1000;
             this.gameTime = 0;
             this.timeLimit = 12000;
             this.speed = 1;
