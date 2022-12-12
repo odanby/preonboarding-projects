@@ -15,10 +15,32 @@
     max-height: 100%;
 }
 
-#layer1, #layer2, #layer3, #layer4, #player, #ghost1, #ghost2, #ghost3, #projectile, #bones {
+#layer1, #layer2, #layer3, #layer4, #player, #ghost1, #ghost2, #ghost3, #projectile, #bones, #smokeExplosion {
     display: none;
 }
 
 body {
     background-color: #000000;
+}
+
+#bg-music {
+    width: 100px;
+    height: 30px;
+}
+
+#unmute-button {
+    color: black;
+    font-family: 'Henny Penny','Courier New', Courier, monospace;
+    font-size: 10px;
+    margin-top: 10px;
+    background-color: #6edf41;
+    padding: 5px 5px 5px 5px;
+}
+
+#audio {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 20px;
 }
