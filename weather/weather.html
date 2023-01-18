@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="weather.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    </style>
+    <title>Weather App</title>
+</head>
+<body>
+    <div class = "search">
+        <input type = "text" id = "city-search" placeholder = "City">
+        <input type = "text" id = "country-search" placeholder = "Country">
+        <button onclick = "getWeather()">Search</button>
+    </div>
+    <div class = "weather">
+        <table id = "weather-table"></table>
+    </div>
+
+    <!--
+        Times of Day Base Photo:
+        Dawn
+        Morning
+        Noon
+        Afternoon
+        Sunset
+        Dusk
+        Night
+        Sprite Animation:
+        Cloud
+        Fog
+        Rain
+        Snow
+    -->
+
+</body>
+<script src = "weather.js"></script>
+</html>

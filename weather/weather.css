@@ -1,0 +1,13 @@
+body {
+    background-image: url(dawn.jpg);
+    background-size: cover;
+}
+
+.search {
+    background-color: green;
+}
+
+.weather {
+    background-color: orange;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
+}
