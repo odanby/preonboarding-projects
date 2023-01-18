@@ -140,3 +140,11 @@ FEATURES:
     - Users can edit a note
 - Logout 
     - User should be able to logout of their account and be returned to the login page
+
+DATABASE:
+What tables and columns do I need and how should they be related to each other?
+
+User table:
+- First name
+- Username
+- Password
