@@ -113,6 +113,7 @@ FEATURES:
         - All registration fields need to be completed to register
         - Confirmation of password and password MUST match
         - Confirmation of email and email MUST match
+        - Users need to select their state and city
 - Check in
     - Users can tell Tabitha's World how they are feeling today and the website will respond with an appropriate response
     - The check in should generate the corresponding user's first name during this check-in 
@@ -145,6 +146,65 @@ DATABASE:
 What tables and columns do I need and how should they be related to each other?
 
 User table:
+- ID
 - First name
 - Username
 - Password
+- Email
+- US Zip Code
+
+Calendar table:
+- Foreign key of id from user table
+- Year
+- Month
+- Day
+- Day of the week
+- Event id
+- Event title
+- Event description
+- Event start time
+- Event end time
+- Event completion status
+- Day completion status
+
+Category table:
+- Foreign key of id from user table
+- Category id
+- Category
+
+List table:
+- Foreign key of id from user table
+- Join calendar table (if they make an event)
+- Join category table
+- Task id
+- Task
+- Task frequency
+- Task completion status
+
+Notebook: 
+- Foreign key of username from user table
+- Notebook id
+- Title of entry
+- Date of entry
+- Content of entry
+
+- Checkin doesn't need a table. No data from there will be stored
+- Weather will be using an API
+- Daily quote will use an API
+
+-----
+
+- MAKE SQL TABLES (DONE!)
+    - USER (DONE)
+    - NOTEBOOK (DONE)
+    - CATEGORY (DONE)
+    - CALENDAR (DONE)
+    - LIST (DONE)
+- ADD DUMMY DATA (DONE!)
+- CONFIGURE WITH HIBERNATE (DONE!)
+    - User (DONE)
+    - TaskList (DONE)
+    - Notebook (DONE)
+    - Category (DONE)
+    - Calendar (DONE)
+- CREATE INTERFACES AND IMPLEMENT THEM
