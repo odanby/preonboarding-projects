@@ -207,9 +207,9 @@ Notebook:
     - Notebook (DONE)
     - Category (DONE)
     - Calendar (DONE)
-- CREATE INTERFACES AND IMPLEMENT THEM
+- CREATE INTERFACES AND IMPLEMENT THEM (DONE)
     - User (DONE)
-    - Tasklist
+    - Tasklist (DONE)
     - Notebook (DONE)
     - Category (DONE)
-    - Calendar
+    - Calendar (DONE)

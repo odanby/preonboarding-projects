@@ -33,10 +33,10 @@ public class NotebookDAO implements NotebookDAOInterface {
 
     @Override
     public boolean removeNotebookEntry(Notebook notebookEntryToBeDeleted) {
-            HibernateUtil.beginTransaction();
-            HibernateUtil.getSession().delete(notebookEntryToBeDeleted);
-            HibernateUtil.endTransaction();
-            return true;
+        HibernateUtil.beginTransaction();
+        HibernateUtil.getSession().delete(notebookEntryToBeDeleted);
+        HibernateUtil.endTransaction();
+        return true;
     }
 
     @Override
@@ -45,6 +45,14 @@ public class NotebookDAO implements NotebookDAOInterface {
         HibernateUtil.getSession().update(updatedNotebookEntry);
         HibernateUtil.endTransaction();
         return updatedNotebookEntry;
+    }
+
+    @Override
+    public List<Notebook> getAllNotebookEntries() {
+        HibernateUtil.beginTransaction();
+        List<Notebook> requestList = HibernateUtil.getSession().createQuery("from Notebook", Notebook.class).getResultList();
+        HibernateUtil.endTransaction();
+        return requestList;
     }
     
 }

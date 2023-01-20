@@ -12,7 +12,11 @@ public interface NotebookDAOInterface {
         // create a notebook entry
         // delete notebook entry
         // update a notebook entry
+        // get all notebook entries
     
+    // retrieve all notebook entries
+    List<Notebook> getAllNotebookEntries();
+
     // retrieve notebook entry by user id
     List<Notebook> getAllNotebookEntriesByUserId(int task_user_id);
 
