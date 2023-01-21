@@ -17,7 +17,7 @@ public class HibernateUtil {
             Configuration cfg = new Configuration();
 
             // connect configuration to the file:
-            cfg.configure("resources/hibernate.cfg.xml");
+            cfg.configure("com/tabitha/resources/hibernate.cfg.xml");
 
             // a factory that creates sessions (this line creates the table in the database)
             sessionFactory = cfg.buildSessionFactory();

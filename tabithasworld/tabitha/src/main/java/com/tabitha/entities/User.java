@@ -2,6 +2,7 @@ package com.tabitha.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "task_user")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String first_name;
     private String username;
@@ -49,6 +50,15 @@ public class User {
             this.email = email;
             this.zip_code = zip_code;
         }
+
+    // update location
+    public User(
+        int id,
+        String zip_code
+    ){
+        this.id = id;
+        this.zip_code = zip_code;
+    }
 
     // getters
 

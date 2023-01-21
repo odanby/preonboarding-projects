@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,14 +12,14 @@ import javax.persistence.Table;
 @Table(name = "calendar")
 public class Calendar {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int event_id;
     private String event_title;
     private String event_desc;
-    private char event_status;
+    private String event_status;
     private Timestamp event_start;
     private Timestamp event_end;
-    private char day_status;
+    private String day_status;
     private int task_user_id;
 
     // an empty constructor
@@ -29,10 +30,10 @@ public class Calendar {
         int event_id,
         String event_title,
         String event_desc,
-        char event_status,
+        String event_status,
         Timestamp event_start,
         Timestamp event_end,
-        char day_status,
+        String day_status,
         int task_user_id
     ){
         this.event_id = event_id;
@@ -49,10 +50,10 @@ public class Calendar {
     public Calendar(
         String event_title,
         String event_desc,
-        char event_status,
+        String event_status,
         Timestamp event_start,
         Timestamp event_end,
-        char day_status,
+        String day_status,
         int task_user_id
     ){
         this.event_title = event_title;
@@ -88,11 +89,11 @@ public class Calendar {
         this.event_desc = event_desc;
     }
 
-    public char getEvent_status() {
+    public String getEvent_status() {
         return event_status;
     }
 
-    public void setEvent_status(char event_status) {
+    public void setEvent_status(String event_status) {
         this.event_status = event_status;
     }
 
@@ -112,11 +113,11 @@ public class Calendar {
         this.event_end = event_end;
     }
 
-    public char getDay_status() {
+    public String getDay_status() {
         return day_status;
     }
 
-    public void setDay_status(char day_status) {
+    public void setDay_status(String day_status) {
         this.day_status = day_status;
     }
 

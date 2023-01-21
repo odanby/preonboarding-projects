@@ -32,7 +32,7 @@ public class CalendarDAO implements CalendarDAOInterface {
     }
 
     @Override
-    public List<Calendar> getAllCalendarEventsByEventStatus(int event_status) {
+    public List<Calendar> getAllCalendarEventsByEventStatus(String event_status) {
         HibernateUtil.beginTransaction();
         List<Calendar> requestList = HibernateUtil.getSession().createQuery("from Calendar where event_status = :EventStatus", Calendar.class).setParameter("EventStatus", event_status).getResultList();
         HibernateUtil.endTransaction();
@@ -40,7 +40,7 @@ public class CalendarDAO implements CalendarDAOInterface {
     }
 
     @Override
-    public List<Calendar> getAllCalendarEventsByDayStatus(int day_status) {
+    public List<Calendar> getAllCalendarEventsByDayStatus(String day_status) {
         HibernateUtil.beginTransaction();
         List<Calendar> requestList = HibernateUtil.getSession().createQuery("from Calendar where day_status = :DayStatus", Calendar.class).setParameter("DayStatus", day_status).getResultList();
         HibernateUtil.endTransaction();

@@ -2,6 +2,7 @@ package com.tabitha.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,11 +10,11 @@ import javax.persistence.Table;
 @Table(name = "task_list")
 public class TaskList {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int task_id;
     private String task_desc;
     private int task_frequency;
-    private char task_status;
+    private String task_status;
     private int task_user_id;
     private int category_id;
 
@@ -25,7 +26,7 @@ public class TaskList {
         int task_id,
         String task_desc,
         int task_frequency,
-        char task_status,
+        String task_status,
         int task_user_id,
         int category_id
     ){
@@ -41,7 +42,7 @@ public class TaskList {
     public TaskList(
         String task_desc,
         int task_frequency,
-        char task_status,
+        String task_status,
         int task_user_id,
         int category_id
     ){
@@ -76,11 +77,11 @@ public class TaskList {
         this.task_frequency = task_frequency;
     }
 
-    public char getTask_status() {
+    public String getTask_status() {
         return task_status;
     }
 
-    public void setTask_status(char task_status) {
+    public void setTask_status(String task_status) {
         this.task_status = task_status;
     }
 

@@ -26,10 +26,10 @@ public interface CalendarDAOInterface {
     List<Calendar> getAllCalendarEventsByEventId(int event_id);
 
     // retrieve calendar events by completion status
-    List<Calendar> getAllCalendarEventsByEventStatus(int event_status);
+    List<Calendar> getAllCalendarEventsByEventStatus(String event_status);
 
     // retrieve calendar events by day status
-    List<Calendar> getAllCalendarEventsByDayStatus(int day_status);
+    List<Calendar> getAllCalendarEventsByDayStatus(String day_status);
 
     // create calendar event
     Calendar createCalendarEvent(Calendar newCalendarEvent);

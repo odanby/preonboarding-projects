@@ -2,17 +2,20 @@ package com.tabitha.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import java.sql.Date;
 
 @Entity
 @Table(name = "notebook")
 public class Notebook {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int notebook_id;
     private String entry_title;
-    private String entry_date;
+    private Date entry_date;
     private String entry_content;
     private int task_user_id;
 
@@ -23,7 +26,7 @@ public class Notebook {
     public Notebook(
         int notebook_id,
         String entry_title,
-        String entry_date,
+        Date entry_date,
         String entry_content,
         int task_user_id){
             this.notebook_id = notebook_id;
@@ -36,7 +39,7 @@ public class Notebook {
     // constructor without id
     public Notebook(
         String entry_title,
-        String entry_date,
+        Date entry_date,
         String entry_content,
         int task_user_id){
             this.entry_title = entry_title;
@@ -61,11 +64,11 @@ public class Notebook {
         this.entry_title = entry_title;
     }
 
-    public String getEntry_date() {
+    public Date getEntry_date() {
         return entry_date;
     }
 
-    public void setEntry_date(String entry_date) {
+    public void setEntry_date(Date entry_date) {
         this.entry_date = entry_date;
     }
 
