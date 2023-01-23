@@ -1,0 +1,46 @@
+body {
+    /* background-color: #b8d1ee; */
+    font-family: 'Jost', sans-serif;
+    color: #4e4d4d;
+    text-transform: lowercase;
+    background-image: url("C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/images/6728670.webp");
+    background-size: cover;
+}
+
+h1 {
+    color: #8d6cad;
+    font-size: 40px;
+}
+
+label {
+    color: #8d6cad;
+    font-size: 25px;
+    margin-top: -10px;
+}
+
+#login-div {
+    text-align: center;
+    margin-top: -40px;
+}
+
+#logo {
+    height: 300px;
+    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#flying-pig {
+    height: 75px;
+    width: auto;
+}
+
+input {
+    outline: none;
+    border: none;
+    background: linear-gradient(hsla(270, 35%, 60%, 0.722), hwb(300 53% 7% / 0.722), hwb(306 58% 8% / 0.722));
+    border-radius: 30px;
+    height: 30px;
+    width: 170px;
+}
