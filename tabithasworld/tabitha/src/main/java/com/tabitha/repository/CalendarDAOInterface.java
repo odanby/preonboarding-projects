@@ -34,10 +34,10 @@ public interface CalendarDAOInterface {
     // create calendar event
     Calendar createCalendarEvent(Calendar newCalendarEvent);
 
-    // update calendar event
+    // delete calendar event
     boolean removeCalendarEvent(Calendar calendarEventToBeDeleted);
 
-    // delete calendar event
+    // update calendar event
     Calendar updateCalendarEvent(Calendar updatedCalendarEvent);
     
 }

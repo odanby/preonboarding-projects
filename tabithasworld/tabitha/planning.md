@@ -213,12 +213,12 @@ Notebook:
     - Notebook (DONE)
     - Category (DONE)
     - Calendar (DONE)
-- TEST REPO METHODS 
+- TEST REPO METHODS (DONE)
     - User (DONE)
     - Tasklist (DONE)
     - Notebook (DONE)
     - Category (DONE)
-    - Calendar
+    - Calendar (DONE)
 - CREATE EXCEPTIONS
 - CREATE SERVICES INTERFACES AND IMPLEMENT THEM
 - TEST SERVICE METHODS

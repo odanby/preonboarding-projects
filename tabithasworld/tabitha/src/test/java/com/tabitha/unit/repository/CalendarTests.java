@@ -1,7 +1,5 @@
 package com.tabitha.unit.repository;
 
-import java.sql.Date;
-
 import java.util.List;
 
 import org.junit.Assert;
@@ -57,10 +55,41 @@ public class CalendarTests {
 
     // create calendar event
         // Calendar createCalendarEvent(Calendar newCalendarEvent);
+    @Test
+    public void createCalendarEvent(){
+        String eventStartInput = "2023-01-23 12:00:00";
+        java.sql.Timestamp tsStart = java.sql.Timestamp.valueOf(eventStartInput);
+        String eventEndInput = "2023-01-23 13:00:00";
+        java.sql.Timestamp tsEnd = java.sql.Timestamp.valueOf(eventEndInput);
+        Calendar testEvent = new Calendar(0, "Test event", "Test description", "N", tsStart, tsEnd, "N", 1);
+        Calendar result = calendarDao.createCalendarEvent(testEvent);
+        Assert.assertNotNull(result.getEvent_id());
+    }
 
     // update calendar event
-        // boolean removeCalendarEvent(Calendar calendarEventToBeDeleted);
+        // Calendar updateCalendarEvent(Calendar updatedCalendarEvent);
+    @Test
+    public void updateCalendarEvent(){
+        String eventStartInput = "2023-01-23 12:30:00";
+        java.sql.Timestamp tsStart = java.sql.Timestamp.valueOf(eventStartInput);
+        String eventEndInput = "2023-01-23 13:00:00";
+        java.sql.Timestamp tsEnd = java.sql.Timestamp.valueOf(eventEndInput);
+        Calendar updatedEvent = new Calendar(2, "Test event", "Test description", "N", tsStart, tsEnd, "N", 1);
+        Calendar result = calendarDao.updateCalendarEvent(updatedEvent);
+        Assert.assertEquals(tsStart, result.getEvent_start());
+    }
 
     // delete calendar event
-        // Calendar updateCalendarEvent(Calendar updatedCalendarEvent);
+        // boolean removeCalendarEvent(Calendar calendarEventToBeDeleted);
+    @Test
+    public void removeCalendarEvent(){
+        String eventStartInput = "2023-01-23 08:00:00";
+        java.sql.Timestamp tsStart = java.sql.Timestamp.valueOf(eventStartInput);
+        String eventEndInput = "2023-01-23 08:30:00";
+        java.sql.Timestamp tsEnd = java.sql.Timestamp.valueOf(eventEndInput);
+        Calendar eventToRemove = new Calendar(0, "Delete me", "Delete me description", "Y", tsStart, tsEnd, "Y", 1);
+        calendarDao.createCalendarEvent(eventToRemove);
+        boolean result = calendarDao.removeCalendarEvent(eventToRemove);
+        Assert.assertTrue(result);
+    }
 }
