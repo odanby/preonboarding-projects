@@ -230,3 +230,13 @@ Notebook:
 - WRITE JAVASCRIPT CODE TO CREATE HTTP REQUESTS/RESPONSES
 - WRITE CSS
 - E2E TESTING!
+
+Right now I am working on the HTML and CSS a bit to help get the flow of the website down. Tomorrow let's:
+- Edit the input placeholder
+- Edit the go button
+- Edit the text for registration
+- Animate the pig to bob up and down across the screen like it's flying
+Then move onto the registration page
+- Design it
+Notate what service rules will be necessary for the user login and registration
+Think through what service rules are necessary for the category, task list, notebook, calendar, and weather page
