@@ -35,18 +35,53 @@ label {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 30px;
 }
 
 #flying-pig {
     height: 75px;
     width: auto;
+    position: relative;
+    animation: flyingpig 10s infinite;
+}
+
+@keyframes flyingpig {
+    0% {left: 50px; bottom: 10px; transform: rotateY(0deg)}
+    25% {bottom: 20px;}
+    50% {left: 1200px; bottom: 10px; transform: rotateY(0deg)}
+    51% {transform: rotateY(180deg);}
+    75% {bottom: 20px;}
+    100% {left: 50px; bottom: 10px; transform: rotateY(180deg);}
 }
 
 input {
     outline: none;
     border: none;
-    background: linear-gradient(hsla(270, 35%, 60%, 0.722), hwb(300 53% 7% / 0.722), hwb(306 58% 8% / 0.722));
+    background: linear-gradient(hsla(270, 35%, 60%, 0.622), hwb(300 53% 7% / 0.622), hwb(306 58% 8% / 0.622));
     border-radius: 30px;
     height: 30px;
     width: 170px;
+    color: #8d6cad;
+    font-family: 'Crafty Girls', cursive;
+    text-align: center;
+    font-size: 18px;
+}
+
+button {
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    text-transform: lowercase;
+    height: 30px;
+    width: 50px;
+    font-size: 18px;
+    color: #8d6cad;
+    margin-top: 15px;
+    background: linear-gradient(hsla(318, 74%, 76%, 0.622), hwb(300 58% 4% / 0.622), hwb(307 73% 6% / 0.622));
+}
+
+h3 {
+    color: #8d6cad;
 }

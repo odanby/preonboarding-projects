@@ -7,40 +7,29 @@ body {
     background-size: cover;
 }
 
-img {
-    height: 100px;
-    width: auto;
-}
-
-#emotion-div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 15px
-}
-
-#welcome-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-#main-div {
-    background-color: #fbdbec9f;
-    border-radius: 30px;
-    margin-left: 200px;
-    margin-right: 200px;
-    margin-top: 200px;
-}
-
 h1 {
     color: #8d6cad;
     font-size: 35px;
 }
 
-h2 {
-    color: #8d6cad;
-    font-size: 25px;
+p {
+    font-size: 18px;
+}
+
+#terms-div {
+    background-color: #fbdbec9f;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+#logo {
+    height: 75px;
+    width: auto;
+    float: right;
+    padding-right: 20px;
 }

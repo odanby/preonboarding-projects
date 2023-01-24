@@ -5,8 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
+    <link rel="stylesheet" href = "C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/registration.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crafty+Girls&family=Jost:wght@300&display=swap');
+    </style>
 </head>
 <body>
+    <img src = "C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/images/IMG-7172.PNG" alt = "Tabitha's World Logo" id = "logo">
     <div id = "registration-div">
         <h1>Register</h1>
         <label for = "name-input">First Name</label>
@@ -23,7 +28,10 @@
         <input id = "confirm-email" type = "email">
         <label for = "location-zip">US Zip Code</label>
         <input id = "location-zip" type = "number" max = "99950">
+        <label for = "terms" id = "terms-label">I agree to the <a href = "terms.html">terms and conditions</a> of Tabitha's World.</label>
+        <input type = "checkbox" id = "terms" name = "terms">
         <button>Sign up!</button>
+        <h3>I already have an account! <a href = login.html>Login</a></h3>
     </div>
 </body>
 <script>
