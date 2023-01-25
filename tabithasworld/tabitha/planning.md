@@ -231,7 +231,4 @@ Notebook:
 - WRITE CSS
 - E2E TESTING!
 
-Then move onto the registration page
-- Design it
-Notate what service rules will be necessary for the user login and registration
 Think through what service rules are necessary for the category, task list, notebook, calendar, and weather page

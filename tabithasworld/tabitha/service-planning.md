@@ -9,6 +9,8 @@ E2E:
 - if you enter correct username AND password, you will be taken to your home page
 - if you want to register for a new account, you can click on the registration page link and it'll take you to the registration page
 
+---
+
 Registration:
 SERVICE:
 - validate all fields are present (first name, username, password, email, zip code)
@@ -32,12 +34,52 @@ E2E:
 
 Calendar:
 
+SERVICE:
+
+E2E:
+
+---
+
 Check-in:
+SERVICE:
+None, no back end methods related to it
+
+E2E:
+- ensure that if user clicks on each option, it'll generate a phrase
+- ensure that it says user's name
+- ensure that after clicking on phrase button it'll take them to their homepage
+
+---
 
 Home:
 
+SERVICE:
+
+E2E:
+
+---
+
 Notebook:
+
+SERVICE:
+
+E2E:
+
+---
 
 To-Do:
 
+SERVICE:
+
+E2E:
+
+---
+
 Weather:
+SERVICE:
+- if someone wants to update their zip code, make sure the update still is a valid 5 number answer
+
+E2E:
+- have the weather api pull up the corresponding us zip code's weather
+- make sure system will validate someone's response if they want to change their zip code for weather
+- if not valid zip code change, have an error populate
