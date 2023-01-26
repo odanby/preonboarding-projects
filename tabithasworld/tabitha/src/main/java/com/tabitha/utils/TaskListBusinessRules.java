@@ -6,8 +6,8 @@ public class TaskListBusinessRules {
     
     // task status can only be "Y" or "N"
     // this is an experimental one
-    public boolean containsYOrN(TaskList taskStatusToCheck, String stringTaskStatusToCheck){
-        if(taskStatusToCheck.getTask_status().length() <= 1 && stringTaskStatusToCheck.contains("Y") || stringTaskStatusToCheck.contains("N")){
+    public boolean containsYOrN(TaskList taskStatusToCheck){
+        if(taskStatusToCheck.getTask_status().length() <= 1 && taskStatusToCheck.getTask_status().contains("Y") || taskStatusToCheck.getTask_status().contains("N")){
             return true;
         } else {
             return false;

@@ -1,5 +1,23 @@
 package com.tabitha.service;
 
-public class UserServiceInterface {
+import java.util.List;
+
+import com.tabitha.entities.User;
+
+public interface UserServiceInterface {
     
+    // log in
+    User loginUser(User loginUser);
+
+    // register for new account
+    User serviceCreateUser(User newUser);
+
+    // retrieve all users
+    List<User> serviceGetAllUsers();
+
+    // retrieve user by id
+    List<User> serviceGetUserById(int id);
+
+    // update user location
+    User serviceUpdateLocation(User updatedZipCode);
 }

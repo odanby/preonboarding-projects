@@ -10,7 +10,7 @@ public class UserBusinessRules {
 
         // checking email is in email format
         // this method i'm not sure if it'll work yet
-        public static boolean patternMatches(String emailAddress, String regexPattern) {
+        public boolean patternMatches(String emailAddress, String regexPattern) {
             return Pattern.compile(regexPattern)
             .matcher(emailAddress)
             .matches();
@@ -49,6 +49,15 @@ public class UserBusinessRules {
         // limit first name entry to 50 characters
         public boolean checkFirstNameLength(User firstNameToCheck){
             if(firstNameToCheck.getFirst_name().length() > 50){
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        // limit email entry to 50 characters
+        public boolean checkEmailLength(User emailToCheck){
+            if(emailToCheck.getEmail().length() > 50){
                 return false;
             } else {
                 return true;
