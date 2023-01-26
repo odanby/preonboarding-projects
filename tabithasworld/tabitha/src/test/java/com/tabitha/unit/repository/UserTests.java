@@ -18,7 +18,7 @@ public class UserTests {
         // User createUser(User newUser);
     @Test
     public void createUser(){
-        User testUser = new User(0, "Chef", "chefboyardee", "password321", "ravioli@gmail.com", "11111");
+        User testUser = new User(0, "Chef", "chefboyardee", "password321", "ravioli@gmail.com", 11111);
         User result = userDao.createUser(testUser);
         Assert.assertNotNull(result.getId());
     }
@@ -43,7 +43,7 @@ public class UserTests {
         // User updateLocation(User updatedZipCode);
     @Test
     public void updateLocation(){
-        User updatedLocation = new User(2, "Chef", "chefboyardee", "password321", "ravioli@gmail.com", "11112");
+        User updatedLocation = new User(2, "Chef", "chefboyardee", "password321", "ravioli@gmail.com", 11112);
         User result = userDao.updateLocation(updatedLocation);
         Assert.assertEquals("11112", result.getZip_code());
     }

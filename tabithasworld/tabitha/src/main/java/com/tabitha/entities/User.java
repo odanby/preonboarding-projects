@@ -16,7 +16,7 @@ public class User {
     private String username;
     private String user_password;
     private String email;
-    private String zip_code;
+    private int zip_code;
 
     // an empty constructor
     public User(){};
@@ -28,7 +28,7 @@ public class User {
         String username,
         String user_password,
         String email,
-        String zip_code){
+        int zip_code){
             this.id = id;
             this.first_name = first_name;
             this.username = username;
@@ -43,7 +43,7 @@ public class User {
         String username,
         String user_password,
         String email,
-        String zip_code){
+        int zip_code){
             this.first_name = first_name;
             this.username = username;
             this.user_password = user_password;
@@ -54,7 +54,7 @@ public class User {
     // update location
     public User(
         int id,
-        String zip_code
+        int zip_code
     ){
         this.id = id;
         this.zip_code = zip_code;
@@ -82,7 +82,7 @@ public class User {
         return email;
     }
 
-    public String getZip_code() {
+    public int getZip_code() {
         return zip_code;
     }
     
@@ -108,7 +108,7 @@ public class User {
         this.email = email;
     }
 
-    public void setZip_code(String zip_code) {
+    public void setZip_code(int zip_code) {
         this.zip_code = zip_code;
     }
 
