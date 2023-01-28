@@ -1,21 +1,25 @@
 package com.tabitha.utils;
 
+import java.sql.Timestamp;
+
 import com.tabitha.entities.Calendar;
 
 public class CalendarBusinessRules {
 
     // make sure calendar date is no earlier than 2023 and no further than 2023
     // experimental, let's see if this works!
-    public boolean checkDateValidity(Calendar dateToCheck){
+    public boolean checkDateValidity(Timestamp startDateToCheck, Timestamp endDateToCheck){
 
         String dateStartInput = "2023-01-01 00:00:00";
         String dateEndInput = "2023-12-31 23:59:59";
-        java.sql.Timestamp tsStart = java.sql.Timestamp.valueOf(dateStartInput);
-        java.sql.Timestamp tsEnd = java.sql.Timestamp.valueOf(dateEndInput);
-        java.sql.Timestamp tsCurrent = java.sql.Timestamp.valueOf(dateToCheck);
+        java.sql.Timestamp tsJan01 = java.sql.Timestamp.valueOf(dateStartInput);
+        java.sql.Timestamp tsDec31 = java.sql.Timestamp.valueOf(dateEndInput);
+        java.sql.Timestamp tsStart = startDateToCheck;
+        java.sql.Timestamp tsEnd = endDateToCheck;
 
-        if(tsCurrent.after(tsStart) && tsCurrent.before(tsEnd) || tsCurrent.equals(tsStart) || tsCurrent.equals(tsEnd)){
-            return true;
+        if(tsStart.after(tsJan01) && tsStart.before(tsDec31) || tsStart.equals(tsJan01) || tsStart.equals(tsDec31) 
+            && tsEnd.after(tsStart) && tsEnd.before(tsDec31) || tsEnd.equals(tsDec31)){
+                return true;
         } else {
             return false;
         }

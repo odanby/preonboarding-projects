@@ -20,7 +20,7 @@ public class UserBusinessRules {
 
         // limit zip code to 5 characters
         public boolean checkZipCodeLength(User zipcodeToCheck){
-            if(zipcodeToCheck.getZip_code() > 5){
+            if(zipcodeToCheck.getZip_code() > 99999){
                 return false;
             } else {
                 return true;

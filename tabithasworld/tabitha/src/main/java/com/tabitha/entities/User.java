@@ -60,6 +60,15 @@ public class User {
         this.zip_code = zip_code;
     }
 
+    // login
+    public User(
+        String username,
+        String user_password
+    ){
+        this.username = username;
+        this.user_password = user_password;
+    }
+
     // getters
 
     public int getId() {

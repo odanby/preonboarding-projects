@@ -3,6 +3,7 @@ package com.tabitha.service;
 import java.util.List;
 
 import com.tabitha.entities.Calendar;
+import com.tabitha.exceptions.InvalidCalendar;
 import com.tabitha.repository.CalendarDAOInterface;
 import com.tabitha.utils.CalendarBusinessRules;
 
@@ -43,8 +44,17 @@ public class CalendarService implements CalendarServiceInterface {
 
     @Override
     public Calendar serviceCreateCalendarEvent(Calendar newCalendarEvent) {
-        // TODO Auto-generated method stub
-        return null;
+        boolean valCheck1 = this.calendarBusinessRules.checkDateValidity(newCalendarEvent.getEvent_start(), newCalendarEvent.getEvent_end());
+        boolean valCheck2 = this.calendarBusinessRules.checkEventTitleLength(newCalendarEvent);
+        boolean valCheck3 = this.calendarBusinessRules.checkEventDescLength(newCalendarEvent);
+        boolean valCheck4 = this.calendarBusinessRules.eventStatusContainsYOrN(newCalendarEvent);
+        boolean valCheck5 = this.calendarBusinessRules.dayStatusContainsYOrN(newCalendarEvent);
+
+        if(valCheck1 && valCheck2 && valCheck3 && valCheck4 && valCheck5){
+            return this.calendarDao.createCalendarEvent(newCalendarEvent);
+        } else {
+            throw new InvalidCalendar("Could not create new calendar event.");
+        }
     }
 
     @Override
@@ -54,8 +64,17 @@ public class CalendarService implements CalendarServiceInterface {
 
     @Override
     public Calendar serviceUpdateCalendarEvent(Calendar updatedCalendarEvent) {
-        // TODO Auto-generated method stub
-        return null;
+        boolean valCheck1 = this.calendarBusinessRules.checkDateValidity(updatedCalendarEvent.getEvent_start(), updatedCalendarEvent.getEvent_end());
+        boolean valCheck2 = this.calendarBusinessRules.checkEventTitleLength(updatedCalendarEvent);
+        boolean valCheck3 = this.calendarBusinessRules.checkEventDescLength(updatedCalendarEvent);
+        boolean valCheck4 = this.calendarBusinessRules.eventStatusContainsYOrN(updatedCalendarEvent);
+        boolean valCheck5 = this.calendarBusinessRules.dayStatusContainsYOrN(updatedCalendarEvent);
+
+        if(valCheck1 && valCheck2 && valCheck3 && valCheck4 && valCheck5){
+            return this.calendarDao.updateCalendarEvent(updatedCalendarEvent);
+        } else {
+            throw new InvalidCalendar("Could not update new calendar event.");
+        }
     }
     
 }

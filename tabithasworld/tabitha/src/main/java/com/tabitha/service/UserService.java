@@ -31,7 +31,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User serviceCreateUser(User newUser) {
-        boolean valCheck1 = this.userBusinessRules.checkFirstNameLength(newUser);
+        boolean valCheck1 = userBusinessRules.checkFirstNameLength(newUser);
         boolean valCheck2 = this.userBusinessRules.checkUsernameLength(newUser);
         boolean valCheck3 = this.userBusinessRules.checkPasswordLength(newUser);
         boolean valCheck4 = this.userBusinessRules.checkEmailLength(newUser);

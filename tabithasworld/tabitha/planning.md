@@ -219,9 +219,14 @@ Notebook:
     - Notebook (DONE)
     - Category (DONE)
     - Calendar (DONE)
-- CREATE EXCEPTIONS
-- CREATE SERVICES INTERFACES AND IMPLEMENT THEM
+- CREATE EXCEPTIONS (DONE)
+- CREATE SERVICES INTERFACES AND IMPLEMENT THEM (DONE)
 - TEST SERVICE METHODS
+    - User (DONE)
+    - Tasklist (DONE)
+    - Notebook (DONE)
+    - Category (DONE)
+    - Calendar
 - CREATE CONTROLLERS
 - CONNECT API
 - CREATE HTTP RESPONSES
@@ -230,5 +235,3 @@ Notebook:
 - WRITE JAVASCRIPT CODE TO CREATE HTTP REQUESTS/RESPONSES
 - WRITE CSS
 - E2E TESTING!
-
-Think through what service rules are necessary for the category, task list, notebook, calendar, and weather page
