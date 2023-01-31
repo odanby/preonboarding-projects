@@ -14,8 +14,6 @@ import com.tabitha.service.CalendarService;
 import com.tabitha.service.CalendarServiceInterface;
 import com.tabitha.utils.CalendarBusinessRules;
 
-import io.cucumber.java.bm.Tetapi;
-
 public class CalendarServiceTests {
 
     public static CalendarDAOInterface calendarDao;

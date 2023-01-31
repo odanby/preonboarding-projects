@@ -221,13 +221,18 @@ Notebook:
     - Calendar (DONE)
 - CREATE EXCEPTIONS (DONE)
 - CREATE SERVICES INTERFACES AND IMPLEMENT THEM (DONE)
-- TEST SERVICE METHODS
+- TEST SERVICE METHODS (DONE)
     - User (DONE)
     - Tasklist (DONE)
     - Notebook (DONE)
     - Category (DONE)
-    - Calendar
-- CREATE CONTROLLERS
+    - Calendar (DONE)
+- CREATE CONTROLLERS (DONE)
+    - User (DONE)
+    - Tasklist (DONE)
+    - Notebook (DONE)
+    - Category (DONE)
+    - Calendar (DONE)
 - CONNECT API
 - CREATE HTTP RESPONSES
 - INTEGRATED TESTING
