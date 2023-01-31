@@ -50,11 +50,11 @@ public class Main {
         UserServiceInterface userService = new UserService(userDao, userBusinessRules);
         UserController userController = new UserController(userService);
 
-        app.patch("/user/login", userController.loginUser);
-        app.post("/user/new", userController.createNewAccount);
-        app.get("/user/all", userController.getAllUsers);
-        app.get("/user/{id}", userController.getUserById);
-        app.patch("/user/update", userController.updateUser);
+        app.patch("/tabitha/user/login", userController.loginUser);
+        app.post("/tabitha/user/new", userController.createNewAccount);
+        app.get("/tabitha/user/all", userController.getAllUsers);
+        app.get("/tabitha/user/{id}", userController.getUserById);
+        app.patch("/tabitha/user/update", userController.updateUser);
 
         // tasklist
         TaskListDAOInterface tasklistDao = new TaskListDAO();
@@ -62,12 +62,12 @@ public class Main {
         TaskListServiceInterface tasklistService = new TaskListService(tasklistDao, tasklistBusinessRules);
         TaskListController tasklistController = new TaskListController(tasklistService);
 
-        app.get("/tasklist/all", tasklistController.getAllTasks);
-        app.get("/tasklist/{task_user_id}", tasklistController.getTaskByUserId);
-        app.get("/tasklist/{task_id}", tasklistController.getTaskByTaskId);
-        app.post("/tasklist/new", tasklistController.createTask);
-        app.delete("/tasklist/{task_id}", tasklistController.removeTask);
-        app.patch("/tasklist/{task_id}", tasklistController.updateTask);
+        app.get("/tabitha/tasklist/all", tasklistController.getAllTasks);
+        app.get("/tabitha/tasklist/{task_user_id}", tasklistController.getTaskByUserId);
+        app.get("/tabitha/tasklist/{task_id}", tasklistController.getTaskByTaskId);
+        app.post("/tabitha/tasklist/new", tasklistController.createTask);
+        app.delete("/tabitha/tasklist/{task_id}", tasklistController.removeTask);
+        app.patch("/tabitha/tasklist/{task_id}", tasklistController.updateTask);
 
         // category
         CategoryDAOInterface categoryDao = new CategoryDAO();
@@ -75,12 +75,12 @@ public class Main {
         CategoryServiceInterface categoryService = new CategoryService(categoryDao, categoryBusinessRules);
         CategoryController categoryController = new CategoryController(categoryService);
 
-        app.get("/category/all", categoryController.getAllCategories);
-        app.get("/category/{task_user_id}", categoryController.getCategoryByUserId);
-        app.get("/category/{category_id}", categoryController.getCategoryByCategoryId);
-        app.post("/category/new", categoryController.createCategory);
-        app.delete("/category/{category_id}", categoryController.removeCategory);
-        app.patch("/category/{category_id}", categoryController.updateCategory);
+        app.get("/tabitha/category/all", categoryController.getAllCategories);
+        app.get("/tabitha/category/{task_user_id}", categoryController.getCategoryByUserId);
+        app.get("/tabitha/category/{category_id}", categoryController.getCategoryByCategoryId);
+        app.post("/tabitha/category/new", categoryController.createCategory);
+        app.delete("/tabitha/category/{category_id}", categoryController.removeCategory);
+        app.patch("/tabitha/category/{category_id}", categoryController.updateCategory);
 
         // notebook
         NotebookDAOInterface notebookDao = new NotebookDAO();
@@ -88,12 +88,12 @@ public class Main {
         NotebookServiceInterface notebookService = new NotebookService(notebookDao, notebookBusinessRules);
         NotebookController notebookController = new NotebookController(notebookService);
 
-        app.get("/notebook/all", notebookController.getAllNotebookEntries);
-        app.get("/notebook/{task_user_id}", notebookController.getNotebookByUserId);
-        app.get("/notebook/{notebook_id}", notebookController.getNotebookByNotebookId);
-        app.post("/notebook/new", notebookController.createNotebookEntry);
-        app.delete("/notebook/{notebook_id}", notebookController.removeNotebookEntry);
-        app.patch("/notebook/{notebook_id}", notebookController.updateNotebookEntry);
+        app.get("/tabitha/notebook/all", notebookController.getAllNotebookEntries);
+        app.get("/tabitha/notebook/{task_user_id}", notebookController.getNotebookByUserId);
+        app.get("/tabitha/notebook/{notebook_id}", notebookController.getNotebookByNotebookId);
+        app.post("/tabitha/notebook/new", notebookController.createNotebookEntry);
+        app.delete("/tabitha/notebook/{notebook_id}", notebookController.removeNotebookEntry);
+        app.patch("/tabitha/notebook/{notebook_id}", notebookController.updateNotebookEntry);
 
         // calendar
         CalendarDAOInterface calendarDao = new CalendarDAO();
@@ -101,14 +101,14 @@ public class Main {
         CalendarServiceInterface calendarService = new CalendarService(calendarDao, calendarBusinessRules);
         CalendarController calendarController = new CalendarController(calendarService);
 
-        app.get("/calendar/all", calendarController.getAllEvents);
-        app.get("/calendar/{event_id}", calendarController.getEventByEventId);
-        app.get("/calendar/{task_user_id}", calendarController.getEventByUserId);
-        app.get("/calendar/{event_status}", calendarController.getEventByEventStatus);
-        app.get("/calendar/{day_status}", calendarController.getEventByDayStatus);
-        app.post("/calendar/new", calendarController.createEvent);
-        app.delete("/calendar/{event_id}", calendarController.removeEvent);
-        app.patch("/calendar/{event_id}", calendarController.updateEvent);
+        app.get("/tabitha/calendar/all", calendarController.getAllEvents);
+        app.get("/tabitha/calendar/{event_id}", calendarController.getEventByEventId);
+        app.get("/tabitha/calendar/{task_user_id}", calendarController.getEventByUserId);
+        app.get("/tabitha/calendar/{event_status}", calendarController.getEventByEventStatus);
+        app.get("/tabitha/calendar/{day_status}", calendarController.getEventByDayStatus);
+        app.post("/tabitha/calendar/new", calendarController.createEvent);
+        app.delete("/tabitha/calendar/{event_id}", calendarController.removeEvent);
+        app.patch("/tabitha/calendar/{event_id}", calendarController.updateEvent);
 
         app.start();
     }
