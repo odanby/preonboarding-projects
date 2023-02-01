@@ -115,13 +115,24 @@ public class TaskListController {
         // boolean serviceRemoveTask(TaskList taskToBeDeleted);
         public Handler removeTask = ctx -> {
             try {
+                // the ctx.body() method creates a java string object from the content of the request body
                 String json = ctx.body();
+                // we then use Gson to convert the json string into the java class we are working with
                 TaskList taskToDelete = this.gson.fromJson(json, TaskList.class);
-                taskToDelete.setTask_id(Integer.parseInt(ctx.pathParam("task_id")));
-                Boolean result = this.tasklistService.serviceRemoveTask(taskToDelete);
-                String resultJson = gson.toJson(result);
-                ctx.result(resultJson);
-                ctx.status(200);
+                // to make sure that I am updating the book that I indicated in the http request I set the path id to the id of the book
+                String identifier = ctx.pathParam("task_id");
+                int taskId = Integer.parseInt(identifier);
+                taskToDelete.setTask_id(taskId);
+                // we then pass the java object we created into the appropriate service method for validation
+                this.tasklistService.serviceRemoveTask(taskToDelete);
+                // because I am not returning any special entity with this method I will use a Map to create my key/value pair message for the json
+                Map<String, String> message = new HashMap<>();
+                message.put("message", "task was deleted");
+                // once the map is made we convert it into a json
+                String messageJson = this.gson.toJson(message);
+                // then we attach it to the response body and set the status code
+                ctx.result(messageJson);
+                ctx.status(200); // will need to double check status code at some point
             } catch (InvalidTask e){
                 HashMap<String, String> message = new HashMap<>();
                 message.put("errorMessage", e.getMessage());
@@ -129,7 +140,8 @@ public class TaskListController {
                 ctx.status(400);
             }
         };
-    
+
+
         // // update a task
         // TaskList serviceUpdateTaskList(TaskList updatedTaskList);
         public Handler updateTask = ctx -> {

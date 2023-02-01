@@ -14,26 +14,247 @@
     <img src = "C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/images/IMG-7172.PNG" alt = "Tabitha's World Logo" id = "logo">
     <div id = "registration-div">
         <h1>Register</h1>
+        <div id = "error-div"></div>
         <label for = "name-input">First Name</label>
-        <input id = "name-input" type = "text">
+        <input id = "name-input" type = "text" maxlength = "50">
         <label for = "username-input">Username</label>
-        <input id = "username-input" type = "text">
+        <input id = "username-input" type = "text" maxlength = "50">
         <label for = "password-input">Password</label>
-        <input id = "password-input" type = "password">
+        <input id = "password-input" type = "password" maxlength = "50">
         <label for = "confirm-password">Confirm Password</label>
-        <input id = "confirm-password" type = "password">
+        <input id = "confirm-password" type = "password" maxlength = "50">
         <label for = "email-input">Email</label>
-        <input id = "email-input" type = "email">
+        <input id = "email-input" type = "email" maxlength = "50">
         <label for = "confirm-email">Confirm Email</label>
-        <input id = "confirm-email" type = "email">
+        <input id = "confirm-email" type = "email" maxlength = "50">
         <label for = "location-zip">US Zip Code</label>
-        <input id = "location-zip" type = "number" max = "99950">
-        <label for = "terms" id = "terms-label">I agree to the <a href = "terms.html">terms and conditions</a> of Tabitha's World.</label>
+        <input id = "location-zip" type = "number" min = "10000" max = "99950">
+        <label for = "terms" id = "terms-label">I agree to the <a id = "terms-link" href = "terms.html">terms and conditions</a> of Tabitha's World.</label>
         <input type = "checkbox" id = "terms" name = "terms">
-        <button>Sign up!</button>
-        <h3>I already have an account! <a href = login.html>Login</a></h3>
+        <button onclick = "createNewAccount()" id = "sign-up-button">Sign up!</button>
+        <h3>I already have an account! <a id = "login-link" href = login.html>Login</a></h3>
     </div>
 </body>
 <script>
+    const termsLink = document.getElementById("terms-link");
+    const loginLink = document.getElementById("login-link");
+
+    async function changeTermsLinkColor(){
+        termsLink.style.color = "#8d6cad";
+    }
+
+    async function revertTermsLinkColor(){
+        termsLink.style.color = "#c564b1";
+    }
+
+    termsLink.addEventListener("mouseover", changeTermsLinkColor);
+    termsLink.addEventListener("mouseleave", revertTermsLinkColor);
+
+    async function changeLoginLinkColor(){
+        loginLink.style.color = "#8d6cad";
+    }
+
+    async function revertLoginLinkColor(){
+        loginLink.style.color = "#c564b1";
+    }
+
+    loginLink.addEventListener("mouseover", changeLoginLinkColor);
+    loginLink.addEventListener("mouseleave", revertLoginLinkColor);
+
+    const signUpButton = document.getElementById("sign-up-button");
+
+    async function changeSignUpButtonColor(){
+        signUpButton.style.color = "white"
+    }
+
+    async function revertSignUpButtonColor(){
+        signUpButton.style.color = "#8d6cad"
+    }
+
+    signUpButton.addEventListener("mouseover", changeSignUpButtonColor);
+    signUpButton.addEventListener("mouseleave", revertSignUpButtonColor);
+
+    const firstName = document.getElementById("name-input");
+    const username = document.getElementById("username-input");
+    const password = document.getElementById("password-input");
+    const confirmPassword = document.getElementById("confirm-password");
+    const email = document.getElementById("email-input");
+    const confirmEmail = document.getElementById("confirm-email");
+    const locationZip = document.getElementById("location-zip"); 
+    const termsCheckbox = document.getElementById("terms");
+    const errorDiv = document.getElementById("error-div");
+
+    let validateCounter = 0;
+
+    const specialChar1 = /[ `!@#$%^&*()_+=\[\]{};':"\\|,.<>\/?~]/;
+    const specialChar2 = /[ `^*()+=\[\]{};':"\\|,<>\/~]/;
+    const emailChar = /[@.]/;
+
+    // validate first name
+    firstName.addEventListener("focusin", validateFirstName());
+    let firstNameError = document.createElement("h4");
+
+    function validateFirstName(){
+        firstName.addEventListener("focusout", function () {
+            firstNameError.textContent = "";
+            if(firstName.value == ""){
+                firstNameError.textContent = "First name is missing."
+            } else if(specialChar1.test(firstName.value)){
+                firstNameError.textContent = "First name cannot contain spaces or special characters.";
+            } else {
+                validateCounter = validateCounter + 1;
+                console.log(validateCounter);
+            };
+            errorDiv.appendChild(firstNameError);
+        });
+    };
+
+    // validate username
+    username.addEventListener("focusin", validateUsername());
+    let usernameError = document.createElement("h4");
+
+    function validateUsername(){
+        username.addEventListener("focusout", function () {
+            usernameError.textContent = "";
+            if(username.value == ""){
+                usernameError.textContent = "Username is missing."
+            } else if(specialChar2.test(username.value)){
+                usernameError.textContent = "Username cannot contain spaces or special characters."
+            } else {
+                validateCounter = validateCounter + 1;
+                console.log(validateCounter);
+            };
+            errorDiv.appendChild(usernameError);
+        });
+    };
+
+    // validate password
+    password.addEventListener("focusin", validatePassword());
+    let passwordError = document.createElement("h4");
+
+    function validatePassword(){
+        password.addEventListener("focusout", function () {
+            passwordError.textContent = "";
+            if(password.value == ""){
+                passwordError.textContent = "Password is missing."
+            } else {
+                validateCounter = validateCounter + 1;
+                console.log(validateCounter);
+            };
+            errorDiv.appendChild(passwordError);
+        });
+    };
+
+    // validate confirm password
+    confirmPassword.addEventListener("focusin", confirmPasswordMatch());
+    let confirmPasswordError = document.createElement("h4");
+
+    function confirmPasswordMatch(){
+        confirmPassword.addEventListener("focusout", function () {
+            confirmPasswordError.textContent = "";
+            if(password.value == confirmPassword.value){
+                validateCounter = validateCounter + 1;
+                console.log(validateCounter);
+            } else {
+                confirmPasswordError.textContent = "Passwords do not match.";
+            };
+            errorDiv.appendChild(confirmPasswordError);
+        });
+    };
+
+    // validate email
+    email.addEventListener("focusin", validateEmail());
+    let emailError = document.createElement("h4");
+
+    function validateEmail(){
+        email.addEventListener("focusout", function () {
+            emailError.textContent = "";
+            if(email.value == ""){
+                emailError.textContent = "Email is missing.";
+            } else if (!emailChar.test(email.value)){
+                emailError.textContent = "Please ensure your email is valid.";
+            } else {
+                validateCounter = validateCounter + 1;
+                console.log(validateCounter);
+            };
+            errorDiv.appendChild(emailError);
+        });
+    };
+
+    // confirm email
+    confirmEmail.addEventListener("focusin", confirmEmailMatch());
+    let confirmEmailError = document.createElement("h4");
+
+    function confirmEmailMatch(){
+        confirmEmail.addEventListener("focusout", function () {
+            confirmEmailError.textContent = "";
+            if(email.value == confirmEmail.value){
+                validateCounter = validateCounter + 1;
+                console.log(validateCounter);
+            } else {
+                confirmEmailError.textContent = "Emails do not match."
+            }
+            errorDiv.appendChild(confirmEmailError);
+        });
+    };
+
+    // validate zip code
+    locationZip.addEventListener("focusin", validateZipCode());
+    let locationZipCodeError = document.createElement("h4");
+    
+    function validateZipCode(){
+        locationZip.addEventListener("focusout", function (){
+            locationZipCodeError.textContent = "";
+            if(locationZip.value < 10000){
+                locationZipCodeError.textContent = "Please enter zip code."
+            } else {
+                validateCounter = validateCounter + 1;
+                console.log(validateCounter);
+            }
+            errorDiv.appendChild(locationZipCodeError);
+        });
+    };
+
+    // check terms are checked
+    function termsChecked(){
+        if(termsCheckbox == true){
+            validateCounter = validateCounter + 1;
+            console.log(validateCounter);
+        };
+    };
+
+    async function createNewAccount(){
+
+        if(validateCounter > 5){
+            let requestInfo = {
+            id: 0,
+            first_name: firstName.value,
+            username: username.value,
+            user_password: password.value,
+            email: email.value,
+            zip_code: locationZip.value
+            };
+
+            let createRequestJSON = JSON.stringify(requestInfo);
+
+            let config = {
+                method: "POST",
+                headers: {'Content-Type': "application/json"},
+                body: createRequestJSON
+            };
+
+            let httpResponse = await fetch("http://localhost:8080/tabitha/user/new", config);
+
+            if(httpResponse.status === 201){
+                let responseBody = await httpResponse.json();
+                sessionStorage.setItem("sessionUsername", username.value);
+                window.location.href = "checkin.html";
+            } else {
+                alert("Error registering-- please try again.");
+            }
+        } else {
+            alert("Could not register new account. Please make sure all the inputs are correct!");
+        }
+    };
 </script>
 </html>

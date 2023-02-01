@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-    <img src = "C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/images/IMG-7172.PNG" alt = "Tabitha's World Logo" id = "logo">
+    <img src = "../css/images/IMG-7172.PNG" alt = "Tabitha's World Logo" id = "logo">
     <div id = "login-div">
         <h1>Login</h1>
         <label for = "login-username">Username</label>
@@ -20,11 +20,65 @@
         <br>
         <label for = "login-password">Password</label>
         <br>
-        <input id = "login-password" type = "text">
+        <input id = "login-password" type = "password">
         <br>
-        <button id = "login-button">Go!</button>
-        <h3>New here? <a href = registration.html>Register</a></h3>
+        <button id = "login-button" onclick = "login()">Go!</button>
+        <h3>New here? <a id = "registration-link" href = registration.html>Register</a></h3>
     </div>
-    <img src = "C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/images/pigflying.gif" alt = "flying pig" id = "flying-pig">
+    <img src = "../css/images/pigflying.gif" alt = "flying pig" id = "flying-pig">
 </body>
+<script>
+    const username = document.getElementById("login-username");
+    const password = document.getElementById("login-password");
+    const loginButton = document.getElementById("login-button");
+    const registrationLink = document.getElementById("registration-link");
+
+    async function changeRegistrationLinkColor(){
+        registrationLink.style.color = "#8d6cad";
+    }
+
+    async function revertRegistrationLinkColor(){
+        registrationLink.style.color = "#c564b1";
+    }
+
+    registrationLink.addEventListener("mouseover", changeRegistrationLinkColor);
+    registrationLink.addEventListener("mouseleave", revertRegistrationLinkColor);
+
+    async function changeLoginButtonColor(){
+        loginButton.style.color = "white"
+    }
+
+    async function revertLoginButtonColor(){
+        loginButton.style.color = "#8d6cad"
+    }
+
+    loginButton.addEventListener("mouseover", changeLoginButtonColor);
+    loginButton.addEventListener("mouseleave", revertLoginButtonColor);
+
+    async function login(){
+        let loginInfo = {
+            username: username.value,
+            user_password: password.value
+        };
+        sessionStorage.setItem("sessionUsername", username.value);
+        let loginJSON = JSON.stringify(loginInfo);
+
+        let config = {
+            method: "PATCH",
+            headers: {'Content-Type': "application/json"},
+            body: loginJSON
+        };
+
+        console.log(loginJSON);
+        let httpResponse = await fetch("http://localhost:8080/tabitha/user/login", config);
+        console.log(httpResponse.status);
+
+        if(httpResponse.status === 200){
+            let responseBody = await httpResponse.json();
+            window.location.href = "checkin.html";
+        } else {
+            alert("Could not login, your login credentials may be incorrect.");
+        }
+    }
+</script>
 </html>

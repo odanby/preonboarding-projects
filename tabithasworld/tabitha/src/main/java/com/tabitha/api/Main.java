@@ -54,7 +54,7 @@ public class Main {
         app.post("/tabitha/user/new", userController.createNewAccount);
         app.get("/tabitha/user/all", userController.getAllUsers);
         app.get("/tabitha/user/{id}", userController.getUserById);
-        app.patch("/tabitha/user/update", userController.updateUser);
+        app.patch("/tabitha/user/update/{id}", userController.updateUser);
 
         // tasklist
         TaskListDAOInterface tasklistDao = new TaskListDAO();
@@ -104,8 +104,8 @@ public class Main {
         app.get("/tabitha/calendar/all", calendarController.getAllEvents);
         app.get("/tabitha/calendar/{event_id}", calendarController.getEventByEventId);
         app.get("/tabitha/calendar/{task_user_id}", calendarController.getEventByUserId);
-        app.get("/tabitha/calendar/{event_status}", calendarController.getEventByEventStatus);
-        app.get("/tabitha/calendar/{day_status}", calendarController.getEventByDayStatus);
+        app.get("/tabitha/calendar/event/{event_status}", calendarController.getEventByEventStatus);
+        app.get("/tabitha/calendar/day/{day_status}", calendarController.getEventByDayStatus);
         app.post("/tabitha/calendar/new", calendarController.createEvent);
         app.delete("/tabitha/calendar/{event_id}", calendarController.removeEvent);
         app.patch("/tabitha/calendar/{event_id}", calendarController.updateEvent);

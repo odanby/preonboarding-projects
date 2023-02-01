@@ -233,10 +233,27 @@ Notebook:
     - Notebook (DONE)
     - Category (DONE)
     - Calendar (DONE)
-- CONNECT API
-- CREATE HTTP RESPONSES
-- INTEGRATED TESTING
+- CONNECT + TEST API
+    - User (DONE)
+    - Tasklist
+        - Fix delete task --> need to come back to it at some point
+    - Notebook
+        - Fix delete notebook
+    - Category
+        - Fix delete category
+    - Calendar
+        - Fix delete calendar
 - CREATE HTML WEBSITES
+    - Login (DONE)
+    - Checkin
+    - Registration
+        - Need to fix validation for checkbox
+    - Home
+    - Weather
+    - Terms
+    - Notebook
+    - To Do
+    - Caendar
 - WRITE JAVASCRIPT CODE TO CREATE HTTP REQUESTS/RESPONSES
 - WRITE CSS
 - E2E TESTING!

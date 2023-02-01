@@ -18,6 +18,10 @@ label {
     font-size: 25px;
 }
 
+#registration-link {
+    color: #c564b1;
+}
+
 #login-div {
     text-align: center;
     margin-top: -40px;
@@ -79,7 +83,7 @@ button {
     font-size: 18px;
     color: #8d6cad;
     margin-top: 15px;
-    background: linear-gradient(hsla(318, 74%, 76%, 0.622), hwb(300 58% 4% / 0.622), hwb(307 73% 6% / 0.622));
+    background: linear-gradient(#ef95d49f, #f594f59f, #f0bae99f);
 }
 
 h3 {

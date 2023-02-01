@@ -43,11 +43,17 @@ label {
     flex-direction: column;
     background-color: #fbdbec9f;
     border-radius: 30px;
-    margin-left: 400px;
-    margin-right: 400px;
     align-items: center;
     justify-content: center;
     padding-bottom: 10px;
+}
+
+#terms-link {
+    color: #c564b1;
+}
+
+#login-link {
+    color: #c564b1;
 }
 
 input {

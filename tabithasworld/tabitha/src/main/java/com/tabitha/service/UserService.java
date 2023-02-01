@@ -76,18 +76,8 @@ public class UserService implements UserServiceInterface {
         boolean valCheck5 = this.userBusinessRules.checkZipCodeLength(updatedZipCode);
 
         if(valCheck1 && valCheck2 && valCheck3 && valCheck4 && valCheck5){
-            List<User> userArray = this.userDao.getAllUsers();
-            for(int x = 0; x < userArray.size(); x++){
-                User pulledUser = userArray.get(x);
-                if(!this.userBusinessRules.checkUsernameMatch(pulledUser, updatedZipCode.getUsername())){
-                    throw new InvalidUser("Username already in use.");
-                }
-                if(!this.userBusinessRules.checkEmailMatch(pulledUser, updatedZipCode.getEmail())){
-                    throw new InvalidUser("Email or username already in use.");
-                }
-                if(!this.userBusinessRules.patternMatches(updatedZipCode.getEmail(), "^(.+)@(\\S+)$")){
-                    throw new InvalidUser("Invalid email addresss.");
-                }
+            if(!this.userBusinessRules.patternMatches(updatedZipCode.getEmail(), "^(.+)@(\\S+)$")){
+                throw new InvalidUser("Invalid email addresss.");
             }
             return this.userDao.updateLocation(updatedZipCode);
         } else {
