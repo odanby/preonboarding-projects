@@ -30,7 +30,7 @@
         <label for = "location-zip">US Zip Code</label>
         <input id = "location-zip" type = "number" min = "10000" max = "99950">
         <label for = "terms" id = "terms-label">I agree to the <a id = "terms-link" href = "terms.html">terms and conditions</a> of Tabitha's World.</label>
-        <input type = "checkbox" id = "terms" name = "terms">
+        <input type = "checkbox" id = "terms" name = "terms" onclick = "termsChecked()">
         <button onclick = "createNewAccount()" id = "sign-up-button">Sign up!</button>
         <h3>I already have an account! <a id = "login-link" href = login.html>Login</a></h3>
     </div>
@@ -217,15 +217,17 @@
 
     // check terms are checked
     function termsChecked(){
-        if(termsCheckbox == true){
+        if(termsCheckbox.checked == true){
             validateCounter = validateCounter + 1;
             console.log(validateCounter);
-        };
+        } else {
+            console.log("Not yet")
+        }
     };
 
     async function createNewAccount(){
 
-        if(validateCounter > 5){
+        if(validateCounter >= 8){
             let requestInfo = {
             id: 0,
             first_name: firstName.value,

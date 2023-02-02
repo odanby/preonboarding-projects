@@ -43,6 +43,8 @@ label {
     flex-direction: column;
     background-color: #fbdbec9f;
     border-radius: 30px;
+    margin-left: 25%;
+    margin-right: 25%;
     align-items: center;
     justify-content: center;
     padding-bottom: 10px;

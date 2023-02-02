@@ -1,0 +1,10 @@
+#canvas1 {
+    border: 2px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("../css/images/IMG-7241.PNG");
+    max-width: 100%;
+    max-height: 100%;
+}

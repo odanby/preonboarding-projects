@@ -245,12 +245,11 @@ Notebook:
         - Fix delete calendar
 - CREATE HTML WEBSITES
     - Login (DONE)
-    - Checkin
-    - Registration
-        - Need to fix validation for checkbox
+    - Checkin (DONE)
+    - Registration (DONE)
     - Home
     - Weather
-    - Terms
+    - Terms (DONE)
     - Notebook
     - To Do
     - Caendar

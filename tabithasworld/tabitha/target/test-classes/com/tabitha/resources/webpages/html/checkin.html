@@ -13,8 +13,7 @@
 <body>
     <div id = "main-div">
         <div id = "welcome-div">
-            <h1>Welcome back,</h1>
-            <h2>How are you feeling today?</h2>
+            <h1>How are you feeling today?</h1>
         </div>
         <div id = "emotion-div">
             <img id = "angry" src = "../css/images/angry.PNG" onmouseover="this.src='../css/images/angry-hover.PNG'" onmouseout="this.src='../css/images/angry.PNG'" alt = "feeling-angry">
@@ -31,8 +30,179 @@
            
             <img id = "love" src = "../css/images/love.PNG" onmouseover="this.src='../css/images/love-hover.PNG'" onmouseout="this.src='../css/images/love.PNG'" alt = "feeling-love">
         </div>
+        <div id = "response-here"></div>
     </div>
 </body>
 <script>
+    const angry = document.getElementById("angry");
+    const crying = document.getElementById("crying");
+    const sad = document.getElementById("sad");
+    const neutral = document.getElementById("neutral");
+    const happy = document.getElementById("happy");
+    const excited = document.getElementById("excited");
+    const love = document.getElementById("love");
+    const responseHere = document.getElementById("response-here");
+
+    // angry
+    function angryReactionPopUpText(){
+        responseHere.innerHTML = "";      
+
+        let reaction = document.createElement("h2");
+        reaction.textContent = "When angry, count to ten before you speak. If very angry, count to one hundred."
+        responseHere.appendChild(reaction);
+
+        let goButton = document.createElement("button");
+        goButton.innerHTML = "Go to home";
+        goButton.onclick = function () {
+            location.href = "home.html";
+        };  
+        goButton.onmouseover = function () {
+            goButton.style.color = "white";
+        }
+        goButton.onmouseleave = function () {
+            goButton.style.color = "#8d6cad";
+        }
+        responseHere.appendChild(goButton);
+    }
+    angry.addEventListener("click", angryReactionPopUpText);
+
+    // crying
+    function cryingReactionPopUpText(){
+        responseHere.innerHTML = "";      
+
+        let reaction = document.createElement("h2");
+        reaction.textContent = "Crying is the relief when you accept how you feel."
+        responseHere.appendChild(reaction);
+
+        let goButton = document.createElement("button");
+        goButton.innerHTML = "Go to home";
+        goButton.onclick = function () {
+            location.href = "home.html";
+        };  
+        goButton.onmouseover = function () {
+            goButton.style.color = "white";
+        }
+        goButton.onmouseleave = function () {
+            goButton.style.color = "#8d6cad";
+        }
+        responseHere.appendChild(goButton);
+    }
+    crying.addEventListener("click", cryingReactionPopUpText);
+
+    // sad
+    function sadReactionPopUpText(){
+        responseHere.innerHTML = "";      
+
+        let reaction = document.createElement("h2");
+        reaction.textContent = "Sadness is but a wall between two gardens."
+        responseHere.appendChild(reaction);
+
+        let goButton = document.createElement("button");
+        goButton.innerHTML = "Go to home";
+        goButton.onclick = function () {
+            location.href = "home.html";
+        };  
+        goButton.onmouseover = function () {
+            goButton.style.color = "white";
+        }
+        goButton.onmouseleave = function () {
+            goButton.style.color = "#8d6cad";
+        }
+        responseHere.appendChild(goButton);
+    }
+    sad.addEventListener("click", sadReactionPopUpText);
+
+    // neutral
+    function neutralReactionPopUpText(){
+        responseHere.innerHTML = "";      
+
+        let reaction = document.createElement("h2");
+        reaction.textContent = "To find peace of mind, listen to your heart."
+        responseHere.appendChild(reaction);
+
+        let goButton = document.createElement("button");
+        goButton.innerHTML = "Go to home";
+        goButton.onclick = function () {
+            location.href = "home.html";
+        };  
+        goButton.onmouseover = function () {
+            goButton.style.color = "white";
+        }
+        goButton.onmouseleave = function () {
+            goButton.style.color = "#8d6cad";
+        }
+        responseHere.appendChild(goButton);
+    }
+    neutral.addEventListener("click", neutralReactionPopUpText);
+
+    // happy
+    function happyReactionPopUpText(){
+        responseHere.innerHTML = "";      
+
+        let reaction = document.createElement("h2");
+        reaction.textContent = "We are as happy as we decide to be."
+        responseHere.appendChild(reaction);
+
+        let goButton = document.createElement("button");
+        goButton.innerHTML = "Go to home";
+        goButton.onclick = function () {
+            location.href = "home.html";
+        };  
+        goButton.onmouseover = function () {
+            goButton.style.color = "white";
+        }
+        goButton.onmouseleave = function () {
+            goButton.style.color = "#8d6cad";
+        }
+        responseHere.appendChild(goButton);
+    }
+    happy.addEventListener("click", happyReactionPopUpText);
+
+    // excited
+    function excitedReactionPopUpText(){
+        responseHere.innerHTML = "";      
+
+        let reaction = document.createElement("h2");
+        reaction.textContent = "Work hard, be kind, and amazing things will happen."
+        responseHere.appendChild(reaction);
+
+        let goButton = document.createElement("button");
+        goButton.innerHTML = "Go to home";
+        goButton.onclick = function () {
+            location.href = "home.html";
+        };  
+        goButton.onmouseover = function () {
+            goButton.style.color = "white";
+        }
+        goButton.onmouseleave = function () {
+            goButton.style.color = "#8d6cad";
+        }
+        responseHere.appendChild(goButton);
+    }
+    excited.addEventListener("click", excitedReactionPopUpText);
+
+    // love
+    function loveReactionPopUpText(){
+        responseHere.innerHTML = "";      
+
+        let reaction = document.createElement("h2");
+        reaction.textContent = "To love and be loved is to feel the sun from both sides."
+        responseHere.appendChild(reaction);
+
+        let goButton = document.createElement("button");
+        goButton.innerHTML = "Go to home";
+        goButton.onclick = function () {
+            location.href = "home.html";
+        };  
+        goButton.onmouseover = function () {
+            goButton.style.color = "white";
+        }
+        goButton.onmouseleave = function () {
+            goButton.style.color = "#8d6cad";
+        }
+        responseHere.appendChild(goButton);
+    }
+    love.addEventListener("click", loveReactionPopUpText);
+
 </script>
 </html>
