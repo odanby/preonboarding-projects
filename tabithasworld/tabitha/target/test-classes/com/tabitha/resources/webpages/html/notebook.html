@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notebook</title>
+</head>
+<body onload = "getAndSetUserInfo()">
+    <h1>Notebook</h1>
+    <div id = "other-notes">
+        <!-- populate other note titles in here dynamically -->
+    </div>
+    <div id = "current-note">
+        <!-- need to put note date, note title, note content. will generate its own notebook id. needs task user id from session storage -->
+    </div>
+    <div id = "user-info-here"></div>
+    <button onclick = "getAllNotes()">View notes</button>
+</body>
+<script>
+    const userInfo = document.getElementById("user-info-here");
+
+    async function getAndSetUserInfo(){
+        let info = document.createElement("h1");
+        info.textContent = `${sessionStorage.getItem("sessionUsername")}`;;
+        userInfo.appendChild(info);
+
+        let httpResponse = await fetch(`http://localhost:8080/tabitha/user/username/${sessionStorage.getItem("sessionUsername")}`);
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                sessionStorage.setItem("sessionUserId", x.id);
+                sessionStorage.setItem("sessionUsername", x.username);
+                sessionStorage.setItem("sessionZipCode", x.zip_code);
+                console.log(sessionStorage.getItem("sessionUserId"));
+                console.log(sessionStorage.getItem("sessionUsername"));
+                console.log(sessionStorage.getItem("sessionZipCode"));
+            }
+        }
+    }
+
+    async function getAllNotes(){
+            let httpResponse = await fetch(`http://localhost:8080/tabitha/notebook/${sessionStorage.getItem("sessionUserId")}`);
+            let responseBody = await httpResponse.json();
+            if(httpResponse.status === 200){
+                for(x of responseBody){
+                    let table = document.createElement("table");
+                    userInfo.appendChild(table);
+
+                    let tr1 = document.createElement("tr");
+                    tr1.innerHTML = 
+                    `
+                    <td>${x.notebook_id}</td>
+                    <td>${x.entry_title}</td>
+                    `
+                    table.appendChild(tr1);
+                }
+            }
+    }
+</script>
+</html>

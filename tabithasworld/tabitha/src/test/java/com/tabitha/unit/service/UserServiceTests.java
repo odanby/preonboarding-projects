@@ -163,6 +163,13 @@ public class UserServiceTests {
         Assert.assertNotNull(result);
     }
 
+    // retrieve user by username
+    @Test
+    public void getUserByUsername(){
+        List<User> result = userService.serviceGetUserByUsername("lucatest");
+        Assert.assertNotNull(result);
+    }
+
     // successful registration
     @Test
     public void succesfulRegistration(){

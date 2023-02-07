@@ -84,5 +84,10 @@ public class UserService implements UserServiceInterface {
             throw new InvalidUser("Could not update zip code.");
         }
     }
+
+    @Override
+    public List<User> serviceGetUserByUsername(String username) {
+       return this.userDao.getUserByUsername(username);
+    }
     
 }

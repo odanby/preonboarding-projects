@@ -54,6 +54,7 @@ public class Main {
         app.post("/tabitha/user/new", userController.createNewAccount);
         app.get("/tabitha/user/all", userController.getAllUsers);
         app.get("/tabitha/user/{id}", userController.getUserById);
+        app.get("/tabitha/user/username/{username}", userController.getUserByUsername);
         app.patch("/tabitha/user/update/{id}", userController.updateUser);
 
         // tasklist

@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href = "C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/home.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crafty+Girls&family=Jost:wght@300&display=swap');
+    </style>
 </head>
-<body>
+<body onload = "getAndSetUserInfo()">
     <div>
         <!-- base -->
         <img id = "bg" src = "../css/images/bg.PNG" width = "1350" height = "600" style="z-index: auto;">
@@ -34,9 +37,34 @@
         <!-- logo -->
         <img id = "logo" width = "50" height = "auto" src = "../css/images/logo.PNG" style = "z-index: auto;">
 
+        <div id = "user-info-here" style = "z-index: auto;"></div>
+
     </div>
 </body>
 <script>
+    const userInfo = document.getElementById("user-info-here");
+
+    async function getAndSetUserInfo(){
+        let info = document.createElement("h1");
+        info.textContent = `${sessionStorage.getItem("sessionUsername")}`;;
+        userInfo.appendChild(info);
+
+        let httpResponse = await fetch(`http://localhost:8080/tabitha/user/username/${sessionStorage.getItem("sessionUsername")}`);
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                sessionStorage.setItem("sessionUserId", x.id);
+                sessionStorage.setItem("sessionUsername", x.username);
+                sessionStorage.setItem("sessionZipCode", x.zip_code);
+                console.log(sessionStorage.getItem("sessionUserId"));
+                console.log(sessionStorage.getItem("sessionUsername"));
+                console.log(sessionStorage.getItem("sessionZipCode"));
+            }
+        }
+    }
 
 </script>
 </html>

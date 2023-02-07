@@ -39,6 +39,14 @@ public class UserTests {
         Assert.assertNotNull(result);
     }
 
+    // TEST to retrieve a user by username
+        // List<User> getUserByUsername(String username);
+    @Test
+    public void getUserByUsername(){
+        List<User> result = userDao.getUserByUsername("lucatest");
+        Assert.assertNotNull(result);
+    }
+
     // TEST to update a user location - IT WORKS!
         // User updateLocation(User updatedZipCode);
     @Test

@@ -18,6 +18,9 @@ public interface UserServiceInterface {
     // retrieve user by id
     List<User> serviceGetUserById(int id);
 
+    // retrieve user by username
+    List<User> serviceGetUserByUsername(String username);
+
     // update user location
     User serviceUpdateLocation(User updatedZipCode);
 }

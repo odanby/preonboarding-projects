@@ -107,6 +107,29 @@ public class UserController {
         }
     };
 
+    // retrieve user by username
+    public Handler getUserByUsername = ctx -> {
+        String username = ctx.pathParam("username");
+        try {
+            List<User> user = this.userService.serviceGetUserByUsername(username);
+            if(user == null){
+                HashMap<String, String> message = new HashMap<>();
+                message.put("errorMessage", "Error processing request");
+                ctx.result(gson.toJson(message));
+                ctx.status(400);
+            } else {
+                String userJSON = gson.toJson(user);
+                ctx.result(userJSON);
+                ctx.status(200);
+            }
+        } catch (InvalidUser e){
+            HashMap<String, String> message = new HashMap<>();
+            message.put("errorMessage", e.getMessage());
+            ctx.result(gson.toJson(message));
+            ctx.status(400);
+        }
+    };
+
     // update user location
     public Handler updateUser = ctx -> {
         try {

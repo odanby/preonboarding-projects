@@ -38,5 +38,13 @@ public class UserDAO implements UserDAOInterface {
         HibernateUtil.endTransaction();
         return updatedZipCode;
     }
+
+    @Override
+    public List<User> getUserByUsername(String username) {
+        HibernateUtil.beginTransaction();
+        List<User> requestList = HibernateUtil.getSession().createQuery("from User where username = :Username", User.class).setParameter("Username", username).getResultList();
+        HibernateUtil.endTransaction();
+        return requestList;
+    }
     
 }

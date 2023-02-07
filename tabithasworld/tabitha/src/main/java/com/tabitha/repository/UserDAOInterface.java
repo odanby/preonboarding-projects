@@ -22,6 +22,9 @@ public interface UserDAOInterface {
     // retrieve user by id
     List<User> getUserById(int id);
 
+    // retrieve user by username
+    List<User> getUserByUsername(String username);
+
     // update user location
     User updateLocation(User updatedZipCode);
     
