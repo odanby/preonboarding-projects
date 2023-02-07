@@ -250,7 +250,7 @@ Notebook:
     - Home (DONE)
     - Weather
     - Terms (DONE)
-    - Notebook
+    - Notebook (DONE)
     - To Do
     - Calendar
 - WRITE JAVASCRIPT CODE TO CREATE HTTP REQUESTS/RESPONSES

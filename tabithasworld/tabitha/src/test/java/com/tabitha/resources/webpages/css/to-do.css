@@ -1,0 +1,55 @@
+html { 
+    background: url("../css/images/todo-border.PNG") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: rgb(253, 228, 232);
+}
+
+h1 {
+    color: #ac7f7f;
+    text-align: center;
+    font-size: 43px;
+    font-family: 'Crafty Girls', cursive;
+    margin-top: 60px;
+}
+
+button {
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    height: 100px;
+    width: 400px;
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    background: #ac7f7f;
+}
+
+#go-home {
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    text-transform: lowercase;
+    height: 40px;
+    width: 150px;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    margin-top: 15px;
+    background: #d19c9c;
+}
+
+#categories-here {
+    display: grid;
+    gap: 50px 100px;
+    grid-row-end: 1;
+    grid-row-end: 2;
+
+}

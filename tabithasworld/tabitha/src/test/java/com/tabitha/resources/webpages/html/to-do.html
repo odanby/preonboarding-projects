@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+    <link rel="stylesheet" href = "../css/to-do.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crafty+Girls&family=Jost:wght@300&display=swap');
+    </style>
+</head>
+<body onload = "getAndSetUserInfo()">
+    <h1>To Do</h1>
+    <div id = "categories-here"></div>
+    <button id = "go-home" onclick = "location.href = 'home.html'">Back to home</button>
+</body>
+<script>
+    // change go home button
+    function changeHomeButtonColor(){
+        document.getElementById("go-home").style.background = "white";
+        document.getElementById("go-home").style.color = "#d19c9c";
+    }
+
+    function revertHomeButtonColor(){
+        document.getElementById("go-home").style.color = "white";
+        document.getElementById("go-home").style.background = "#d19c9c";
+    }
+
+    document.getElementById("go-home").addEventListener("mouseover", changeHomeButtonColor);
+    document.getElementById("go-home").addEventListener("mouseleave", revertHomeButtonColor);
+
+    async function getAndSetUserInfo(){
+        let httpResponse = await fetch(`http://localhost:8080/tabitha/user/username/${sessionStorage.getItem("sessionUsername")}`);
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                sessionStorage.setItem("sessionUserId", x.id);
+                sessionStorage.setItem("sessionUsername", x.username);
+                sessionStorage.setItem("sessionZipCode", x.zip_code);
+                console.log(sessionStorage.getItem("sessionUserId"));
+                console.log(sessionStorage.getItem("sessionUsername"));
+                console.log(sessionStorage.getItem("sessionZipCode"));
+            }
+        }
+    }
+
+    // need to get all categories from a user
+    async function getAllCategories(){
+        let httpResponse = await fetch(`http://localhost:8080/tabitha/category/${sessionStorage.getItem("sessionUserId")}`);
+        let responseBody = await httpResponse.json();
+
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                let tr = document.createElement("tr")
+                tr.innerHTML =
+                `
+                <button>${x.category_title}</button>
+                `
+                document.getElementById("categories-here").appendChild(tr);
+            }
+        }
+    }
+
+    document.body.addEventListener("load", getAllCategories())
+
+    // need to get able to create categories for a user
+    
+    // need to be able to get all tasks in a category
+
+    // need to create tasks within category
+
+    // need to update tasks with status
+</script>
+</html>
