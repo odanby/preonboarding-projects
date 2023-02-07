@@ -5,26 +5,68 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notebook</title>
+    <link rel="stylesheet" href = "C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/notebook.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crafty+Girls&family=Jost:wght@300&display=swap');
+    </style>
 </head>
 <body onload = "getAndSetUserInfo()">
-    <h1>Notebook</h1>
-    <div id = "other-notes">
-        <!-- populate other note titles in here dynamically -->
+    <h1>My Notebook</h1>
+    <img src = "../css/images/pigemoji.webp" height = "80px" width = "auto">
+    <div id = "all-buttons">
+        <button id = "new-note-button" onclick = "writeNewNote()">Write new note</button>
+        <button id = "old-note-button" onclick = "getAllNotes()">View past notes</button>
     </div>
-    <div id = "current-note">
-        <!-- need to put note date, note title, note content. will generate its own notebook id. needs task user id from session storage -->
+    <div id = "all-notes">
+        <div id = "current-note"></div>
+        <div id = "other-notes"></div>
     </div>
-    <div id = "user-info-here"></div>
-    <button onclick = "getAllNotes()">View notes</button>
+    <button id = "go-home" onclick = "location.href = 'home.html'">Back to home</button>
 </body>
 <script>
-    const userInfo = document.getElementById("user-info-here");
+    // go home
+    function changeHomeButtonColor(){
+        document.getElementById("go-home").style.background = "white";
+        document.getElementById("go-home").style.color = "#5c74b5";
+    }
+
+    function revertHomeButtonColor(){
+        document.getElementById("go-home").style.color = "white";
+        document.getElementById("go-home").style.background = "#5c74b5";
+    }
+
+    document.getElementById("go-home").addEventListener("mouseover", changeHomeButtonColor);
+    document.getElementById("go-home").addEventListener("mouseleave", revertHomeButtonColor);
+
+    // old notes
+    function changeOldNoteButtonColor(){
+        document.getElementById("old-note-button").style.background = "white";
+        document.getElementById("old-note-button").style.color = "#5c74b5";
+    }
+
+    function revertOldNoteButtonColor(){
+        document.getElementById("old-note-button").style.color = "white";
+        document.getElementById("old-note-button").style.background = "#5c74b5";
+    }
+
+    document.getElementById("old-note-button").addEventListener("mouseover", changeOldNoteButtonColor);
+    document.getElementById("old-note-button").addEventListener("mouseleave", revertOldNoteButtonColor);
+
+    // new note
+    function changeNewNoteButtonColor(){
+        document.getElementById("new-note-button").style.background = "white";
+        document.getElementById("new-note-button").style.color = "#5c74b5";
+    }
+
+    function revertNewNoteButtonColor(){
+        document.getElementById("new-note-button").style.color = "white";
+        document.getElementById("new-note-button").style.background = "#5c74b5";
+    }
+
+    document.getElementById("new-note-button").addEventListener("mouseover", changeNewNoteButtonColor);
+    document.getElementById("new-note-button").addEventListener("mouseleave", revertNewNoteButtonColor);
 
     async function getAndSetUserInfo(){
-        let info = document.createElement("h1");
-        info.textContent = `${sessionStorage.getItem("sessionUsername")}`;;
-        userInfo.appendChild(info);
-
         let httpResponse = await fetch(`http://localhost:8080/tabitha/user/username/${sessionStorage.getItem("sessionUsername")}`);
         console.log(httpResponse);
         let responseBody = await httpResponse.json();
@@ -42,23 +84,208 @@
         }
     }
 
+    const otherNotes = document.getElementById("other-notes");
+
     async function getAllNotes(){
+        otherNotes.innerHTML = "";
+
             let httpResponse = await fetch(`http://localhost:8080/tabitha/notebook/${sessionStorage.getItem("sessionUserId")}`);
             let responseBody = await httpResponse.json();
             if(httpResponse.status === 200){
+                let table = document.createElement("table");
+                otherNotes.appendChild(table);
+
+                let tableHead = document.createElement("thead");
+                otherNotes.appendChild(tableHead);
+
+                let th1 = document.createElement("th");
+                th1.textContent = "Date";
+                tableHead.appendChild(th1);
+
+                let th2 = document.createElement("th");
+                th2.textContent = "Title";
+                tableHead.appendChild(th2);
+
+                let th3 = document.createElement("th");
+                th3.textContent = "Entry";
+                tableHead.appendChild(th3);
+
+                let tableBody = document.createElement("tbody");
+                otherNotes.appendChild(tableBody);
+
                 for(x of responseBody){
-                    let table = document.createElement("table");
-                    userInfo.appendChild(table);
 
                     let tr1 = document.createElement("tr");
                     tr1.innerHTML = 
                     `
-                    <td>${x.notebook_id}</td>
+                    <td>${x.entry_date}</td>
                     <td>${x.entry_title}</td>
+                    <td>${x.entry_content}</td>
                     `
-                    table.appendChild(tr1);
+                    tableBody.appendChild(tr1);
                 }
             }
+    }
+
+    const newNote = document.getElementById("current-note");
+
+    function writeNewNote(){
+        newNote.innerHTML = "";
+
+        // date label
+        let dateLabel = document.createElement("label");
+        dateLabel.innerHTML = 
+        `
+        <label for = "date"><span>Today's Date</span></label>
+        `
+        newNote.appendChild(dateLabel);
+
+        // div for date inputs
+        let dateDiv = document.createElement("div");
+        dateDiv.style.display = "flex";
+        dateDiv.style.flexDirection = "row";
+        dateDiv.style.gap = "10px";
+        newNote.appendChild(dateDiv);
+
+        // month input
+        let month = document.createElement("select");
+        month.id = "date";
+        month.innerHTML = 
+        `
+        <option>Jan</option>
+        <option>Feb</option>
+        <option>Mar</option>
+        <option>Apr</option>
+        <option>May</option>
+        <option>Jun</option>
+        <option>Jul</option>
+        <option>Aug</option>
+        <option>Sep</option>
+        <option>Oct</option>
+        <option>Nov</option>
+        <option>Dec</option>
+        `
+        dateDiv.appendChild(month);
+
+        // day input
+        let day = document.createElement("select");
+        day.id = "day";
+        day.innerHTML = 
+        `
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+        <option>13</option>
+        <option>14</option>
+        <option>15</option>
+        <option>16</option>
+        <option>17</option>
+        <option>18</option>
+        <option>19</option>
+        <option>20</option>
+        <option>21</option>
+        <option>22</option>
+        <option>23</option>
+        <option>24</option>
+        <option>25</option>
+        <option>26</option>
+        <option>27</option>
+        <option>28</option>
+        <option>29</option>
+        <option>30</option>
+        <option>31</option>
+        `
+        dateDiv.appendChild(day); 
+
+        // title label
+        let entryTitleLabel = document.createElement("label");
+        entryTitleLabel.innerHTML = 
+        `
+        <label for = "entry-title"><span>Title</span></label>
+        `
+        newNote.appendChild(entryTitleLabel);
+
+        // title
+        let entryTitle = document.createElement("input");
+        entryTitle.id = "entry-title";
+        entryTitle.type = "text";
+        entryTitle.maxLength = "50";
+        newNote.appendChild(entryTitle);
+
+        // content label
+        let entryContentLabel = document.createElement("label");
+        entryContentLabel.innerHTML = 
+        `
+        <label for = "entry-content"><span>Entry</span></label>
+        `
+        newNote.appendChild(entryContentLabel);
+
+        // content
+        let entryContent = document.createElement("textarea");
+        entryContent.id = "entry-content";
+        entryContent.maxLength = "500";
+        newNote.appendChild(entryContent);
+
+        // button
+        let submitButton = document.createElement("button");
+        submitButton.textContent = "Submit";
+        submitButton.id = "submit-button";
+        newNote.appendChild(submitButton);
+
+        document.getElementById("submit-button").addEventListener("click", createNewNote);
+
+        // change submit button color
+        function changeSubmitButtonColor(){
+            document.getElementById("submit-button").style.background = "white";
+            document.getElementById("submit-button").style.color = "#5c74b5";
+        }
+
+        function revertSubmitButtonColor(){
+            document.getElementById("submit-button").style.color = "white";
+            document.getElementById("submit-button").style.background = "#5c74b5";
+        }
+
+        document.getElementById("submit-button").addEventListener("mouseover", changeSubmitButtonColor);
+        document.getElementById("submit-button").addEventListener("mouseleave", revertSubmitButtonColor);
+    }
+
+    async function createNewNote(){
+        let date = `${document.getElementById("date").value} ${document.getElementById("day").value}, 2023`
+
+        let noteInfo = {
+            notebook_id: 0,
+            entry_title: document.getElementById("entry-title").value,
+            entry_date: date,
+            entry_content: document.getElementById("entry-content").value,
+            task_user_id: sessionStorage.getItem("sessionUserId")
+        };
+
+        let createNoteJSON = JSON.stringify(noteInfo);
+
+        let config = {
+            method: "POST",
+            headers: {'Content-Type': "application/json"},
+            body: createNoteJSON
+        };
+
+        let httpResponse = await fetch("http://localhost:8080/tabitha/notebook/new", config);
+
+        if(httpResponse.status === 201){
+            let responseBody = await httpResponse.json();
+            alert("Note taken! <3")
+            location.reload();
+        } else {
+            alert("Note could not be submitted, please try again.");
+        }
     }
 </script>
 </html>

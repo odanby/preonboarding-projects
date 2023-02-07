@@ -1,0 +1,162 @@
+html { 
+    background: url("../css/images/notebook-bg.png") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+body {
+    /* background-image: url("../css/images/notebook-bg.png"); */
+    font-family: 'Jost', serif;
+    color: #5c74b5;
+}
+
+h1 {
+    text-align: center;
+    font-size: 43px;
+}
+
+h2 {
+    font-size: 33px;
+}
+
+button {
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    text-transform: lowercase;
+    height: 40px;
+    width: 150px;
+    font-size: 18px;
+    color: white;
+    margin-top: 15px;
+    background: #5c74b5;
+}
+
+img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#current-note {
+    display: flex;
+    flex-direction: column;
+    margin-left: 7%;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#other-notes {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+    color: white;
+    display: block;
+    background: #5c74b5d2;
+    border-radius: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+tr {
+    padding-bottom: 10px;
+}
+
+th {
+    font-size: 25px;
+}
+
+th, tr {
+    width:400px;
+    text-align:center;
+    padding:5px
+}
+
+#all-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+}
+
+#all-notes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input {
+    height: 40px;
+    width: 230px;
+    font-family: 'Crafty Girls', cursive;
+    font-size: 20px;
+    margin-bottom: 10px;
+    outline: none;
+    border: 1px solid #8d6cad;
+    color: #49355d;
+}
+
+option {
+    height: 40px;
+    width: 230px;
+    font-family: 'Crafty Girls', cursive;
+    font-size: 15px;
+    margin-bottom: 10px;
+    outline: none;
+    border: 1px solid #8d6cad;
+    color: #49355d;
+}
+
+select {
+    height: 40px;
+    width: 120px;
+    font-family: 'Crafty Girls', cursive;
+    font-size: 20px;
+    margin-bottom: 10px;
+    outline: none;
+    border: 1px solid #8d6cad;
+    color: #49355d;
+}
+
+#day {
+    width: 75px;
+}
+
+textarea {
+    font-family: 'Crafty Girls', cursive;
+    font-size: 20px;
+    outline: none;
+    border: 1px solid #8d6cad;
+    color: #49355d;
+}
+
+label {
+    font-size: 22px;
+    color: white;
+}
+
+span {
+    background-color: #5c74b5;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#entry-title {
+    width: 300px;
+}
+
+#entry-content {
+    height: 200px;
+    width: 900px;
+}
+
+#go-home {
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+}
