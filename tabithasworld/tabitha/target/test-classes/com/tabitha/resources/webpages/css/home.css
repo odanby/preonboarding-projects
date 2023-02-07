@@ -1,10 +1,68 @@
-#canvas1 {
-    border: 2px solid black;
+#bg {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-image: url("../css/images/IMG-7241.PNG");
     max-width: 100%;
     max-height: 100%;
+    border: 2px solid rgb(147, 87, 147);
+}
+
+#weather-example {
+    position: absolute;
+    top: 30%;
+    left: 37%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#weather {
+    position: absolute;
+    left: 33%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#notebook {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    bottom: 2%;
+    left: 48%;
+}
+
+#calendar {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    left: 70%;
+    top: 5%;
+}
+
+#todo {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    top: 5%;
+}
+
+#logout {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    right: 2%;
+    bottom: 2%;
+}
+
+#cactus {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    bottom: 20%;
+    left: 27%
+}
+
+#logo {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    top: 2%;
+    right: 2%;
 }

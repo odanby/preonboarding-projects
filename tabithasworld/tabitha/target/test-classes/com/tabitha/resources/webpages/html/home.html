@@ -9,13 +9,34 @@
 </head>
 <body>
     <div>
-        <canvas id = "canvas1"></canvas>
+        <!-- base -->
+        <img id = "bg" src = "../css/images/bg.PNG" width = "1350" height = "600" style="z-index: auto;">
+
+        <!-- weather -->
+        <img id = "weather-example" width = "325" height = "auto" src = "../css/images/weather-bg.PNG">
+        <img id = "weather" width = "450" height = "auto" src = "../css/images/weather-base.PNG" onclick = "location.href = 'weather.html'" onmouseover = "this.src = '../css/images/weather-highlight.png'" onmouseleave = "this.src = '../css/images/weather-base.PNG'" style="z-index: auto;">
+
+        <!-- notebook -->
+        <img id = "notebook" width = "185" height = "auto" src = "../css/images/notebook-base.PNG" onclick = "location.href = 'notebook.html'" onmouseover = "this.src = '../css/images/notebook-highlight.png'" onmouseleave = "this.src = '../css/images/notebook-base.PNG'" style="z-index: auto;">
+
+        <!-- to do -->
+        <img id = "todo" width = "375" height = "auto" src = "../css/images/todo-base.PNG" onclick = "location.href = 'to-do.html'" onmouseover = "this.src = '../css/images/todo-highlight.png'" onmouseleave = "this.src = '../css/images/todo-base.PNG'" style="z-index: auto;">
+
+        <!-- calendar -->
+        <img id = "calendar" width = "350" height = "auto" src = "../css/images/calendar-base.PNG" onclick = "location.href = 'calendar.html'" onmouseover = "this.src = '../css/images/calendar-highlight.png'" onmouseleave = "this.src = '../css/images/calendar-base.PNG'" style="z-index: auto;">
+
+        <!-- logout -->
+        <img id = "logout" width = "150" height = "auto" src = "../css/images/logout-base.PNG" onclick = "location.href = 'login.html'" onmouseover = "this.src = '../css/images/logout-highlight.png'" onmouseleave = "this.src = '../css/images/logout-base.PNG'" style="z-index: auto;">
+
+        <!-- decor -->
+        <img id = "cactus" width = "150" height = "auto" src = "../css/images/cactus.PNG" style = "z-index: auto;">
+
+        <!-- logo -->
+        <img id = "logo" width = "50" height = "auto" src = "../css/images/logo.PNG" style = "z-index: auto;">
+
     </div>
 </body>
 <script>
-    const canvas = document.getElementById("canvas1");
-    const ctx = canvas.getContext("2d");
-    canvas.width = 1350;
-    canvas.height = 600;
+
 </script>
 </html>

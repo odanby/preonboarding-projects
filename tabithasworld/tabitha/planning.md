@@ -247,12 +247,12 @@ Notebook:
     - Login (DONE)
     - Checkin (DONE)
     - Registration (DONE)
-    - Home
+    - Home (DONE)
     - Weather
     - Terms (DONE)
     - Notebook
     - To Do
-    - Caendar
+    - Calendar
 - WRITE JAVASCRIPT CODE TO CREATE HTTP REQUESTS/RESPONSES
 - WRITE CSS
 - E2E TESTING!
