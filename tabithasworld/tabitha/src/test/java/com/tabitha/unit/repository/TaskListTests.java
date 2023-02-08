@@ -36,6 +36,13 @@ public class TaskListTests {
         List<TaskList> result = tasklistDao.getAllTasksByTaskId(3);
         Assert.assertNotNull(result);
     }
+
+    // retrieve task by task id
+    @Test
+    public void getAllTasksByCategoryId(){
+        List<TaskList> result = tasklistDao.getAllTasksByCategoryId(1);
+        Assert.assertNotNull(result);
+    }
     
     // create a task
         // TaskList createTask(TaskList newTask);

@@ -32,6 +32,14 @@ public class TaskListDAO implements TaskListDAOInterface {
     }
 
     @Override
+    public List<TaskList> getAllTasksByCategoryId(int category_id) {
+        HibernateUtil.beginTransaction();
+        List<TaskList> requestList = HibernateUtil.getSession().createQuery("from TaskList where category_id = :CategoryId", TaskList.class).setParameter("CategoryId", category_id).getResultList();
+        HibernateUtil.endTransaction();
+        return requestList;
+    }
+
+    @Override
     public TaskList createTask(TaskList newTask) {
         HibernateUtil.beginTransaction();
         HibernateUtil.getSession().save(newTask);

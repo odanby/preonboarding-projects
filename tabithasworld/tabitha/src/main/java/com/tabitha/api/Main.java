@@ -64,8 +64,9 @@ public class Main {
         TaskListController tasklistController = new TaskListController(tasklistService);
 
         app.get("/tabitha/tasklist/all", tasklistController.getAllTasks);
-        app.get("/tabitha/tasklist/{task_user_id}", tasklistController.getTaskByUserId);
-        app.get("/tabitha/tasklist/{task_id}", tasklistController.getTaskByTaskId);
+        app.get("/tabitha/tasklist/user/{task_user_id}", tasklistController.getTaskByUserId);
+        app.get("/tabitha/tasklist/task/{task_id}", tasklistController.getTaskByTaskId);
+        app.get("/tabitha/tasklist/category/{category_id}", tasklistController.getTaskByCategoryId);
         app.post("/tabitha/tasklist/new", tasklistController.createTask);
         app.delete("/tabitha/tasklist/{task_id}", tasklistController.removeTask);
         app.patch("/tabitha/tasklist/{task_id}", tasklistController.updateTask);

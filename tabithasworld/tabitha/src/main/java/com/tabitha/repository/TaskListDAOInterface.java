@@ -22,6 +22,9 @@ public interface TaskListDAOInterface {
 
     // retrieve task by task id
     List<TaskList> getAllTasksByTaskId(int task_id);
+
+    // retrieve task by category id
+    List<TaskList> getAllTasksByCategoryId(int category_id);
     
     // create a task
     TaskList createTask(TaskList newTask);

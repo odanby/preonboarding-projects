@@ -15,6 +15,9 @@ public interface TaskListServiceInterface {
         // retrieve task by task id
         List<TaskList> serviceGetAllTasksByTaskId(int task_id);
         
+        // retrieve task by category id
+        List<TaskList> serviceGetAllTasksByCategoryId(int category_id);
+
         // create a task
         TaskList serviceCreateTask(TaskList newTask);
     

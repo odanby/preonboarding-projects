@@ -12,19 +12,38 @@
 </head>
 <body onload = "getAndSetUserInfo()">
     <h1>To Do</h1>
-    <div id = "categories-here"></div>
+    <div id = "all-here">
+        <div id = "categories-here">
+            <button id = "create-category-button" onclick = "createNewCategory()">+</button>
+        </div>
+        <div id = "tasks-here">
+            <h3>Click a category to see its tasks!</h3>
+        </div>
+    </div>
+    <div id = "new-category"></div>
     <button id = "go-home" onclick = "location.href = 'home.html'">Back to home</button>
 </body>
 <script>
+    function changeCreateCategoryButtonColor(){
+        document.getElementById("create-category-button").style.background = "#ac7f7f";
+    }
+
+    function revertCreateCategoryButtonColor(){
+        document.getElementById("create-category-button").style.background = "#d19c9c";
+    }
+
+    document.getElementById("create-category-button").addEventListener("mouseover", changeCreateCategoryButtonColor);
+    document.getElementById("create-category-button").addEventListener("mouseleave", revertCreateCategoryButtonColor);
+
     // change go home button
     function changeHomeButtonColor(){
         document.getElementById("go-home").style.background = "white";
-        document.getElementById("go-home").style.color = "#d19c9c";
+        document.getElementById("go-home").style.color = "#ac7f7f";
     }
 
     function revertHomeButtonColor(){
         document.getElementById("go-home").style.color = "white";
-        document.getElementById("go-home").style.background = "#d19c9c";
+        document.getElementById("go-home").style.background = "#ac7f7f";
     }
 
     document.getElementById("go-home").addEventListener("mouseover", changeHomeButtonColor);
@@ -58,21 +77,272 @@
                 let tr = document.createElement("tr")
                 tr.innerHTML =
                 `
-                <button>${x.category_title}</button>
+                <button id = "category${x.category_id}" value = "${x.category_id}">${x.category_title}</button>
                 `
+                let useMe = x.category_id; // aha!
+                
                 document.getElementById("categories-here").appendChild(tr);
+
+                function changeCategoryColor(){
+                    document.getElementById(`category${useMe}`).style.background = "#ac7f7f";
+                }
+
+                function revertCategoryColor(){
+                    document.getElementById(`category${useMe}`).style.background = "#d19c9c";
+                }
+
+                document.getElementById(`category${useMe}`).addEventListener("mouseover", changeCategoryColor);
+                document.getElementById(`category${useMe}`).addEventListener("mouseleave", revertCategoryColor);
+
+                async function getTasksByCategoryId(){
+                    let httpResponseTask = await fetch(`http://localhost:8080/tabitha/tasklist/category/${useMe}`);
+                    let responseBodyTask = await httpResponseTask.json();
+
+                    document.getElementById("tasks-here").innerHTML = "";
+                    
+                    if(httpResponseTask.status === 200){
+                        for(x of responseBodyTask){                            
+                            let tr = document.createElement("tr");
+                            
+                            if(x.task_status == "Y"){
+                                tr.innerHTML = 
+                                `
+                                <input checked class = "checkboxes" type="checkbox" id="task${x.task_id}" name="task${x.task_id}" value="${x.task_id}">
+                                <label class = "strikethrough" for="task${x.task_id}">${x.task_desc}</label><br>
+                                `
+                            } else {
+                                tr.innerHTML = 
+                                `
+                                <input class = "checkboxes" type="checkbox" id="task${x.task_id}" name="task${x.task_id}" value="${x.task_id}">
+                                <label class = "strikethrough" for="task${x.task_id}">${x.task_desc}</label><br>
+                                `
+                            }
+
+                            sessionStorage.setItem(`taskId${x.task_id}`, x.task_id);
+                            sessionStorage.setItem(`taskDesc${x.task_id}`, x.task_desc);
+                            sessionStorage.setItem(`taskFreq${x.task_id}`, x.task_frequency);
+                            sessionStorage.setItem(`taskStatus${x.task_id}`, x.task_status);
+                            sessionStorage.setItem(`taskCategory${x.task_id}`, x.category_id);
+                            document.getElementById("tasks-here").appendChild(tr);
+
+                           
+
+                        }
+
+                         // update task
+                         let checkbox = document.getElementById(`task${sessionStorage.getItem(`taskId${x.task_id}`)}`);
+                            console.log(checkbox);
+                            checkbox.addEventListener( "change", () => {
+                                if ( checkbox.checked ) {
+                                    console.log(checkbox);
+                                    alert("Changed to Y")
+                                    updateTaskStatusY();
+                                } else if (!checkbox.checked){
+                                    console.log(checkbox);
+                                    alert("Changed to N")
+                                    updateTaskStatusN();
+                                }
+                            });
+
+                            async function updateTaskStatusY(){
+                                let updateInfo = {
+                                    task_id: sessionStorage.getItem(`taskId${x.task_id}`),
+                                    task_desc: sessionStorage.getItem(`taskDesc${x.task_id}`),
+                                    task_frequency: 1,
+                                    task_status: "Y",
+                                    task_user_id: sessionStorage.getItem("sessionUserId"),
+                                    category_id: useMe
+                                };
+
+                                let updateJSON = JSON.stringify(updateInfo);
+
+                                let config = {
+                                    method: "PATCH",
+                                    headers: {'Content-Type': "application/json"},
+                                    body: updateJSON
+                                }
+
+                                let httpResponse = await fetch(`http://localhost:8080/tabitha/tasklist/${x.task_id}`, config);
+
+                                if(httpResponse.status === 200){
+                                    location.reload();
+                                } else {
+                                    alert("Could not mark task as complete, please try again");
+                                }
+                            }
+
+                            async function updateTaskStatusN(){
+                                let updateInfo = {
+                                    task_id: sessionStorage.getItem(`taskId${x.task_id}`),
+                                    task_desc: sessionStorage.getItem(`taskDesc${x.task_id}`),
+                                    task_frequency: 1,
+                                    task_status: "N",
+                                    task_user_id: sessionStorage.getItem("sessionUserId"),
+                                    category_id: useMe
+                                };
+
+                                let updateJSON = JSON.stringify(updateInfo);
+
+                                let config = {
+                                    method: "PATCH",
+                                    headers: {'Content-Type': "application/json"},
+                                    body: updateJSON
+                                }
+
+                                let httpResponse = await fetch(`http://localhost:8080/tabitha/tasklist/${x.task_id}`, config);
+
+                                if(httpResponse.status === 200){
+                                    location.reload();
+                                } else {
+                                    alert("Could not mark task as incomplete, please try again");
+                                }
+                            }
+
+                        let createTaskButton = document.createElement("button");
+                        createTaskButton.id = "create-task-button";
+                        createTaskButton.textContent = "+"
+                        document.getElementById("tasks-here").appendChild(createTaskButton);
+
+                        function changeCreateTaskButtonColor(){
+                            document.getElementById("create-task-button").style.background = "#ac7f7f";
+                        }
+
+                        function revertCreateTaskButtonColor(){
+                            document.getElementById("create-task-button").style.background = "#d19c9c";
+                        }
+
+                        document.getElementById("create-task-button").addEventListener("mouseover", changeCreateTaskButtonColor);
+                        document.getElementById("create-task-button").addEventListener("mouseleave", revertCreateTaskButtonColor);
+
+                        document.getElementById("create-task-button").addEventListener("click", createNewTask);
+
+                        
+                    }
+                }
+
+
+                document.getElementById(`category${x.category_id}`).addEventListener("click", getTasksByCategoryId);
+
+                sessionStorage.setItem(`sessionCategoryId${x.category_id}`, x.category_id);
+                console.log(sessionStorage.getItem(`sessionCategoryId${x.category_id}`));
+
+                function createNewTask(){
+                    let input = document.createElement("input");
+                    input.type = "text";
+                    input.id = "new-task-input";
+                    document.getElementById("tasks-here").appendChild(input);
+
+                    let button = document.createElement("button");
+                    button.textContent = "Submit";
+                    button.id = "submit-new-task";
+                    document.getElementById("tasks-here").appendChild(button);
+
+                    function changeCreateTaskButtonColor(){
+                        document.getElementById("submit-new-task").style.background = "#ac7f7f";
+                    }
+
+                    function revertCreateTaskButtonColor(){
+                        document.getElementById("submit-new-task").style.background = "#d19c9c";
+                    }
+
+                    document.getElementById("submit-new-task").addEventListener("mouseover", changeCreateTaskButtonColor);
+                    document.getElementById("submit-new-task").addEventListener("mouseleave", revertCreateTaskButtonColor);
+
+
+                    // make async function here
+                    async function submitNewTask(){
+                        let taskInfo = {
+                            task_id: 0,
+                            task_desc: document.getElementById("new-task-input").value,
+                            task_frequency: 1,
+                            task_status: "N",
+                            task_user_id: sessionStorage.getItem("sessionUserId"),
+                            category_id: useMe
+                        };
+
+                        let taskInfoJSON = JSON.stringify(taskInfo);
+
+                        let config = {
+                            method: "POST",
+                            headers: {'Content-Type': "application/json"},
+                            body: taskInfoJSON 
+                        };
+
+                        let httpResponse = await fetch("http://localhost:8080/tabitha/tasklist/new", config);
+
+                        if(httpResponse.status === 201){
+                            let responseBody = await httpResponse.json();
+                            sessionStorage.setItem
+                            location.reload();
+                        } else {
+                            alert("Task could not be created, please try again");
+                        }
+                    }
+
+                    document.getElementById("submit-new-task").addEventListener("click", submitNewTask);
+                }
             }
         }
     }
 
     document.body.addEventListener("load", getAllCategories())
 
-    // need to get able to create categories for a user
-    
-    // need to be able to get all tasks in a category
+    // need to create category
+    function createNewCategory(){
 
-    // need to create tasks within category
+        let input = document.createElement("input");
+        input.type = "text";
+        input.id = "new-category-input";
+        document.getElementById("new-category").appendChild(input);
 
-    // need to update tasks with status
+        let button = document.createElement("button");
+        button.textContent = "Submit";
+        button.id = "submit-new-category";
+        document.getElementById("new-category").appendChild(button);
+
+        function changeCreateCategoryButtonColor(){
+            document.getElementById("submit-new-category").style.background = "#d19c9c";
+            document.getElementById("submit-new-category").style.color = "white";
+            document.getElementById("submit-new-category").style.border = "2px dotted white";
+        }
+
+        function revertCreateCategoryButtonColor(){
+            document.getElementById("submit-new-category").style.color = "#d19c9c";
+            document.getElementById("submit-new-category").style.background = "white";
+            document.getElementById("submit-new-category").style.border = "2px dotted #d19c9c";
+        }
+
+        document.getElementById("submit-new-category").addEventListener("mouseover", changeCreateCategoryButtonColor);
+        document.getElementById("submit-new-category").addEventListener("mouseleave", revertCreateCategoryButtonColor);
+
+        // make async function here
+        async function submitNewCategory(){
+            let categoryInfo = {
+            category_id: 0,
+            category_title: document.getElementById("new-category-input").value,
+            task_user_id: sessionStorage.getItem("sessionUserId")
+            };
+
+            let categoryInfoJSON = JSON.stringify(categoryInfo);
+
+            let config = {
+                method: "POST",
+                headers: {'Content-Type': "application/json"},
+                body: categoryInfoJSON 
+            };
+
+            let httpResponse = await fetch("http://localhost:8080/tabitha/category/new", config);
+
+            if(httpResponse.status === 201){
+                let responseBody = await httpResponse.json();
+                location.reload();
+            } else {
+                alert("Category could not be created, please try again");
+            }
+        }
+
+        document.getElementById("submit-new-category").addEventListener("click", submitNewCategory);
+    } 
+
 </script>
 </html>

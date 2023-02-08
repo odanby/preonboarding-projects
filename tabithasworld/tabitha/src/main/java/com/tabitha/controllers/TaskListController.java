@@ -91,6 +91,30 @@ public class TaskListController {
                 ctx.status(400);
             }
         };
+
+        // // retrieve task by category id
+        // List<TaskList> serviceGetAllTasksByTaskId(int task_id);
+        public Handler getTaskByCategoryId = ctx -> {
+            int category_id = Integer.parseInt(ctx.pathParam("category_id"));
+            try {
+                List<TaskList> task = this.tasklistService.serviceGetAllTasksByCategoryId(category_id);
+                if(task == null){
+                    HashMap<String, String> message = new HashMap<>();
+                    message.put("errorMessage", "Error processing request");
+                    ctx.result(gson.toJson(message));
+                    ctx.status(400);
+                } else {
+                    String tasklistJSON = gson.toJson(task);
+                    ctx.result(tasklistJSON);
+                    ctx.status(200);
+                }
+            } catch (InvalidTask e){
+                HashMap<String, String> message = new HashMap<>();
+                message.put("errorMessage", e.getMessage());
+                ctx.result(gson.toJson(message));
+                ctx.status(400);
+            }
+        };
         
         // // create a task
         // TaskList serviceCreateTask(TaskList newTask);

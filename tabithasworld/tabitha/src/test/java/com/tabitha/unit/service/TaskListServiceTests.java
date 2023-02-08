@@ -88,6 +88,13 @@ public class TaskListServiceTests {
         Assert.assertNotNull(result);
     }
 
+    // retrieve task by category id - success
+    @Test
+    public void successGetTaskCategoryId(){
+        List<TaskList> result = tasklistService.serviceGetAllTasksByCategoryId(1);
+        Assert.assertNotNull(result);
+    }
+
     // create a task - success
     @Test
     public void successfulTask(){

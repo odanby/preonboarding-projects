@@ -33,6 +33,11 @@ public class TaskListService implements TaskListServiceInterface {
     }
 
     @Override
+    public List<TaskList> serviceGetAllTasksByCategoryId(int category_id) {
+        return this.tasklistDao.getAllTasksByCategoryId(category_id);
+    }
+
+    @Override
     public TaskList serviceCreateTask(TaskList newTask) {
         boolean valCheck1 = tasklistBusinessRules.checkTaskDescLength(newTask);
         boolean valCheck2 = tasklistBusinessRules.containsYOrN(newTask);
