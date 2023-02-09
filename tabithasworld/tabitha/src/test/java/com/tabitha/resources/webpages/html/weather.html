@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href = "C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/weather.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crafty+Girls&family=Jost:wght@300&display=swap');
+    </style>
+</head>
+<body onload = "getAndSetUserInfo()">
+    <div id = "weather"></div>
+    <button id = "go-home" onclick = "location.href = 'home.html'">Back to home</button>
+</body>
+<script>
+    // go home
+    function changeHomeButtonColor(){
+        document.getElementById("go-home").style.background = "white";
+        document.getElementById("go-home").style.color = "#5c74b5";
+    }
+
+    function revertHomeButtonColor(){
+        document.getElementById("go-home").style.color = "white";
+        document.getElementById("go-home").style.background = "#5c74b5";
+    }
+
+    document.getElementById("go-home").addEventListener("mouseover", changeHomeButtonColor);
+    document.getElementById("go-home").addEventListener("mouseleave", revertHomeButtonColor);
+
+    async function getAndSetUserInfo(){
+        let httpResponse = await fetch(`http://localhost:8080/tabitha/user/username/${sessionStorage.getItem("sessionUsername")}`);
+        console.log(httpResponse);
+        let responseBody = await httpResponse.json();
+        console.log(responseBody);
+
+        if(httpResponse.status === 200){
+            for(x of responseBody){
+                sessionStorage.setItem("sessionUserId", x.id);
+                sessionStorage.setItem("sessionUsername", x.username);
+                sessionStorage.setItem("sessionZipCode", x.zip_code);
+                console.log(sessionStorage.getItem("sessionUserId"));
+                console.log(sessionStorage.getItem("sessionUsername"));
+                console.log(sessionStorage.getItem("sessionZipCode"));
+            }
+        }
+    }
+    
+    async function getWeather(){
+        let apiKey = "c8fa3d2bc754c90dcf6d027e163f4f17";
+        let zipCode = sessionStorage.getItem("sessionZipCode");
+        let countryCode = "us";
+
+        let httpResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},${countryCode}&units=imperial&appid=${apiKey}`);
+        console.log(httpResponse)
+
+        if(httpResponse.status === 200){
+            let responseBody = await httpResponse.json();
+            console.log(responseBody)
+
+            let cityName = `${responseBody.name}`;
+            let currentTemp = `Current Temperature: ${Math.round(responseBody.main.temp)}°F`;
+            let highTemp = `High: ${Math.round(responseBody.main.temp_max)}°F`;
+            let lowTemp = `Low: ${Math.round(responseBody.main.temp_min)}°F`;
+            let humidity = `Humidity: ${Math.round(responseBody.main.humidity)}%`;
+            let windSpeed = `Wind: ${Math.round(responseBody.wind.speed)} mph`;
+            let weatherForecast;
+
+            for(let x of responseBody.weather){
+                weatherForecast = x.main;
+            }
+
+            let h1 = document.createElement("h1");
+            h1.innerHTML =
+            `
+            <h1>${cityName}</h1>
+            `
+
+            let h2 = document.createElement("h2");
+            h2.innerHTML =
+            `
+            <h2>${weatherForecast}</h2>
+            `
+
+            let h3_1 = document.createElement("h3");
+            h3_1.innerHTML =
+            `
+            <h3>${currentTemp}</h3> 
+            `
+
+            let h3_2 = document.createElement("h3");
+            h3_2.innerHTML =
+            `
+            <h3>${highTemp}</h3>
+            `
+
+            let h3_3 = document.createElement("h3");
+            h3_3.innerHTML =
+            `
+            <h3>${lowTemp}</h3>
+            `
+
+            let h3_4 = document.createElement("h3");
+            h3_4.innerHTML =
+            `
+            <h3>${humidity}</h3>
+            `
+
+            let h3_5 = document.createElement("h3");
+            h3_5.innerHTML =
+            `
+            <h3>${windSpeed}</h3>
+            `
+            document.getElementById("weather").appendChild(h1);
+            document.getElementById("weather").appendChild(h2);
+            document.getElementById("weather").appendChild(h3_1);
+            document.getElementById("weather").appendChild(h3_2);
+            document.getElementById("weather").appendChild(h3_3);
+            document.getElementById("weather").appendChild(h3_4);
+            document.getElementById("weather").appendChild(h3_5);
+        } else {
+            alert("Could not find weather for this city, please try again!")
+        }
+    }
+
+    document.body.addEventListener("load", getWeather())
+</script>
+</html>

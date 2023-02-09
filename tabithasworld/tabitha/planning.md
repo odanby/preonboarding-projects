@@ -251,7 +251,7 @@ Notebook:
     - Weather
     - Terms (DONE)
     - Notebook (DONE)
-    - To Do
+    - To Do (DONE)
     - Calendar
 - WRITE JAVASCRIPT CODE TO CREATE HTTP REQUESTS/RESPONSES
 - WRITE CSS
