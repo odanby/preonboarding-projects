@@ -101,53 +101,76 @@
                     document.getElementById("tasks-here").innerHTML = "";
                     
                     if(httpResponseTask.status === 200){
-                        for(x of responseBodyTask){                            
+                        for(x of responseBodyTask){             
+                            
                             let tr = document.createElement("tr");
                             
                             if(x.task_status == "Y"){
                                 tr.innerHTML = 
                                 `
-                                <input checked class = "checkboxes" type="checkbox" id="task${x.task_id}" name="task${x.task_id}" value="${x.task_id}">
-                                <label class = "strikethrough" for="task${x.task_id}">${x.task_desc}</label><br>
+                                <label class = "strikethrough" for="task${x.task_id}"><strike>#${x.task_id}: ${x.task_desc}</strike></label><br>
                                 `
                             } else {
                                 tr.innerHTML = 
                                 `
-                                <input class = "checkboxes" type="checkbox" id="task${x.task_id}" name="task${x.task_id}" value="${x.task_id}">
-                                <label class = "strikethrough" for="task${x.task_id}">${x.task_desc}</label><br>
+                                <label class = "strikethrough" for="task${x.task_id}">#${x.task_id}: ${x.task_desc}</label><br>
                                 `
                             }
-
-                            sessionStorage.setItem(`taskId${x.task_id}`, x.task_id);
-                            sessionStorage.setItem(`taskDesc${x.task_id}`, x.task_desc);
-                            sessionStorage.setItem(`taskFreq${x.task_id}`, x.task_frequency);
-                            sessionStorage.setItem(`taskStatus${x.task_id}`, x.task_status);
-                            sessionStorage.setItem(`taskCategory${x.task_id}`, x.category_id);
+                            
                             document.getElementById("tasks-here").appendChild(tr);
-
-                           
-
                         }
 
-                         // update task
-                         let checkbox = document.getElementById(`task${sessionStorage.getItem(`taskId${x.task_id}`)}`);
-                            console.log(checkbox);
-                            checkbox.addEventListener( "change", () => {
-                                if ( checkbox.checked ) {
-                                    console.log(checkbox);
-                                    alert("Changed to Y")
-                                    updateTaskStatusY();
-                                } else if (!checkbox.checked){
-                                    console.log(checkbox);
-                                    alert("Changed to N")
-                                    updateTaskStatusN();
-                                }
-                            });
+                        let tr2 = document.createElement("tr");
+                        tr2.innerHTML = 
+                        `
+                        <div id = "done-task-div">
+                            <label for = "done-task-input">Task #:</label>
+                            <input id = "done-task-input" type = "number">
+                            <button id = "mark-task-complete">Done!</button>
+                            <button id = "mark-task-incomplete">Not done yet</button>
+                        </div>
+                        `
+                        document.getElementById("tasks-here").appendChild(tr2);
 
-                            async function updateTaskStatusY(){
+                        function changeDoneTaskButtonColor(){
+                            document.getElementById("mark-task-complete").style.background = "#ac7f7f";
+                        }
+
+                        function revertDoneTaskButtonColor(){
+                            document.getElementById("mark-task-complete").style.background = "#d19c9c";
+                        }
+
+                        document.getElementById("mark-task-complete").addEventListener("mouseover", changeDoneTaskButtonColor);
+                        document.getElementById("mark-task-complete").addEventListener("mouseleave", revertDoneTaskButtonColor);
+
+                        function changeNotDoneTaskButtonColor(){
+                            document.getElementById("mark-task-incomplete").style.background = "#ac7f7f";
+                        }
+
+                        function revertNotDoneTaskButtonColor(){
+                            document.getElementById("mark-task-incomplete").style.background = "#d19c9c";
+                        }
+
+                        document.getElementById("mark-task-incomplete").addEventListener("mouseover", changeNotDoneTaskButtonColor);
+                        document.getElementById("mark-task-incomplete").addEventListener("mouseleave", revertNotDoneTaskButtonColor);
+
+                        async function getTaskDescByTaskId(){
+                                let httpResponse = await fetch(`http://localhost:8080/tabitha/tasklist/task/${document.getElementById("done-task-input").value}`);
+                                let responseBody = await httpResponse.json();
+                                if(httpResponse.status === 200){
+                                    for(x of responseBody){
+                                        sessionStorage.setItem("taskDescHere", x.task_desc)
+                                        console.log(sessionStorage.getItem("taskDescHere"))
+                                    }
+                                }
+                            }
+
+                        async function updateTaskStatusY(){
+                                getTaskDescByTaskId();
+
                                 let updateInfo = {
-                                    task_id: sessionStorage.getItem(`taskId${x.task_id}`),
-                                    task_desc: sessionStorage.getItem(`taskDesc${x.task_id}`),
+                                    task_id: document.getElementById("done-task-input").value,
+                                    task_desc: sessionStorage.getItem("taskDescHere"),
                                     task_frequency: 1,
                                     task_status: "Y",
                                     task_user_id: sessionStorage.getItem("sessionUserId"),
@@ -162,7 +185,7 @@
                                     body: updateJSON
                                 }
 
-                                let httpResponse = await fetch(`http://localhost:8080/tabitha/tasklist/${x.task_id}`, config);
+                                let httpResponse = await fetch(`http://localhost:8080/tabitha/tasklist/${document.getElementById("done-task-input").value}`, config);
 
                                 if(httpResponse.status === 200){
                                     location.reload();
@@ -171,10 +194,12 @@
                                 }
                             }
 
+                            document.getElementById("mark-task-complete").addEventListener("click", updateTaskStatusY)
+
                             async function updateTaskStatusN(){
                                 let updateInfo = {
-                                    task_id: sessionStorage.getItem(`taskId${x.task_id}`),
-                                    task_desc: sessionStorage.getItem(`taskDesc${x.task_id}`),
+                                    task_id: document.getElementById("done-task-input").value,
+                                    task_desc: sessionStorage.getItem("taskDescHere"),
                                     task_frequency: 1,
                                     task_status: "N",
                                     task_user_id: sessionStorage.getItem("sessionUserId"),
@@ -189,7 +214,7 @@
                                     body: updateJSON
                                 }
 
-                                let httpResponse = await fetch(`http://localhost:8080/tabitha/tasklist/${x.task_id}`, config);
+                                let httpResponse = await fetch(`http://localhost:8080/tabitha/tasklist/${document.getElementById("done-task-input").value}`, config);
 
                                 if(httpResponse.status === 200){
                                     location.reload();
@@ -197,6 +222,8 @@
                                     alert("Could not mark task as incomplete, please try again");
                                 }
                             }
+
+                            document.getElementById("mark-task-incomplete").addEventListener("click", updateTaskStatusN)
 
                         let createTaskButton = document.createElement("button");
                         createTaskButton.id = "create-task-button";
@@ -215,8 +242,6 @@
                         document.getElementById("create-task-button").addEventListener("mouseleave", revertCreateTaskButtonColor);
 
                         document.getElementById("create-task-button").addEventListener("click", createNewTask);
-
-                        
                     }
                 }
 

@@ -159,6 +159,45 @@ button {
     margin-top: 10px;
 }
 
-input[type=checkbox]:checked + label.strikethrough{
+.done-buttons + label.strikethrough{
     text-decoration: line-through;
   }
+
+#mark-task-complete {
+    height: 40px;
+    width: 100px;
+    font-size: 14px;
+}
+
+#mark-task-incomplete {
+    height: 40px;
+    width: 100px;
+    font-size: 14px;
+}
+
+#done-task-div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #f9e8e8;
+    padding: 10px 40px 10px 40px;
+    border-radius: 5px;
+}
+
+#done-task-input {
+    border-radius: 5px;
+    outline: none;
+    border: 1px dotted #ac7f7f;
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-family: 'Crafty Girls', cursive;
+    height: 30px;
+    width: 80px;
+    font-size: 14px;
+    background: white;
+    color: #d19c9c;
+}
