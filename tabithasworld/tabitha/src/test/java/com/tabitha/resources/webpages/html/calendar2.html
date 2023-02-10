@@ -1,3 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href = "C:/Users/orian/preonboarding-projects/tabithasworld/tabitha/src/test/java/com/tabitha/resources/webpages/css/calendar.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crafty+Girls&family=Jost:wght@300&display=swap');
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+          <div id="monthDisplay"></div>
+          <div>
+            <button id="backButton">Back</button>
+            <button id="nextButton">Next</button>
+          </div>
+        </div>
+  
+        <div id="weekdays">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tues</div>
+          <div>Wed</div>
+          <div>Thurs</div>
+          <div>Fri</div>
+          <div>Sat</div>
+        </div>
+  
+        <div id="calendar"></div>
+
+        <button id = "go-home" onclick = "location.href = 'home.html'">Back to home</button>
+    </div>
+  
+      <div id="newEventModal">
+        <h2>New Event</h2>
+  
+        <input id="eventTitleInput" placeholder="Event Title" />
+  
+        <button id="saveButton">Save</button>
+        <button id="cancelButton">Cancel</button>
+      </div>
+  
+      <div id="deleteEventModal">
+        <h2>Event</h2>
+  
+        <p id="eventText"></p>
+  
+        <button id="deleteButton">Delete</button>
+        <button id="closeButton">Close</button>
+      </div>
+  
+      <div id="modalBackDrop"></div>
+</body>
+<script>
 // go home
 function changeHomeButtonColor(){
     document.getElementById("go-home").style.background = "white";
@@ -40,8 +97,6 @@ function revertNextButtonColor(){
 document.getElementById("nextButton").addEventListener("mouseover", changeNextButtonColor);
 document.getElementById("nextButton").addEventListener("mouseleave", revertNextButtonColor);
 
-// async functions will go here
-
 async function getAndSetUserInfo(){
     let httpResponse = await fetch(`http://localhost:8080/tabitha/user/username/${sessionStorage.getItem("sessionUsername")}`);
     console.log(httpResponse);
@@ -64,7 +119,6 @@ async function getAndSetUserInfo(){
 
 document.body.addEventListener("load", getAndSetUserInfo())
 
-// i need to have a get events by user id and populate them into the proper place
 async function getEventsByUserId(){
     let httpResponse = await fetch(`http://localhost:8080/tabitha/calendar/${sessionStorage.getItem("sessionUserId")}`);
     let responseBody = await httpResponse.json();
@@ -99,34 +153,14 @@ async function getEventsByUserId(){
     }
 }
 
-    // basically i need to have a create event one that associates the event created in the current one with a new java object and uses the user id
-
-// writing my javascript in here because im following a tutorial
 let nav = 0;
 let clicked = null;
-let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
-
 const calendar = document.getElementById('calendar');
 const newEventModal = document.getElementById('newEventModal');
 const deleteEventModal = document.getElementById('deleteEventModal');
 const backDrop = document.getElementById('modalBackDrop');
 const eventTitleInput = document.getElementById('eventTitleInput');
-const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-function openModal(date) {
-  clicked = date;
-
-  const eventForDay = events.find(e => e.date === clicked);
-
-  if (eventForDay) {
-    document.getElementById('eventText').innerText = eventForDay.title;
-    deleteEventModal.style.display = 'block';
-  } else {
-    newEventModal.style.display = 'block';
-  }
-
-  backDrop.style.display = 'block';
-}
+const weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
 
 function load() {
   const dt = new Date();
@@ -185,73 +219,6 @@ function load() {
   }
 }
 
-function closeModal() {
-  eventTitleInput.classList.remove('error');
-  newEventModal.style.display = 'none';
-  deleteEventModal.style.display = 'none';
-  backDrop.style.display = 'none';
-  eventTitleInput.value = '';
-  clicked = null;
-  load();
-}
-
-function saveEvent() {
-  if (eventTitleInput.value) {
-    eventTitleInput.classList.remove('error');
-
-    events.push({
-      date: clicked,
-      title: eventTitleInput.value,
-    });
-
-    // async function createNewEvent(){
-    //     let eventStartDate = `${document.getElementById("date").value} ${document.getElementById("day").value}, 2023`
-    //     let eventEndDate = `${document.getElementById("date").value} ${document.getElementById("day").value}, 2023`
-
-    //     let eventInfo = {
-    //         event_id: 0,
-    //         event_title: eventTitleInput.value,
-    //         event_desc: "Not necessary anymore" ,
-    //         event_status: "N",
-    //         event_start: eventStartDate,
-    //         event_end: eventEndDate,
-    //         day_status: "Y",
-    //         task_user_id: sessionStorage.getItem("sessionUserId")
-    //     };
-
-    //     let eventInfoJSON = JSON.stringify(eventInfo);
-
-    //     let config = {
-    //         method: "POST",
-    //         headers: {'Content-Type': "application/json"},
-    //         body: eventInfoJSON
-    //     };
-
-    //     let httpResponse = await fetch("http://localhost:8080/tabitha/calendar/new", config);
-
-    //     if(httpResponse.status === 201){
-    //         let responseBody = await httpResponse.json();
-    //         console.log(responseBody);
-    //         alert("Event created!")
-    //         location.reload();
-    //     } else {
-    //         alert("Event could not be created, please try again.");
-    //     }
-    // }
-
-    localStorage.setItem('events', JSON.stringify(events));
-    closeModal();
-  } else {
-    eventTitleInput.classList.add('error');
-  }
-}
-
-function deleteEvent() {
-  events = events.filter(e => e.date !== clicked);
-  localStorage.setItem('events', JSON.stringify(events));
-  closeModal();
-}
-
 function initButtons() {
   document.getElementById('nextButton').addEventListener('click', () => {
     nav++;
@@ -263,11 +230,14 @@ function initButtons() {
     load();
   });
 
-  document.getElementById('saveButton').addEventListener('click', saveEvent);
-  document.getElementById('cancelButton').addEventListener('click', closeModal);
-  document.getElementById('deleteButton').addEventListener('click', deleteEvent);
-  document.getElementById('closeButton').addEventListener('click', closeModal);
+//   document.getElementById('saveButton').addEventListener('click', saveEvent);
+//   document.getElementById('cancelButton').addEventListener('click', closeModal);
+//   document.getElementById('deleteButton').addEventListener('click', deleteEvent);
+//   document.getElementById('closeButton').addEventListener('click', closeModal);
 }
 
 initButtons();
 load();
+
+</script>
+</html>
